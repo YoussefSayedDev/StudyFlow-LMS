@@ -1,3 +1,4 @@
+import Navbar from "@/components/Navbar";
 import SideBar from "@/components/SideBar";
 import type { Metadata } from "next";
 
@@ -17,7 +18,7 @@ export default function DashboardLayout({
         <SideBar />
       </div>
       <div className="w-[86px] md:w-[92%] lg:w-[84%] xl:w-[86%]">
-        Right
+        <Navbar />
         {children}
       </div>
     </div>

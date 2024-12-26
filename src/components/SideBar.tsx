@@ -25,7 +25,7 @@ const SideBar = () => {
         trackWidthOnScroll="w-2"
         className="h-[calc(100vh-64px)] overflow-hidden pb-5"
       >
-        <div className="relative h-full px-2 py-4 text-white">
+        <div className="relative h-full px-2 text-white">
           {menuItems.map((item) => (
             <div key={item.title}>
               <h2 className="hidden py-2 text-lg font-bold text-gray-600 lg:block">
@@ -36,7 +36,7 @@ const SideBar = () => {
                   <li key={item.label}>
                     <a
                       href={item.href}
-                      className="text-sidebar-primary-foreground hover:bg-sidebar-accent flex items-center gap-2 rounded-md p-2"
+                      className="flex items-center gap-2 rounded-md p-2 text-muted-foreground hover:bg-sidebar-accent"
                     >
                       <item.icon size={20} />
                       <span className="hidden overflow-hidden text-ellipsis lg:block">
