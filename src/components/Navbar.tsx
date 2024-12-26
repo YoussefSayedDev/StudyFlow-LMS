@@ -4,16 +4,9 @@ import { useTheme } from "next-themes";
 import Image from "next/image";
 import { useState } from "react";
 import { BiMoon, BiSun } from "react-icons/bi";
-import { FaGlobe, FaRegBell, FaSearch } from "react-icons/fa";
-import { GrSystem } from "react-icons/gr";
-import {
-  IoChatboxEllipsesOutline,
-  IoLanguage,
-  IoMoonOutline,
-  IoSunnyOutline,
-} from "react-icons/io5";
+import { FaRegBell, FaSearch } from "react-icons/fa";
+import { IoChatboxEllipsesOutline, IoLanguage } from "react-icons/io5";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { TfiAnnouncement } from "react-icons/tfi";
 
 const Navbar = () => {
   const [lang, setLang] = useState("english");
