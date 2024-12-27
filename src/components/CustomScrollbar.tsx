@@ -118,7 +118,7 @@ const CustomScrollbar = ({
       document.removeEventListener("mouseup", handleMouseUp);
       window.removeEventListener("resize", updateThumbHeight);
     };
-  }, [isDragging]);
+  }, [isDragging, handleMouseMove]);
 
   useEffect(() => {
     const content = contentRef.current;
@@ -132,7 +132,7 @@ const CustomScrollbar = ({
       }
       content?.removeEventListener("scroll", handleOnScroll);
     };
-  }, [scrollTimeout]);
+  }, [scrollTimeout, handleOnScroll]);
 
   return (
     <div className={cn("relative", className)}>

@@ -1,5 +1,6 @@
 "use client";
 import { menuItems } from "@/constants/menu-items";
+import { role } from "@/lib/data";
 import React, { useRef, useState } from "react";
 import CustomScrollbar from "./CustomScrollbar";
 import Logo from "./Logo";
@@ -32,19 +33,22 @@ const SideBar = () => {
                 {item.title}
               </h2>
               <ul className="flex flex-col gap-2">
-                {item.items.map((item) => (
-                  <li key={item.label}>
-                    <a
-                      href={item.href}
-                      className="flex items-center gap-2 rounded-md p-2 text-muted-foreground hover:bg-sidebar-accent"
-                    >
-                      <item.icon size={20} />
-                      <span className="hidden overflow-hidden text-ellipsis lg:block">
-                        {item.label}
-                      </span>
-                    </a>
-                  </li>
-                ))}
+                {item.items.map(
+                  (item) =>
+                    item.visible.includes(role) && (
+                      <li key={item.label}>
+                        <a
+                          href={item.href}
+                          className="flex items-center gap-2 rounded-md p-2 text-muted-foreground hover:bg-sidebar-accent"
+                        >
+                          <item.icon size={20} />
+                          <span className="hidden overflow-hidden text-ellipsis lg:block">
+                            {item.label}
+                          </span>
+                        </a>
+                      </li>
+                    ),
+                )}
               </ul>
             </div>
           ))}

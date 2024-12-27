@@ -4,7 +4,7 @@ interface MenuItem {
   icon: IconType;
   label: string;
   href: string;
-  visible?: string[];
+  visible: string[];
 }
 
 export interface Menu {

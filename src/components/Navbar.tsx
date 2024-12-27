@@ -1,5 +1,6 @@
 "use client";
 import avatarImage from "@/assets/images/avatar.png";
+import { cn } from "@/utils/cn";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import { useState } from "react";
@@ -8,7 +9,7 @@ import { FaRegBell, FaSearch } from "react-icons/fa";
 import { IoChatboxEllipsesOutline, IoLanguage } from "react-icons/io5";
 import { MdKeyboardArrowDown } from "react-icons/md";
 
-const Navbar = () => {
+const Navbar = ({ className }: { className?: string }) => {
   const [lang, setLang] = useState("english");
   const [isLangOpen, setIsLangOpen] = useState(false);
 
@@ -19,7 +20,7 @@ const Navbar = () => {
   };
 
   return (
-    <header className="flex items-center justify-between p-4">
+    <header className={cn("flex items-center justify-between p-4", className)}>
       {/* Search Bar */}
       <div className="hidden h-[50px] items-center rounded-md border border-border bg-sidebar-background px-4 py-2 md:flex">
         <FaSearch
