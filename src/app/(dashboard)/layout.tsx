@@ -18,7 +18,7 @@ export default function DashboardLayout({
       <div className="w-[14%] md:w-[8%] lg:w-[16%] xl:w-[14%]">
         <SideBar />
       </div>
-      <div className="w-[86px] md:w-[92%] lg:w-[84%] xl:w-[86%]">
+      <div className="w-[86%] md:w-[92%] lg:w-[84%] xl:w-[86%]">
         <Navbar className="h-[80px]" />
         <CustomScrollbar
           variant="rounded"
@@ -28,7 +28,7 @@ export default function DashboardLayout({
           trackWidthOnScroll="w-3"
           className="h-[calc(100vh-80px)] overflow-hidden"
         >
-          <div className="relative h-full px-2">{children}</div>
+          <div className="relative h-full">{children}</div>
         </CustomScrollbar>
       </div>
     </div>

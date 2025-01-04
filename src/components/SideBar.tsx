@@ -12,9 +12,6 @@ const SideBar = () => {
 
   const clientHeight = sidebarRef.current?.clientHeight;
 
-  console.log("clientHeight", sidebarRef.current?.clientHeight);
-  console.log("fullHeight", sidebarRef.current?.scrollHeight);
-
   return (
     <div className="bg-sidebar-background p-2">
       <Logo />
@@ -24,9 +21,10 @@ const SideBar = () => {
         trackWidth="w-1"
         trackHoverWidth="hover:w-2"
         trackWidthOnScroll="w-2"
+        padding="pr-2"
         className="h-[calc(100vh-64px)] overflow-hidden pb-5"
       >
-        <div className="relative h-full px-2 text-white">
+        <div className="relative h-full text-white lg:px-2">
           {menuItems.map((item) => (
             <div key={item.title}>
               <h2 className="hidden py-2 text-lg font-bold text-gray-600 lg:block">

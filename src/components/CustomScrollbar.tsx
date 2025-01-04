@@ -10,6 +10,7 @@ interface CustomScrollbarProps {
   trackHoverWidth?: "hover:w-2" | "hover:w-3" | "hover:w-4"; // Custom track hover width
   trackWidthOnScroll?: "w-2" | "w-3" | "w-4"; // Custom track width on scroll
   thumbHeightPercentage?: number; // Custom thumb height in percentage
+  padding?: string; // Custom padding
   className?: string; // Custom class name for styling
 }
 
@@ -21,6 +22,7 @@ const CustomScrollbar = ({
   trackHoverWidth = "hover:w-2", // Default track hover width
   trackWidthOnScroll = "w-2", // Default track width on scroll
   thumbHeightPercentage = 20, // Default thumb height percentage
+  padding = "", // Default padding
   className = "", // Additional class name for customization
 }: CustomScrollbarProps) => {
   const contentRef = useRef<HTMLDivElement>(null);
@@ -33,9 +35,7 @@ const CustomScrollbar = ({
   const [scrollTimeout, setScrollTimeout] = useState<NodeJS.Timeout | null>(
     null,
   );
-
-  console.log("trackHoverWidth", trackHoverWidth);
-  console.log("trackWidth", trackWidth);
+  const [showScrollbar, setShowScrollbar] = useState(false);
 
   const handleScroll = () => {
     if (!contentRef.current || !scrollbarThumbRef.current) return;
@@ -80,6 +80,9 @@ const CustomScrollbar = ({
     const thumbHeight =
       (content.clientHeight / content.scrollHeight) * content.clientHeight;
 
+    // Show/Hidden the scrollbar
+    setShowScrollbar(thumbHeight !== content.scrollHeight);
+
     setThumbHeight(thumbHeight);
   };
 
@@ -93,7 +96,6 @@ const CustomScrollbar = ({
     setScrollTimeout(
       setTimeout(() => {
         setIsScrolling(false); // This means scrolling has stopped
-        console.log("Scroll stopped");
       }, 150), // Adjust the timeout duration (in ms) based on when you want to detect the stop
     );
 
@@ -139,7 +141,7 @@ const CustomScrollbar = ({
       <div
         ref={contentRef}
         onScroll={handleOnScroll}
-        className={`customSidebar relative h-full select-none overflow-y-auto pr-4`}
+        className={`customSidebar relative h-full select-none overflow-y-auto ${padding}`}
       >
         {children}
       </div>
@@ -153,20 +155,22 @@ const CustomScrollbar = ({
           isScrolling && trackWidthOnScroll, // Adjust the width when scrolling
         )}
       >
-        <div
-          ref={scrollbarThumbRef}
-          className={cn(
-            "w-full cursor-pointer rounded",
-            variant === "rounded" && "rounded-full",
-            thumbColor,
-          )}
-          style={{
-            position: "absolute",
-            height: `${thumbHeight}px`, // Dynamic height in pixels
-            top: 0,
-          }}
-          onMouseDown={handleMouseDown}
-        />
+        {showScrollbar && (
+          <div
+            ref={scrollbarThumbRef}
+            className={cn(
+              "w-full cursor-pointer rounded",
+              variant === "rounded" && "rounded-full",
+              thumbColor,
+            )}
+            style={{
+              position: "absolute",
+              height: `${thumbHeight}px`, // Dynamic height in pixels
+              top: 0,
+            }}
+            onMouseDown={handleMouseDown}
+          />
+        )}
       </div>
     </div>
   );
