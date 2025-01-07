@@ -28,7 +28,7 @@ export default function DashboardLayout({
           trackWidthOnScroll="w-3"
           className="h-[calc(100vh-80px)] overflow-hidden"
         >
-          <div className="relative h-full">{children}</div>
+          <div className="relative flex h-full flex-col">{children}</div>
         </CustomScrollbar>
       </div>
     </div>

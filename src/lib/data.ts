@@ -1,15 +1,24 @@
 // TEMPORARY DATA
+import teacherOne from "@/assets/images/teachers/teacher-01.webp";
+import teacherTwo from "@/assets/images/teachers/teacher-02.webp";
+import teacherThree from "@/assets/images/teachers/teacher-03.webp";
+import teacherFour from "@/assets/images/teachers/teacher-04.jpeg";
+import teacherFive from "@/assets/images/teachers/teacher-05.webp";
+import teacherSix from "@/assets/images/teachers/teacher-06.jpeg";
+import teacherSeven from "@/assets/images/teachers/teacher-07.webp";
+import teacherEight from "@/assets/images/teachers/teacher-08.webp";
+import teacherNine from "@/assets/images/teachers/teacher-09.jpeg";
+import teacherTen from "@/assets/images/teachers/teacher-10.webp";
 
 export let role = "admin";
 
 export const teachersData = [
   {
     id: 1,
-    teacherId: "1234567890",
+    teacher_id: "1234567890",
     name: "John Doe",
     email: "john@doe.com",
-    photo:
-      "https://images.pexels.com/photos/2888150/pexels-photo-2888150.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    img: teacherOne,
     phone: "1234567890",
     subjects: ["Math", "Geometry"],
     classes: ["1B", "2A", "3C"],
@@ -17,11 +26,10 @@ export const teachersData = [
   },
   {
     id: 2,
-    teacherId: "1234567890",
+    teacher_id: "1234567890",
     name: "Jane Doe",
     email: "jane@doe.com",
-    photo:
-      "https://images.pexels.com/photos/936126/pexels-photo-936126.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    img: teacherTwo,
     phone: "1234567890",
     subjects: ["Physics", "Chemistry"],
     classes: ["5A", "4B", "3C"],
@@ -29,11 +37,10 @@ export const teachersData = [
   },
   {
     id: 3,
-    teacherId: "1234567890",
+    teacher_id: "1234567890",
     name: "Mike Geller",
     email: "mike@geller.com",
-    photo:
-      "https://images.pexels.com/photos/428328/pexels-photo-428328.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    img: teacherThree,
     phone: "1234567890",
     subjects: ["Biology"],
     classes: ["5A", "4B", "3C"],
@@ -41,11 +48,10 @@ export const teachersData = [
   },
   {
     id: 4,
-    teacherId: "1234567890",
+    teacher_id: "1234567890",
     name: "Jay French",
     email: "jay@gmail.com",
-    photo:
-      "https://images.pexels.com/photos/1187765/pexels-photo-1187765.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    img: teacherFour,
     phone: "1234567890",
     subjects: ["History"],
     classes: ["5A", "4B", "3C"],
@@ -53,11 +59,10 @@ export const teachersData = [
   },
   {
     id: 5,
-    teacherId: "1234567890",
+    teacher_id: "1234567890",
     name: "Jane Smith",
     email: "jane@gmail.com",
-    photo:
-      "https://images.pexels.com/photos/1102341/pexels-photo-1102341.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    img: teacherFive,
     phone: "1234567890",
     subjects: ["Music", "History"],
     classes: ["5A", "4B", "3C"],
@@ -65,11 +70,10 @@ export const teachersData = [
   },
   {
     id: 6,
-    teacherId: "1234567890",
+    teacher_id: "1234567890",
     name: "Anna Santiago",
     email: "anna@gmail.com",
-    photo:
-      "https://images.pexels.com/photos/712513/pexels-photo-712513.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    img: teacherSix,
     phone: "1234567890",
     subjects: ["Physics"],
     classes: ["5A", "4B", "3C"],
@@ -77,11 +81,10 @@ export const teachersData = [
   },
   {
     id: 7,
-    teacherId: "1234567890",
+    teacher_id: "1234567890",
     name: "Allen Black",
     email: "allen@black.com",
-    photo:
-      "https://images.pexels.com/photos/1438081/pexels-photo-1438081.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    img: teacherSeven,
     phone: "1234567890",
     subjects: ["English", "Spanish"],
     classes: ["5A", "4B", "3C"],
@@ -89,11 +92,10 @@ export const teachersData = [
   },
   {
     id: 8,
-    teacherId: "1234567890",
+    teacher_id: "1234567890",
     name: "Ophelia Castro",
     email: "ophelia@castro.com",
-    photo:
-      "https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    img: teacherEight,
     phone: "1234567890",
     subjects: ["Math", "Geometry"],
     classes: ["5A", "4B", "3C"],
@@ -101,11 +103,10 @@ export const teachersData = [
   },
   {
     id: 9,
-    teacherId: "1234567890",
+    teacher_id: "1234567890",
     name: "Derek Briggs",
     email: "derek@briggs.com",
-    photo:
-      "https://images.pexels.com/photos/842980/pexels-photo-842980.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    img: teacherNine,
     phone: "1234567890",
     subjects: ["Literature", "English"],
     classes: ["5A", "4B", "3C"],
@@ -113,11 +114,10 @@ export const teachersData = [
   },
   {
     id: 10,
-    teacherId: "1234567890",
+    teacher_id: "1234567890",
     name: "John Glover",
     email: "john@glover.com",
-    photo:
-      "https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    img: teacherTen,
     phone: "1234567890",
     subjects: ["Biology"],
     classes: ["5A", "4B", "3C"],
@@ -128,11 +128,10 @@ export const teachersData = [
 export const studentsData = [
   {
     id: 1,
-    studentId: "1234567890",
+    student_id: "1234567890",
     name: "John Doe",
     email: "john@doe.com",
-    photo:
-      "https://images.pexels.com/photos/2888150/pexels-photo-2888150.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    img: "https://images.pexels.com/photos/2888150/pexels-photo-2888150.jpeg?auto=compress&cs=tinysrgb&w=1200",
     phone: "1234567890",
     grade: 5,
     class: "1B",
@@ -140,11 +139,10 @@ export const studentsData = [
   },
   {
     id: 2,
-    studentId: "1234567890",
+    student_id: "1234567890",
     name: "Jane Doe",
     email: "jane@doe.com",
-    photo:
-      "https://images.pexels.com/photos/936126/pexels-photo-936126.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    img: "https://images.pexels.com/photos/936126/pexels-photo-936126.jpeg?auto=compress&cs=tinysrgb&w=1200",
     phone: "1234567890",
     grade: 5,
     class: "5A",
@@ -152,11 +150,10 @@ export const studentsData = [
   },
   {
     id: 3,
-    studentId: "1234567890",
+    student_id: "1234567890",
     name: "Mike Geller",
     email: "mike@geller.com",
-    photo:
-      "https://images.pexels.com/photos/428328/pexels-photo-428328.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    img: "https://images.pexels.com/photos/428328/pexels-photo-428328.jpeg?auto=compress&cs=tinysrgb&w=1200",
     phone: "1234567890",
     grade: 5,
     class: "5A",
@@ -164,11 +161,10 @@ export const studentsData = [
   },
   {
     id: 4,
-    studentId: "1234567890",
+    student_id: "1234567890",
     name: "Jay French",
     email: "jay@gmail.com",
-    photo:
-      "https://images.pexels.com/photos/1187765/pexels-photo-1187765.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    img: "https://images.pexels.com/photos/1187765/pexels-photo-1187765.jpeg?auto=compress&cs=tinysrgb&w=1200",
     phone: "1234567890",
     grade: 5,
     class: "5A",
@@ -176,11 +172,10 @@ export const studentsData = [
   },
   {
     id: 5,
-    studentId: "1234567890",
+    student_id: "1234567890",
     name: "Jane Smith",
     email: "jane@gmail.com",
-    photo:
-      "https://images.pexels.com/photos/1102341/pexels-photo-1102341.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    img: "https://images.pexels.com/photos/1102341/pexels-photo-1102341.jpeg?auto=compress&cs=tinysrgb&w=1200",
     phone: "1234567890",
     grade: 5,
     class: "5A",
@@ -188,11 +183,10 @@ export const studentsData = [
   },
   {
     id: 6,
-    studentId: "1234567890",
+    student_id: "1234567890",
     name: "Anna Santiago",
     email: "anna@gmail.com",
-    photo:
-      "https://images.pexels.com/photos/712513/pexels-photo-712513.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    img: "https://images.pexels.com/photos/712513/pexels-photo-712513.jpeg?auto=compress&cs=tinysrgb&w=1200",
     phone: "1234567890",
     grade: 5,
     class: "5A",
@@ -200,11 +194,10 @@ export const studentsData = [
   },
   {
     id: 7,
-    studentId: "1234567890",
+    student_id: "1234567890",
     name: "Allen Black",
     email: "allen@black.com",
-    photo:
-      "https://images.pexels.com/photos/1438081/pexels-photo-1438081.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    img: "https://images.pexels.com/photos/1438081/pexels-photo-1438081.jpeg?auto=compress&cs=tinysrgb&w=1200",
     phone: "1234567890",
     grade: 5,
     class: "5A",
@@ -212,11 +205,10 @@ export const studentsData = [
   },
   {
     id: 8,
-    studentId: "1234567890",
+    student_id: "1234567890",
     name: "Ophelia Castro",
     email: "ophelia@castro.com",
-    photo:
-      "https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    img: "https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?auto=compress&cs=tinysrgb&w=1200",
     phone: "1234567890",
     grade: 5,
     class: "5A",
@@ -224,11 +216,10 @@ export const studentsData = [
   },
   {
     id: 9,
-    studentId: "1234567890",
+    student_id: "1234567890",
     name: "Derek Briggs",
     email: "derek@briggs.com",
-    photo:
-      "https://images.pexels.com/photos/842980/pexels-photo-842980.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    img: "https://images.pexels.com/photos/842980/pexels-photo-842980.jpeg?auto=compress&cs=tinysrgb&w=1200",
     phone: "1234567890",
     grade: 5,
     class: "5A",
@@ -236,11 +227,10 @@ export const studentsData = [
   },
   {
     id: 10,
-    studentId: "1234567890",
+    student_id: "1234567890",
     name: "John Glover",
     email: "john@glover.com",
-    photo:
-      "https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    img: "https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&cs=tinysrgb&w=1200",
     phone: "1234567890",
     grade: 5,
     class: "5A",
@@ -920,143 +910,139 @@ export const calendarEvents = [
   {
     title: "Math",
     allDay: false,
-    start: new Date(2024, 7, 12, 8, 0),
-    end: new Date(2024, 7, 12, 8, 45),
+    start: "2025-02-01T08:00:00", // ISO format for date and time
+    end: "2025-02-01T08:45:00",
   },
   {
     title: "English",
     allDay: false,
-    start: new Date(2024, 7, 12, 9, 0),
-    end: new Date(2024, 7, 12, 9, 45),
+    start: "2025-02-01T09:00:00",
+    end: "2025-02-01T09:45:00",
   },
   {
     title: "Biology",
     allDay: false,
-    start: new Date(2024, 7, 12, 10, 0),
-    end: new Date(2024, 7, 12, 10, 45),
+    start: "2025-02-01T10:00:00",
+    end: "2025-02-01T10:45:00",
   },
   {
     title: "Physics",
     allDay: false,
-    start: new Date(2024, 7, 12, 11, 0),
-    end: new Date(2024, 7, 12, 11, 45),
+    start: "2025-02-01T11:00:00",
+    end: "2025-02-01T11:45:00",
   },
   {
     title: "Chemistry",
     allDay: false,
-    start: new Date(2024, 7, 12, 13, 0),
-    end: new Date(2024, 7, 12, 13, 45),
+    start: "2025-02-01T13:00:00",
+    end: "2025-02-01T13:45:00",
   },
   {
     title: "History",
     allDay: false,
-    start: new Date(2024, 7, 12, 14, 0),
-    end: new Date(2024, 7, 12, 14, 45),
+    start: "2025-02-01T14:00:00",
+    end: "2025-02-01T14:45:00",
   },
   {
     title: "English",
     allDay: false,
-    start: new Date(2024, 7, 13, 9, 0),
-    end: new Date(2024, 7, 13, 9, 45),
+    start: "2025-02-02T09:00:00",
+    end: "2025-02-02T09:45:00",
   },
   {
     title: "Biology",
     allDay: false,
-    start: new Date(2024, 7, 13, 10, 0),
-    end: new Date(2024, 7, 13, 10, 45),
+    start: "2025-02-02T10:00:00",
+    end: "2025-02-02T10:45:00",
   },
   {
     title: "Physics",
     allDay: false,
-    start: new Date(2024, 7, 13, 11, 0),
-    end: new Date(2024, 7, 13, 11, 45),
+    start: "2025-02-02T11:00:00",
+    end: "2025-02-02T11:45:00",
   },
-
   {
     title: "History",
     allDay: false,
-    start: new Date(2024, 7, 13, 14, 0),
-    end: new Date(2024, 7, 13, 14, 45),
+    start: "2025-02-02T14:00:00",
+    end: "2025-02-02T14:45:00",
   },
   {
     title: "Math",
     allDay: false,
-    start: new Date(2024, 7, 14, 8, 0),
-    end: new Date(2024, 7, 14, 8, 45),
+    start: "2025-02-03T08:00:00",
+    end: "2025-02-03T08:45:00",
   },
   {
     title: "Biology",
     allDay: false,
-    start: new Date(2024, 7, 14, 10, 0),
-    end: new Date(2024, 7, 14, 10, 45),
+    start: "2025-02-03T10:00:00",
+    end: "2025-02-03T10:45:00",
   },
-
   {
     title: "Chemistry",
     allDay: false,
-    start: new Date(2024, 7, 14, 13, 0),
-    end: new Date(2024, 7, 14, 13, 45),
+    start: "2025-02-03T13:00:00",
+    end: "2025-02-03T13:45:00",
   },
   {
     title: "History",
     allDay: false,
-    start: new Date(2024, 7, 14, 14, 0),
-    end: new Date(2024, 7, 13, 14, 45),
+    start: "2025-02-03T14:00:00",
+    end: "2025-02-03T14:45:00",
   },
   {
     title: "English",
     allDay: false,
-    start: new Date(2024, 7, 15, 9, 0),
-    end: new Date(2024, 7, 15, 9, 45),
+    start: "2025-02-04T09:00:00",
+    end: "2025-02-04T09:45:00",
   },
   {
     title: "Biology",
     allDay: false,
-    start: new Date(2024, 7, 15, 10, 0),
-    end: new Date(2024, 7, 15, 10, 45),
+    start: "2025-02-04T10:00:00",
+    end: "2025-02-04T10:45:00",
   },
   {
     title: "Physics",
     allDay: false,
-    start: new Date(2024, 7, 15, 11, 0),
-    end: new Date(2024, 7, 15, 11, 45),
+    start: "2025-02-04T11:00:00",
+    end: "2025-02-04T11:45:00",
   },
-
   {
     title: "History",
     allDay: false,
-    start: new Date(2024, 7, 15, 14, 0),
-    end: new Date(2024, 7, 15, 14, 45),
+    start: "2025-02-04T14:00:00",
+    end: "2025-02-04T14:45:00",
   },
   {
     title: "Math",
     allDay: false,
-    start: new Date(2024, 7, 16, 8, 0),
-    end: new Date(2024, 7, 16, 8, 45),
+    start: "2025-02-05T08:00:00",
+    end: "2025-02-05T08:45:00",
   },
   {
     title: "English",
     allDay: false,
-    start: new Date(2024, 7, 16, 9, 0),
-    end: new Date(2024, 7, 16, 9, 45),
+    start: "2025-02-05T09:00:00",
+    end: "2025-02-05T09:45:00",
   },
-
   {
     title: "Physics",
     allDay: false,
-    start: new Date(2024, 7, 16, 11, 0),
-    end: new Date(2024, 7, 16, 11, 45),
+    start: "2025-02-05T11:00:00",
+    end: "2025-02-05T11:45:00",
   },
   {
     title: "Chemistry",
     allDay: false,
-    start: new Date(2024, 7, 16, 13, 0),
-    end: new Date(2024, 7, 16, 13, 45),
+    start: "2025-02-05T13:00:00",
+    end: "2025-02-05T13:45:00",
   },
   {
     title: "History",
     allDay: false,
-    start: new Date(2024, 7, 16, 14, 0),
-    end: new Date(2024, 7, 16, 14, 45),
+    start: "2025-02-05T14:00:00",
+    end: "2025-02-05T14:45:00",
   },
 ];
