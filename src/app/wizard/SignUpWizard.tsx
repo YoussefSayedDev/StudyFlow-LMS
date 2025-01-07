@@ -10,6 +10,7 @@ import {
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import { ProgressIndicator } from "./_components/ProgressIndicator";
 import { completeProfile } from "./actions";
 import ConfirmationStep from "./steps/ConfirmationStep";
 import GeneralInfoStep from "./steps/GeneralInfoStep";
@@ -77,6 +78,7 @@ export default function SignUpWizard() {
         <Card>
           <CardHeader>
             <CardTitle>{steps[step].title}</CardTitle>
+            <ProgressIndicator currentStep={step} totalSteps={steps.length} />
           </CardHeader>
           <CardContent>{steps[step].component}</CardContent>
           <CardFooter className="flex justify-between">
