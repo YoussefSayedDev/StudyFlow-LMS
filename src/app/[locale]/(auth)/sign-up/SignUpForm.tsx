@@ -11,17 +11,30 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { SignUpValues } from "@/validation/authValidation";
+import { Locale } from "@/i18n.config";
+import { Directions, Languages } from "@/types/enums";
+import createValidationSchemas, {
+  SignUpValues,
+  SignUpValuesType,
+} from "@/validation/authValidation";
 import { useState, useTransition } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { MdLogout } from "react-icons/md";
 
-export default function SignUpForm() {
+interface SignUpFormProps {
+  locale: Locale;
+  translations: {
+    [key: string]: string;
+  };
+}
+
+export default function SignUpForm({ locale, translations }: SignUpFormProps) {
+  const { SignUpValues } = createValidationSchemas(locale);
   const [error, setError] = useState<string | null>(null);
 
   const [isPending, startTransition] = useTransition();
 
-  const form = useForm<SignUpValues>({
+  const form = useForm<SignUpValuesType>({
     resolver: zodResolver(SignUpValues),
     defaultValues: {
       username: "",
@@ -30,7 +43,7 @@ export default function SignUpForm() {
     },
   });
 
-  async function onSubmit(data: SignUpValues) {
+  async function onSubmit(data: SignUpValuesType) {
     setError(null); // Clear previous errors
     startTransition(() => {
       try {
@@ -60,13 +73,13 @@ export default function SignUpForm() {
           name="username"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Username</FormLabel>
+              <FormLabel>{translations.usernameLabel}</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="Username"
+                  placeholder={translations.usernamePlaceholder}
                   {...field}
                   className="h-12"
-                  aria-label="Username"
+                  aria-label={translations.usernameLabel}
                 />
               </FormControl>
               <FormMessage />
@@ -80,14 +93,14 @@ export default function SignUpForm() {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email Address</FormLabel>
+              <FormLabel>{translations.emailLabel}</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="Email Address"
+                  placeholder={translations.emailPlaceholder}
                   type="email"
                   {...field}
                   className="h-12"
-                  aria-label="email"
+                  aria-label={translations.emailLabel}
                 />
               </FormControl>
               <FormMessage />
@@ -101,13 +114,18 @@ export default function SignUpForm() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>{translations.passwordLabel}</FormLabel>
               <FormControl>
                 <PasswordInput
-                  placeholder="Password"
+                  dir={
+                    locale === Languages.Arabic
+                      ? Directions.RTL
+                      : Directions.LTR
+                  }
+                  placeholder={translations.passwordPlaceholder}
                   {...field}
                   className="h-12"
-                  aria-label="Password"
+                  aria-label={translations.passwordLabel}
                 />
               </FormControl>
               <FormMessage />
@@ -121,7 +139,7 @@ export default function SignUpForm() {
           type="submit"
           className="w-full select-none"
         >
-          Sign Up
+          {translations.submitButton}
           <MdLogout size={20} />
         </LoadingButton>
       </form>

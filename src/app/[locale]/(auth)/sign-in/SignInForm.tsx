@@ -10,17 +10,29 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { SignInValues } from "@/validation/authValidation";
+import { Locale } from "@/i18n.config";
+import { Directions, Languages } from "@/types/enums";
+import createValidationSchemas, {
+  SignInValuesType,
+} from "@/validation/authValidation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useTransition } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { MdLogout } from "react-icons/md";
 
-export default function SignInForm() {
+interface SignInFormProps {
+  locale: Locale;
+  translations: {
+    [key: string]: string;
+  };
+}
+
+export default function SignInForm({ locale, translations }: SignInFormProps) {
+  const { SignInValues } = createValidationSchemas(locale);
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
-  const form = useForm<SignInValues>({
+  const form = useForm<SignInValuesType>({
     resolver: zodResolver(SignInValues),
     defaultValues: {
       username: "",
@@ -28,7 +40,7 @@ export default function SignInForm() {
     },
   });
 
-  async function onSubmit(data: SignInValues) {
+  async function onSubmit(data: SignInValuesType) {
     setError(null); // Clear previous errors
     startTransition(() => {
       try {
@@ -59,14 +71,14 @@ export default function SignInForm() {
           name="username"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Username</FormLabel>
+              <FormLabel>{translations.usernameLabel}</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="Username"
+                  placeholder={translations.usernamePlaceholder}
                   type="text"
                   {...field}
                   className="h-12"
-                  aria-label="Username"
+                  aria-label={translations.usernameLabel}
                 />
               </FormControl>
               <FormMessage />
@@ -80,13 +92,18 @@ export default function SignInForm() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>{translations.passwordLabel}</FormLabel>
               <FormControl>
                 <PasswordInput
-                  placeholder="Password"
+                  dir={
+                    locale === Languages.Arabic
+                      ? Directions.RTL
+                      : Directions.LTR
+                  }
+                  placeholder={translations.passwordPlaceholder}
                   {...field}
                   className="h-12"
-                  aria-label="Password"
+                  aria-label={translations.passwordLabel}
                 />
               </FormControl>
               <FormMessage />
@@ -100,7 +117,7 @@ export default function SignInForm() {
           type="submit"
           className="w-full select-none"
         >
-          Sign In
+          {translations.submitButton}
           <MdLogout size={20} />
         </LoadingButton>
       </form>

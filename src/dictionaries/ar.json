@@ -1,0 +1,34 @@
+{
+  "signIn": {
+    "title": "تسجيل الدخول",
+    "description": "سجل الدخول لحسابك لإدارة ملفك الشخصي",
+    "noAccount": "ليس لديك حساب؟",
+    "signUp": "سجل الدخول",
+    "signInForm": {
+      "usernameLabel": "اسم المستخدم",
+      "usernamePlaceholder": "أدخل اسم المستخدم",
+      "passwordLabel": "كلمة المرور",
+      "passwordPlaceholder": "أدخل كلمة المرور",
+      "submitButton": "تسجيل الدخول",
+      "errorMessage": "حدث خطأ غير متوقع. حاول مرة أخرى."
+    }
+  },
+  "signUp": {
+    "title": "سجل الدخول",
+    "description": "سجل حساب جديد",
+    "noAccount": "لديك حساب بالفعل؟",
+    "signIn": "تسجيل الدخول",
+    "signUpForm": {
+      "usernameLabel": "اسم المستخدم",
+      "usernamePlaceholder": "أدخل اسم المستخدم",
+      "emailLabel": "البريد الإلكتروني",
+      "emailPlaceholder": "أدخل عنوان البريد الإلكتروني",
+      "passwordLabel": "كلمة المرور",
+      "passwordPlaceholder": "أدخل كلمة المرور",
+      "confirmPasswordLabel": "تأكيد كلمة المرور",
+      "confirmPasswordPlaceholder": "أدخل كلمة المرور المكونة بها",
+      "submitButton": "سجل الدخول",
+      "errorMessage": "حدث خطأ غير متوقع. حاول مرة أخرى."
+    }
+  }
+}
