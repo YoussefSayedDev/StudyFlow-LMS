@@ -17,3 +17,13 @@ export const SignUpValues = z.object({
 });
 
 export type SignUpValues = z.infer<typeof SignUpValues>;
+
+export const SignInValues = z.object({
+  username: requiredString.regex(
+    /^[a-zA-Z0-9_]+$/,
+    "Only letters, numbers, - and _ are allowed",
+  ),
+  password: requiredString,
+});
+
+export type SignInValues = z.infer<typeof SignInValues>;

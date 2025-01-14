@@ -11,13 +11,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { SignUpValues } from "@/validation/sign-up-values";
+import { SignUpValues } from "@/validation/authValidation";
 import { useState, useTransition } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { MdLogout } from "react-icons/md";
 
 export default function SignUpForm() {
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   const [isPending, startTransition] = useTransition();
 
@@ -31,16 +31,30 @@ export default function SignUpForm() {
   });
 
   async function onSubmit(data: SignUpValues) {
-    setError(null);
+    setError(null); // Clear previous errors
     startTransition(() => {
-      console.log(data);
+      try {
+        console.log(data); // Simulate API call
+        // Handle success or server-side validation here
+        setError("An unexpected error occurred. Please try again.");
+      } catch (err) {}
     });
   }
 
   return (
     <FormProvider {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
-        {error && <p className="text-center text-sm text-red-500">{error}</p>}
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-3"
+        aria-live="polite"
+      >
+        {error && (
+          <p className="text-center text-sm text-red-500" role="alert">
+            {error}
+          </p>
+        )}
+
+        {/* Username Field */}
         <FormField
           control={form.control}
           name="username"
@@ -48,12 +62,19 @@ export default function SignUpForm() {
             <FormItem>
               <FormLabel>Username</FormLabel>
               <FormControl>
-                <Input placeholder="Username" {...field} className="h-12" />
+                <Input
+                  placeholder="Username"
+                  {...field}
+                  className="h-12"
+                  aria-label="Username"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
+
+        {/* Email Field */}
         <FormField
           control={form.control}
           name="email"
@@ -66,12 +87,15 @@ export default function SignUpForm() {
                   type="email"
                   {...field}
                   className="h-12"
+                  aria-label="email"
                 />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
+
+        {/* Password Field */}
         <FormField
           control={form.control}
           name="password"
@@ -83,12 +107,15 @@ export default function SignUpForm() {
                   placeholder="Password"
                   {...field}
                   className="h-12"
+                  aria-label="Password"
                 />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
+
+        {/* Submit Button */}
         <LoadingButton
           loading={isPending}
           type="submit"

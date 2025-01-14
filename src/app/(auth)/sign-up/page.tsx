@@ -5,16 +5,24 @@ import SignUpForm from "./SignUpForm";
 
 export default function SignUpPage() {
   return (
-    <main className="flex h-screen items-center justify-center lg:justify-between">
-      <div className="hidden h-full w-1/2 lg:block">
+    <main className="auth-container">
+      {/* Image Section */}
+      <aside className="auth-image">
         <Image
           src={signUpImage}
-          alt="Sign Up"
+          alt="Decorative signup image"
+          width={500}
+          height={500}
           className="h-full w-full object-cover"
+          priority
+          loading="eager"
+          placeholder="blur"
         />
-      </div>
-      <div className="flex w-full items-center justify-center md:w-1/2">
-        <div className="flex flex-col lg:w-1/2">
+      </aside>
+
+      {/* Form Section */}
+      <section className="auth-form">
+        <div className="form-content">
           <h1 className="text-2xl font-semibold">Sign Up for Free.</h1>
           <p className="mt-2 text-base text-muted-foreground">
             Create an account to access all features.
@@ -27,7 +35,7 @@ export default function SignUpPage() {
             <span className="text-purple-500">Sign In</span>
           </Link>
         </div>
-      </div>
+      </section>
     </main>
   );
 }

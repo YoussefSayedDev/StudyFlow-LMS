@@ -48,3 +48,36 @@ export interface Parent {
   phone: string;
   address: string;
 }
+
+// GeneralInfo interface
+export interface GeneralInfo {
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+}
+
+// ParentInfo interface
+export interface ParentInfo {
+  childName: string;
+  childGrade: string;
+}
+
+// StudentInfo interface
+export interface StudentInfo {
+  childName: string;
+  childGrade: string;
+}
+
+// TeacherInfo interface
+export interface TeacherInfo {
+  subject: string;
+  yearsOfExperience: number;
+}
+
+// FormData interface
+export interface FormData {
+  generalInfo: GeneralInfo;
+  parentInfo?: ParentInfo;
+  studentInfo?: StudentInfo;
+  teacherInfo?: TeacherInfo;
+}

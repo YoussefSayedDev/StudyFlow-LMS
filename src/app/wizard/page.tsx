@@ -1,9 +1,8 @@
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import SignUpWizard from "./SignUpWizard";
 
 const WizardPage = () => {
   return (
-    <div className="container flex max-w-2xl flex-col items-center justify-between gap-4">
+    <main className="container flex max-w-2xl flex-col items-center justify-between gap-4 px-8">
       <div>
         <h1 className="text-center text-3xl">
           Welcom, <span className="ml-2 font-bold">Youssef !👋</span>
@@ -13,7 +12,7 @@ const WizardPage = () => {
         </h3>
       </div>
       <SignUpWizard />
-    </div>
+    </main>
   );
 };
 

@@ -5,9 +5,10 @@ import SignInForm from "./SignInForm";
 
 export default function SignInPage() {
   return (
-    <main className="flex h-screen items-center justify-center lg:justify-between">
-      <div className="flex w-full items-center justify-center md:w-1/2">
-        <div className="flex flex-col lg:w-1/2">
+    <main className="auth-container">
+      {/* Form Section */}
+      <section className="auth-form">
+        <div className="form-content">
           <h1 className="text-2xl font-semibold">Sign In to your account.</h1>
           <p className="mt-2 text-base text-muted-foreground">
             Sign in to your account to manage your profile
@@ -20,14 +21,21 @@ export default function SignInPage() {
             <span className="text-purple-500">Sign Up</span>
           </Link>
         </div>
-      </div>
-      <div className="hidden h-full w-1/2 lg:block">
+      </section>
+
+      {/* Image Section */}
+      <aside className="auth-image">
         <Image
           src={signInImage}
-          alt="Sign Up"
+          alt="Decorative signin image"
+          width={500}
+          height={500}
           className="h-full w-full object-cover"
+          priority
+          loading="eager"
+          placeholder="blur"
         />
-      </div>
+      </aside>
     </main>
   );
 }

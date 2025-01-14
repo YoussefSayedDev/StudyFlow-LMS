@@ -1,24 +1,107 @@
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { useFormContext } from "react-hook-form";
+import { useRole } from "@/hooks/useRole";
+import { cn } from "@/lib/utils";
+import { GiTeacher } from "react-icons/gi";
+import { PiStudent } from "react-icons/pi";
+import { RiParentLine } from "react-icons/ri";
+import { ProgressIndicator } from "../_components/ProgressIndicator";
 
 export default function RoleSelectionStep() {
-  const { register } = useFormContext();
+  const { role, setRole, step, setStep } = useRole();
 
   return (
-    <RadioGroup defaultValue="teacher">
-      <div className="flex items-center space-x-2">
-        <RadioGroupItem value="teacher" id="teacher" {...register("role")} />
-        <Label htmlFor="teacher">Teacher</Label>
-      </div>
-      <div className="flex items-center space-x-2">
-        <RadioGroupItem value="student" id="student" {...register("role")} />
-        <Label htmlFor="student">Student</Label>
-      </div>
-      <div className="flex items-center space-x-2">
-        <RadioGroupItem value="parent" id="parent" {...register("role")} />
-        <Label htmlFor="parent">Parent</Label>
-      </div>
-    </RadioGroup>
+    <Card className="w-full space-y-4">
+      <CardHeader>
+        <CardTitle>Role Selection</CardTitle>
+        <ProgressIndicator currentStep={step} totalSteps={4} />
+      </CardHeader>
+      <CardContent>
+        <RadioGroup
+          value={role}
+          onValueChange={(value) => setRole(value as typeof role)}
+          className="flex items-center justify-center gap-4 space-x-2"
+        >
+          <div
+            className={cn(
+              "flex h-24 w-32 items-center justify-center space-x-2 rounded-md bg-secondary",
+              role === "teacher" && "bg-primary",
+            )}
+          >
+            <RadioGroupItem value="teacher" id="teacher" className="hidden" />
+            <Label
+              htmlFor="teacher"
+              className={cn(
+                "flex select-none flex-col items-center gap-2 text-lg text-card-foreground",
+                role === "teacher" && "text-primary-foreground",
+              )}
+            >
+              <GiTeacher className="size-7" />
+              Teacher
+            </Label>
+          </div>
+          <div
+            className={cn(
+              "flex h-24 w-32 items-center justify-center space-x-2 rounded-md bg-secondary",
+              role === "student" && "bg-primary",
+            )}
+          >
+            <RadioGroupItem value="student" id="student" className="hidden" />
+            <Label
+              htmlFor="student"
+              className={cn(
+                "flex select-none flex-col items-center gap-2 text-lg text-card-foreground",
+                role === "student" && "text-primary-foreground",
+              )}
+            >
+              <PiStudent className="size-7" />
+              Student
+            </Label>
+          </div>
+          <div
+            className={cn(
+              "flex h-24 w-32 items-center justify-center space-x-2 rounded-md bg-secondary",
+              role === "parent" && "bg-primary",
+            )}
+          >
+            <RadioGroupItem value="parent" id="parent" className="hidden" />
+            <Label
+              htmlFor="parent"
+              className={cn(
+                "flex select-none flex-col items-center gap-2 text-lg text-card-foreground",
+                role === "parent" && "text-primary-foreground",
+              )}
+            >
+              <RiParentLine className="size-7" />
+              Parent
+            </Label>
+          </div>
+        </RadioGroup>
+      </CardContent>
+      <CardFooter className="flex justify-between">
+        <Button
+          type="button"
+          variant="outline"
+          onClick={() => setStep(step - 1)}
+        >
+          Previous
+        </Button>
+        <Button
+          type="button"
+          variant="outline"
+          onClick={() => setStep(step + 1)}
+        >
+          Next
+        </Button>
+      </CardFooter>
+    </Card>
   );
 }

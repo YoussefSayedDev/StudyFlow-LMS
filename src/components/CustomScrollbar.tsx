@@ -1,6 +1,6 @@
 "use client";
 import { cn } from "@/utils/cn";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 interface CustomScrollbarProps {
   children: React.ReactNode;
@@ -57,16 +57,19 @@ const CustomScrollbar = ({
     }
   };
 
-  const handleMouseMove = (e: MouseEvent) => {
-    if (!isDragging || !contentRef.current) return;
+  const handleMouseMove = useCallback(
+    (e: MouseEvent) => {
+      if (!isDragging || !contentRef.current) return;
 
-    const deltaY = e.clientY - startY;
-    const scrollPercentage =
-      (deltaY / contentRef.current.clientHeight) *
-      contentRef.current.scrollHeight;
+      const deltaY = e.clientY - startY;
+      const scrollPercentage =
+        (deltaY / contentRef.current.clientHeight) *
+        contentRef.current.scrollHeight;
 
-    contentRef.current.scrollTop = startScrollTop + scrollPercentage;
-  };
+      contentRef.current.scrollTop = startScrollTop + scrollPercentage;
+    },
+    [isDragging, startY, startScrollTop],
+  );
 
   const handleMouseUp = () => {
     setIsDragging(false);
@@ -86,7 +89,7 @@ const CustomScrollbar = ({
     setThumbHeight(thumbHeight);
   };
 
-  const handleOnScroll = () => {
+  const handleOnScroll = useCallback(() => {
     // Clear the existing timeout to reset it
     if (scrollTimeout) {
       clearTimeout(scrollTimeout);
@@ -101,7 +104,7 @@ const CustomScrollbar = ({
 
     // Set the isScrolling state to true when scrolling starts
     setIsScrolling(true);
-  };
+  }, [scrollTimeout, setScrollTimeout, setIsScrolling]);
 
   useEffect(() => {
     const content = contentRef.current;
