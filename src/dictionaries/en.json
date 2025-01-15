@@ -30,5 +30,34 @@
       "submitButton": "Sign Up",
       "errorMessage": "An unexpected error occurred. Please try again."
     }
-  }
+  },
+  "menu": [
+    {
+      "title": "MENU",
+      "items": [
+        { "label": "Home" },
+        { "label": "Teachers" },
+        { "label": "Students" },
+        { "label": "Parents" },
+        { "label": "Subjects" },
+        { "label": "Classes" },
+        { "label": "Lessons" },
+        { "label": "Exams" },
+        { "label": "Assignments" },
+        { "label": "Results" },
+        { "label": "Attendance" },
+        { "label": "Events" },
+        { "label": "Messages" },
+        { "label": "Announcements" }
+      ]
+    },
+    {
+      "title": "OTHER",
+      "items": [
+        { "label": "Profile" },
+        { "label": "Settings" },
+        { "label": "Logout" }
+      ]
+    }
+  ]
 }

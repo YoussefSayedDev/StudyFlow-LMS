@@ -5,21 +5,24 @@ import { useState } from "react";
 import { BiMoon, BiSun } from "react-icons/bi";
 import { IoLanguage } from "react-icons/io5";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import Search from "./Search";
 import Profile from "./Profile";
+import Search from "./Search";
 
 const Navbar = ({ className }: { className?: string }) => {
   const [lang, setLang] = useState("english");
   const [isLangOpen, setIsLangOpen] = useState(false);
-
-  const { theme, setTheme } = useTheme();
 
   const handleLangChange = (lang: string) => {
     setLang(lang);
   };
 
   return (
-    <header className={cn("flex items-center justify-between p-4", className)}>
+    <nav
+      className={cn(
+        "flex items-center justify-between bg-sidebar-background p-4",
+        className,
+      )}
+    >
       {/* Search Bar */}
       <Search />
 
@@ -56,20 +59,8 @@ const Navbar = ({ className }: { className?: string }) => {
             </div>
           )}
         </div>
-
-        {/* Theme Toggle */}
-        <div className="relative hidden cursor-pointer transition-colors duration-300 hover:text-primary lg:block">
-          {theme === "dark" ? (
-            <BiSun size={24} onClick={() => setTheme("light")} />
-          ) : (
-            <BiMoon size={24} onClick={() => setTheme("dark")} />
-          )}
-        </div>
       </div>
-
-      {/* Icons & User Dropdown */}
-      <Profile />
-    </header>
+    </nav>
   );
 };
 
