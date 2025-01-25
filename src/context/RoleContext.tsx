@@ -2,7 +2,7 @@
 import { FormData } from "@/types/interfaces";
 import React, { createContext, useContext, useState } from "react";
 
-type Role = "teacher" | "student" | "parent";
+type Role = "teacher" | "student" | "parent" | "admin";
 
 type RoleContextType = {
   generalInfo: FormData["generalInfo"];

@@ -25,8 +25,8 @@ export const menuItems: Menu[] = [
     items: [
       {
         icon: FaHome,
-        label: "Home",
-        href: "/",
+        label: "Dashboard",
+        href: "/dashboard",
         visible: ["admin", "teacher", "student", "parent"],
       },
       {

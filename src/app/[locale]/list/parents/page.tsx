@@ -4,9 +4,9 @@ import Image from "next/image";
 import { BsSortDown } from "react-icons/bs";
 import { FaPlus } from "react-icons/fa";
 import { IoMdOptions } from "react-icons/io";
-import Pagination from "../../_components/Pagination";
-import Table from "../../_components/Table";
-import TableSearch from "../../_components/TableSearch";
+import Pagination from "../../(main)/_components/Pagination";
+import Table from "../../(main)/_components/Table";
+import TableSearch from "../../(main)/_components/TableSearch";
 
 const columns = [
   {

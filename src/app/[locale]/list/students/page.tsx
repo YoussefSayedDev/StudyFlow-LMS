@@ -1,12 +1,12 @@
-import { teachersData } from "@/lib/data";
-import { Teacher } from "@/types/interfaces";
+import { studentsData } from "@/lib/data";
+import { Student } from "@/types/interfaces";
 import Image from "next/image";
 import { BsSortDown } from "react-icons/bs";
 import { FaPlus } from "react-icons/fa";
 import { IoMdOptions } from "react-icons/io";
-import Pagination from "../../_components/Pagination";
-import Table from "../../_components/Table";
-import TableSearch from "../../_components/TableSearch";
+import Pagination from "../../(main)/_components/Pagination";
+import Table from "../../(main)/_components/Table";
+import TableSearch from "../../(main)/_components/TableSearch";
 
 const columns = [
   {
@@ -14,18 +14,18 @@ const columns = [
     accessor: "info",
   },
   {
-    header: "Teacher ID",
-    accessor: "teacherId",
+    header: "Student ID",
+    accessor: "student_id",
     className: "hidden md:table-cell",
   },
   {
-    header: "Subjects",
-    accessor: "subjects",
+    header: "Grade",
+    accessor: "grade",
     className: "hidden md:table-cell",
   },
   {
-    header: "Classes",
-    accessor: "classes",
+    header: "Class",
+    accessor: "class",
     className: "hidden md:table-cell",
   },
   {
@@ -45,12 +45,12 @@ const columns = [
   },
 ];
 
-const TeachersListPage = () => {
+const StudentListPage = () => {
   return (
     <div className="m-4 mt-0 flex-1 rounded-md bg-accent p-4">
       {/* Top */}
       <div className="flex items-center justify-between">
-        <h1 className="hidden text-lg font-semibold md:block">All Teachers</h1>
+        <h1 className="hidden text-lg font-semibold md:block">All Students</h1>
         <div className="flex w-full flex-col items-center gap-2 md:w-auto md:flex-row">
           <TableSearch />
           <div className="flex items-center gap-2 self-end">
@@ -77,11 +77,11 @@ const TeachersListPage = () => {
       </div>
       {/* List */}
       <Table columns={columns}>
-        {teachersData.map(
+        {studentsData.map(
           (
             item, // Change this line to use the data from the database
           ) => (
-            <TeacherRows key={item.id} item={item} />
+            <StudentRow key={item.id} item={item} />
           ),
         )}
       </Table>
@@ -92,7 +92,7 @@ const TeachersListPage = () => {
 };
 
 // Teacher Row
-const TeacherRows = ({ item }: { item: Teacher }) => {
+const StudentRow = ({ item }: { item: Student }) => {
   return (
     <tr className="flex items-center justify-between border-b border-card px-1 py-2 transition-colors duration-300 hover:bg-sidebar-background">
       <td className="flex flex-1 items-center gap-4">
@@ -117,17 +117,13 @@ const TeacherRows = ({ item }: { item: Teacher }) => {
         </div>
       </td>
       <td className="hidden flex-1 md:table-cell">
-        <p className="text-sm text-muted-foreground">{item.teacher_id}</p>
+        <p className="text-sm text-muted-foreground">{item.student_id}</p>
       </td>
       <td className="hidden flex-1 md:table-cell">
-        <p className="text-sm text-muted-foreground">
-          {item.subjects.join(", ")}
-        </p>
+        <p className="text-sm text-muted-foreground">{item.grade}</p>
       </td>
       <td className="hidden flex-1 md:table-cell">
-        <p className="text-sm text-muted-foreground">
-          {item.classes.join(", ")}
-        </p>
+        <p className="text-sm text-muted-foreground">{item.class}</p>
       </td>
       <td className="hidden flex-1 lg:table-cell">
         <p className="text-sm text-muted-foreground">{item.phone}</p>
@@ -155,4 +151,4 @@ const TeacherRows = ({ item }: { item: Teacher }) => {
   );
 };
 
-export default TeachersListPage;
+export default StudentListPage;

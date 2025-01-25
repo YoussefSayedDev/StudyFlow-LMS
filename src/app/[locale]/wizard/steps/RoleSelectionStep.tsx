@@ -32,7 +32,7 @@ export default function RoleSelectionStep() {
         >
           <div
             className={cn(
-              "flex h-24 w-32 items-center justify-center space-x-2 rounded-md bg-secondary",
+              "flex h-24 w-36 items-center justify-center space-x-2 rounded-md bg-secondary",
               role === "teacher" && "bg-primary",
             )}
           >
@@ -40,17 +40,17 @@ export default function RoleSelectionStep() {
             <Label
               htmlFor="teacher"
               className={cn(
-                "flex select-none flex-col items-center gap-2 text-lg text-card-foreground",
+                "flex cursor-pointer select-none flex-col items-center gap-2 text-lg text-card-foreground",
                 role === "teacher" && "text-primary-foreground",
               )}
             >
-              <GiTeacher className="size-7" />
-              Teacher
+              <GiTeacher className="size-8" />
+              I&apos;m a teacher
             </Label>
           </div>
           <div
             className={cn(
-              "flex h-24 w-32 items-center justify-center space-x-2 rounded-md bg-secondary",
+              "flex h-24 w-36 items-center justify-center space-x-2 rounded-md bg-secondary",
               role === "student" && "bg-primary",
             )}
           >
@@ -58,17 +58,17 @@ export default function RoleSelectionStep() {
             <Label
               htmlFor="student"
               className={cn(
-                "flex select-none flex-col items-center gap-2 text-lg text-card-foreground",
+                "flex cursor-pointer select-none flex-col items-center gap-2 text-lg text-card-foreground",
                 role === "student" && "text-primary-foreground",
               )}
             >
-              <PiStudent className="size-7" />
-              Student
+              <PiStudent className="size-8" />
+              I&apos;m a student
             </Label>
           </div>
           <div
             className={cn(
-              "flex h-24 w-32 items-center justify-center space-x-2 rounded-md bg-secondary",
+              "flex h-24 w-36 items-center justify-center space-x-2 rounded-md bg-secondary",
               role === "parent" && "bg-primary",
             )}
           >
@@ -76,12 +76,12 @@ export default function RoleSelectionStep() {
             <Label
               htmlFor="parent"
               className={cn(
-                "flex select-none flex-col items-center gap-2 text-lg text-card-foreground",
+                "flex cursor-pointer select-none flex-col items-center gap-2 text-lg text-card-foreground",
                 role === "parent" && "text-primary-foreground",
               )}
             >
-              <RiParentLine className="size-7" />
-              Parent
+              <RiParentLine className="size-8" />
+              I&apos;m a parent
             </Label>
           </div>
         </RadioGroup>

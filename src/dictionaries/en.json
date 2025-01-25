@@ -1,8 +1,8 @@
 {
   "signIn": {
-    "title": "dictionaries",
+    "title": "Sign In",
     "description": "Sign in to your account to manage your profile",
-    "noAccount": "Don&apos;t have an account?",
+    "noAccount": "Don't have an account?",
     "signUp": "Sign Up",
     "signInForm": {
       "usernameLabel": "Username",
@@ -35,7 +35,7 @@
     {
       "title": "MENU",
       "items": [
-        { "label": "Home" },
+        { "label": "Dashboard" },
         { "label": "Teachers" },
         { "label": "Students" },
         { "label": "Parents" },
