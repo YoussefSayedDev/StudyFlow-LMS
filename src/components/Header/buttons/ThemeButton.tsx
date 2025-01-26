@@ -1,14 +1,14 @@
 "use client";
-import { cn } from "@/lib/utils";
-import { LaptopMinimal, Moon, Sun } from "lucide-react";
-import { useTheme } from "next-themes";
 import {
   DropdownMenuItem,
   DropdownMenuPortal,
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
-} from "../ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
+import { cn } from "@/lib/utils";
+import { LaptopMinimal, Moon, Sun } from "lucide-react";
+import { useTheme } from "next-themes";
 
 export default function ThemeButton() {
   const { theme, setTheme } = useTheme();

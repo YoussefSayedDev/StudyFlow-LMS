@@ -4,9 +4,6 @@ import {
   Github,
   Keyboard,
   LifeBuoy,
-  LogOut,
-  MessageSquare,
-  Plus,
   Settings,
   User,
   Users,
@@ -23,8 +20,9 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import LanguegesButton from "./LanguagesButton";
-import ThemeButton from "./ThemeButton";
+import LanguegesButton from "./buttons/LanguagesButton";
+import LogoutButton from "./buttons/LogoutButton";
+import ThemeButton from "./buttons/ThemeButton";
 
 export default function Account() {
   return (
@@ -98,11 +96,7 @@ export default function Account() {
           <span>API</span>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <LogOut />
-          <span>Log out</span>
-          <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-        </DropdownMenuItem>
+        <LogoutButton />
       </DropdownMenuContent>
     </DropdownMenu>
   );

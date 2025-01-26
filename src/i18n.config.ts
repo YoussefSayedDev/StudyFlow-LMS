@@ -1,4 +1,4 @@
-import { Languages } from "./types/enums";
+import { Languages } from "./types";
 
 export type LanguageType = Languages.Arabic | Languages.English;
 

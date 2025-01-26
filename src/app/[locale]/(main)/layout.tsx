@@ -1,14 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 
 import CustomScrollbar from "@/components/CustomScrollbar";
-import Header from "@/components/Header/Header";
+import Header from "@/components/header/Header";
 import Navbar from "@/components/Navbar";
 import SideBar from "@/components/SideBar";
 import { getCurrentLocale } from "@/utils/getCurrentLocale";
 import getTrans from "@/utils/translation";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Youssef Dev School Management Dashboard",

@@ -1,5 +1,5 @@
 "use client";
-import { FormData } from "@/types/interfaces";
+import { FormData } from "@/types";
 import React, { createContext, useContext, useState } from "react";
 
 type Role = "teacher" | "student" | "parent" | "admin";

@@ -1,11 +1,11 @@
 import { ThemeProvider } from "@/components/theme-provider";
-import { Directions, Languages } from "@/types/enums";
+import ReduxProvider from "@/providers/ReduxProvider";
+import { Directions, Languages } from "@/types";
+import { getCurrentLocale } from "@/utils/getCurrentLocale";
+import getTrans from "@/utils/translation";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-
-import { getCurrentLocale } from "@/utils/getCurrentLocale";
-import getTrans from "@/utils/translation";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,14 +29,16 @@ export default async function DashboardLayout({
       className="dark"
     >
       <body className={`${inter.className} overflow-hidden`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
+        <ReduxProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+        </ReduxProvider>
       </body>
     </html>
   );

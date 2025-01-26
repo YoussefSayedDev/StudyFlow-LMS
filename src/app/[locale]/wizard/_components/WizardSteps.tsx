@@ -1,5 +1,5 @@
 import { useRole } from "@/hooks/useRole";
-import { Role } from "@/types/enums";
+import { Role } from "@/types";
 import ConfirmationStep from "../steps/ConfirmationStep";
 import GeneralInfoStep from "../steps/GeneralInfoStep";
 import ParentInfoStep from "../steps/ParentInfoStep";

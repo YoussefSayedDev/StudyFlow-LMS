@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Locale } from "@/i18n.config";
-import { Directions, Languages } from "@/types/enums";
+import { Directions, Languages } from "@/types";
 import createValidationSchemas, {
   SignInValuesType,
 } from "@/validation/authValidation";

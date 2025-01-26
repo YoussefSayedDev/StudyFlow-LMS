@@ -1,10 +1,16 @@
+import { isValidPhoneNumber } from "react-phone-number-input";
 import { z } from "zod";
 
-export const WizardFormGeneralInfo = z.object({
-  firstName: z.string().min(1, "First Name is required"),
-  lastName: z.string().min(1, "Last Name is required"),
-  phoneNumber: z.string().min(4, "Phone Number is required"),
-});
+export const WizardFormGeneralInfo = z
+  .object({
+    firstName: z.string().min(1, "First Name is required"),
+    lastName: z.string().min(1, "Last Name is required"),
+    phoneNumber: z.string().min(1, "Phone Number is required"),
+  })
+  .refine((data) => isValidPhoneNumber(data.phoneNumber), {
+    message: "Please enter a valid phone number for the selected country",
+    path: ["phoneNumber"],
+  });
 
 export type WizardFormGeneralInfo = z.infer<typeof WizardFormGeneralInfo>;
 

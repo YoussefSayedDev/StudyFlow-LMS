@@ -1,11 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
 
-import { useTheme } from "next-themes";
-import { useState } from "react";
-import { BiMoon, BiSun } from "react-icons/bi";
-import { IoLanguage } from "react-icons/io5";
-import { Button } from "../ui/button";
 import {
   DropdownMenuItem,
   DropdownMenuPortal,
@@ -13,7 +8,11 @@ import {
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
-} from "../ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
+import { useTheme } from "next-themes";
+import { useState } from "react";
+import { BiMoon, BiSun } from "react-icons/bi";
+import { IoLanguage } from "react-icons/io5";
 
 export default function LanguegesButton() {
   const [language, setLanguage] = useState<"english" | "arabic">("english");

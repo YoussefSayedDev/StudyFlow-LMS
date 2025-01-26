@@ -1,7 +1,7 @@
 import "server-only";
 
 import { Locale } from "@/i18n.config";
-import { Languages } from "@/types/enums";
+import { Languages } from "@/types";
 
 const dictionaries = {
   ar: () => import("@/dictionaries/ar.json").then((module) => module.default),
