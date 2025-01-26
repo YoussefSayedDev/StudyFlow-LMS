@@ -25,20 +25,20 @@ export default async function DashboardLayout({
   const t = await getTrans(locale);
   return (
     <div>
-      <Header />
+      <Header className="h-[65px]" />
       <div className="flex h-screen">
         <div className="w-[14%] md:w-[8%] lg:w-[16%] xl:w-[14%]">
           <SideBar t={t} />
         </div>
         <div className="w-[86%] md:w-[92%] lg:w-[84%] xl:w-[86%]">
-          <Navbar className="h-[60px]" />
+          <Navbar className="h-[45px]" />
           <CustomScrollbar
             variant="rounded"
             thumbColor="bg-primary"
             trackWidth="w-2"
             trackHoverWidth="hover:w-3"
             trackWidthOnScroll="w-3"
-            className="h-[calc(100vh-150px)] overflow-hidden"
+            className="h-[calc(100vh-130px)] overflow-hidden"
           >
             <div className="relative flex h-full flex-col">{children}</div>
           </CustomScrollbar>

@@ -31,7 +31,7 @@ const SideBar = ({ t }: SideBarProps) => {
         trackHoverWidth="hover:w-2"
         trackWidthOnScroll="w-2"
         padding="pr-2"
-        className="h-[calc(100vh-100px)] overflow-hidden pb-5"
+        className="h-[calc(100vh-90px)] overflow-hidden pb-5"
       >
         <div className="relative h-full text-white lg:px-2">
           {menuItems.map((item, i) => (
