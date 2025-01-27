@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "forceConsistentCasingInFileNames": true,
     "types": ["node"],
     "typeRoots": ["./node_modules/@types"],
     "lib": ["dom", "dom.iterable", "esnext"],

@@ -1,3 +1,17 @@
+import LanguegesButton from "@/components/Header/buttons/LanguagesButton";
+import LogoutButton from "@/components/Header/buttons/LogoutButton";
+import ThemeButton from "@/components/Header/buttons/ThemeButton";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import {
   Cloud,
   CreditCard,
@@ -9,20 +23,6 @@ import {
   Users,
 } from "lucide-react";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
-import LanguegesButton from "./buttons/LanguagesButton";
-import LogoutButton from "./buttons/LogoutButton";
-import ThemeButton from "./buttons/ThemeButton";
 
 export default function Account() {
   return (

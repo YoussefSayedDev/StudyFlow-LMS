@@ -1,5 +1,3 @@
-import { Teacher } from "@/types/interfaces";
-
 interface Column {
   header: string;
   accessor: string;

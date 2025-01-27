@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
-import CustomScrollbar from "@/components/CustomScrollbar";
-import Navbar from "@/components/Navbar";
 import AppSidebar from "@/components/app-sidebar";
-import Header from "@/components/header/Header";
+import CustomScrollbar from "@/components/CustomScrollbar";
+import Header from "@/components/Header/Header";
+import Navbar from "@/components/Navbar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { getCurrentLocale } from "@/utils/getCurrentLocale";
 import getTrans from "@/utils/translation";
