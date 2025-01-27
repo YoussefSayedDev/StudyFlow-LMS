@@ -1,5 +1,5 @@
 import { Locale } from "@/i18n.config";
-import { Languages } from "@/types/enums";
+import { Languages } from "@/types";
 import { z } from "zod";
 
 // Translation dictionary for error messages
