@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 
 import CustomScrollbar from "@/components/CustomScrollbar";
-import Header from "@/components/header/Header";
 import Navbar from "@/components/Navbar";
-// import SideBar from "@/components/SideBar";
 import AppSidebar from "@/components/app-sidebar";
+import Header from "@/components/header/Header";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { getCurrentLocale } from "@/utils/getCurrentLocale";
 import getTrans from "@/utils/translation";
@@ -26,12 +25,7 @@ export default async function MainLayout({
     <SidebarProvider>
       <div className="w-full">
         <div className="flex w-full items-center">
-          {/* <div className="flex h-screen">
-          <div className="w-[14%] md:w-[8%] lg:w-[16%] xl:w-[14%]">
-            <SideBar t={t} />
-          </div> */}
           <AppSidebar t={t} />
-          {/* <div className="w-[86%] md:w-[92%] lg:w-[84%] xl:w-[86%]"> */}
           <div className="w-full">
             <div className="sticky top-0 z-50">
               <Header className="h-[65px]" />
@@ -52,9 +46,7 @@ export default async function MainLayout({
                 {children}
               </div>
             </CustomScrollbar>
-            {/* </CustomScrollbar> */}
           </div>
-          {/* </div> */}
         </div>
       </div>
     </SidebarProvider>
