@@ -1,5 +1,4 @@
 import { cn } from "@/lib/utils";
-import Logo from "../Logo";
 import Account from "./Account";
 import NotificationIcon from "./NotificationIcon";
 import SearchInput from "./SearchInput";

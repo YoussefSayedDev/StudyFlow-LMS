@@ -1,4 +1,4 @@
-import { Menu } from "@/types/interfaces";
+import { Menu } from "@/types";
 import { BsCalendar2Date } from "react-icons/bs";
 import { CgProfile } from "react-icons/cg";
 import {

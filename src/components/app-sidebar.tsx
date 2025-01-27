@@ -10,7 +10,6 @@ import { role } from "@/lib/data";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React, { useRef, useState } from "react";
 import CustomScrollbar from "./CustomScrollbar";
 import Logo from "./Logo";
 
