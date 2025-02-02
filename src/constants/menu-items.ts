@@ -9,7 +9,7 @@ import {
   FaUserFriends,
   FaUserGraduate,
 } from "react-icons/fa";
-import { FaBookOpenReader, FaRegMessage } from "react-icons/fa6";
+import { FaBookOpenReader, FaChildren, FaRegMessage } from "react-icons/fa6";
 import { FiUserCheck } from "react-icons/fi";
 import { IoLogOutOutline, IoSettingsOutline } from "react-icons/io5";
 import { LuClipboardCheck } from "react-icons/lu";
@@ -25,21 +25,27 @@ export const menuItems: Menu[] = [
     items: [
       {
         icon: FaHome,
-        label: "Dashboard",
-        href: "/dashboard",
+        label: "Home",
+        href: "/",
         visible: ["admin", "teacher", "student", "parent"],
       },
       {
         icon: FaChalkboardTeacher,
         label: "Teachers",
         href: "/list/teachers",
-        visible: ["admin", "teacher"],
+        visible: ["admin", "teacher", "student", "parent"],
       },
       {
         icon: PiStudent,
         label: "Students",
         href: "/list/students",
         visible: ["admin", "teacher"],
+      },
+      {
+        icon: FaChildren,
+        label: "Children",
+        href: "/list/children",
+        visible: ["parent"],
       },
       {
         icon: RiParentLine,
@@ -57,13 +63,13 @@ export const menuItems: Menu[] = [
         icon: FaChalkboard,
         label: "Classes",
         href: "/list/classes",
-        visible: ["admin", "teacher"],
+        visible: ["admin", "teacher", "parent"],
       },
       {
         icon: FaUserFriends,
         label: "Lessons",
         href: "/list/lessons",
-        visible: ["admin", "teacher"],
+        visible: ["admin", "teacher", "student", "parent"],
       },
       {
         icon: FaQuestionCircle,

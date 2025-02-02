@@ -10,7 +10,7 @@ import teacherEight from "@/assets/images/teachers/teacher-08.webp";
 import teacherNine from "@/assets/images/teachers/teacher-09.jpeg";
 import teacherTen from "@/assets/images/teachers/teacher-10.webp";
 
-export let role = "admin";
+export let role = "student";
 
 export const teachersData = [
   {

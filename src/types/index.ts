@@ -1,4 +1,5 @@
 export * from "./entities/Admin.types";
+export * from "./entities/KnabanBoard";
 export * from "./entities/Parent.types";
 export * from "./entities/Student.types";
 export * from "./entities/Teacher.types";
