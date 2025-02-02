@@ -19,8 +19,20 @@ export const navigationConfig: NavigationConfig = {
         path: "/overview",
       },
       {
+        label: "Tasks",
+        path: "/tasks",
+      },
+      {
         label: "Study",
         path: "/study",
+      },
+      {
+        label: "Notes",
+        path: "/notes",
+      },
+      {
+        label: "Questions",
+        path: "/questions",
       },
     ],
   },

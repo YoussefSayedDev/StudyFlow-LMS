@@ -19,11 +19,11 @@ const Navbar = ({ className }: { className?: string }) => {
     subPages,
   });
 
-  // const [currentPage, setCurrentPage] = useState("overview");
+  const [currentView, setCurrentView] = useState("board");
 
-  // const handleToggle = (value: string | null) => {
-  //   if (value) setCurrentPage(value); // Update current page
-  // };
+  const handleToggle = (value: string | null) => {
+    if (value) setCurrentView(value);
+  };
 
   return (
     <div
@@ -55,42 +55,36 @@ const Navbar = ({ className }: { className?: string }) => {
           ))}
         </div>
       )}
+      <ToggleGroup
+        type="single"
+        value={currentView}
+        onValueChange={handleToggle}
+        className="flex gap-2"
+      >
+        <ToggleGroupItem
+          value="board"
+          aria-label="Board View"
+          className="flex h-8 items-center gap-1 rounded-md px-2"
+        >
+          Board
+        </ToggleGroupItem>
+        <ToggleGroupItem
+          value="table"
+          aria-label="Table View"
+          className="h-8 rounded-md px-2"
+        >
+          Table
+        </ToggleGroupItem>
+        <ToggleGroupItem
+          value="list"
+          aria-label="List View"
+          className="h-8 rounded-md px-2"
+        >
+          List
+        </ToggleGroupItem>
+      </ToggleGroup>
     </div>
   );
 };
 
 export default Navbar;
-
-{
-  /* <ToggleGroup
-        type="single"
-        value={currentPage}
-        onValueChange={handleToggle}
-        className="flex gap-2"
-      >
-        <ToggleGroupItem
-          value="overview"
-          aria-label="Toggle Overview"
-          className="flex h-8 items-center gap-1 rounded-md px-2"
-        >
-          <Link href="/dashboard/overview" className="flex items-center gap-1">
-            <ChartNoAxesGantt className="h-4 w-4" />
-            Overview
-          </Link>
-        </ToggleGroupItem>
-        <ToggleGroupItem
-          value="exam"
-          aria-label="Toggle Exam"
-          className="h-8 rounded-md px-2"
-        >
-          Exam
-        </ToggleGroupItem>
-        <ToggleGroupItem
-          value="chart"
-          aria-label="Toggle Chart"
-          className="h-8 rounded-md px-2"
-        >
-          Chart
-        </ToggleGroupItem>
-      </ToggleGroup> */
-}
