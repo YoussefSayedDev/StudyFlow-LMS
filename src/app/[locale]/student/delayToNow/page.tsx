@@ -3,9 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Bell, BookOpen, CalendarDays, Trophy } from "lucide-react";
-import { StudentOverviewCard } from "../(main)/_components/StudentOverviewCard";
-// import { StudentOverviewCard } from "../../(main)/_components/StudentOverviewCard";
-// import { StudentOverviewCard } from "../../_components/StudentOverviewCard";
+import { StudentOverviewCard } from "../../(main)/_components/StudentOverviewCard";
 
 export default function StudentOverviewPage() {
   // Mock data - in a real application, this would come from an API or database
