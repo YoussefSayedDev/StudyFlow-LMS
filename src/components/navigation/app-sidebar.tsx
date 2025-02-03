@@ -5,16 +5,20 @@ import {
   SidebarFooter,
   SidebarHeader,
 } from "@/components/ui/sidebar";
-import { menuItems } from "@/constants/menu-items";
+import { menuItems } from "@/config/menu-items";
+import { useAppSelector } from "@/hooks/redux";
+import { useNavigation } from "@/hooks/useNavigation";
+import { LanguageType } from "@/i18n.config";
 import { role } from "@/lib/data";
 import { cn } from "@/lib/utils";
+import { Languages } from "@/types";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import CustomScrollbar from "./CustomScrollbar";
-import Logo from "./Logo";
+import CustomScrollbar from "../CustomScrollbar";
+import Logo from "../Logo";
 
 interface SideBarProps {
   t: {
+    lang: string;
     menu: {
       title: string;
       items: {
@@ -25,10 +29,16 @@ interface SideBarProps {
 }
 
 export default function AppSidebar({ t }: SideBarProps) {
-  const pathname = usePathname();
+  const { user } = useAppSelector((state) => state.auth);
+  const { buildUrl, isActive } = useNavigation();
+
+  console.log("user", user);
+
+  // Now you can use user.role to determine which navigation items to show
+  // const allowedPages = navigationConfig[user?.role] || {};
 
   return (
-    <Sidebar>
+    <Sidebar side={t.lang === Languages.English ? "left" : "right"}>
       <SidebarHeader className="!bg-background !text-foreground">
         <Logo />
       </SidebarHeader>
@@ -55,11 +65,10 @@ export default function AppSidebar({ t }: SideBarProps) {
                         item.visible.includes(role) && (
                           <li key={item.label}>
                             <Link
-                              href={item.href}
+                              href={buildUrl(item.href)}
                               className={cn(
                                 "flex items-center gap-2 rounded-md p-2 text-muted-foreground hover:bg-sidebar-accent",
-                                pathname.includes(item.href) &&
-                                  "bg-sidebar-accent",
+                                isActive(item.href) && "bg-sidebar-accent",
                               )}
                             >
                               <item.icon size={20} />

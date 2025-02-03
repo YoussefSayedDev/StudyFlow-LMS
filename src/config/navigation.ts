@@ -36,4 +36,22 @@ export const navigationConfig: NavigationConfig = {
       },
     ],
   },
+  teachers: {
+    label: "Teachers",
+    path: "/teachers",
+    subPages: [
+      {
+        label: "My Teachers",
+        path: "/my-teachers",
+      },
+      {
+        label: "Search Teachers",
+        path: "/search-teachers",
+      },
+      {
+        label: "Analytics",
+        path: "/analytics",
+      },
+    ],
+  },
 };

@@ -1,4 +1,6 @@
+import { AuthWrapper } from "@/components/auth/AuthWrapper";
 import { useNavigation } from "@/hooks/useNavigation";
+import { Role } from "@/types";
 import Announcements from "../../_components/Announcements";
 import AttendanceRecord from "../../_components/AttendanceRecord";
 import CourseList from "../../_components/CourseList";
@@ -11,6 +13,7 @@ export default function StudentOverviewPage() {
   // const { currentSection, subPages, isActive } = useNavigation();
 
   return (
+    // <AuthWrapper allowedRoles={[Role.Student]}>
     <main>
       <div className="container mx-auto p-2 pt-0">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -29,5 +32,6 @@ export default function StudentOverviewPage() {
         </div>
       </div>
     </main>
+    // </AuthWrapper>
   );
 }

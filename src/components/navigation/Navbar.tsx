@@ -3,21 +3,12 @@
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { useNavigation } from "@/hooks/useNavigation";
 import { cn } from "@/lib/utils";
-import { ChartNoAxesGantt } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import { buttonVariants } from "./ui/button";
+import { buttonVariants } from "../ui/button";
 
 const Navbar = ({ className }: { className?: string }) => {
-  const { buildUrl, currentPage, currentSubPage, isActive, subPages } =
-    useNavigation();
-  console.log({
-    buildUrl,
-    currentPage,
-    currentSubPage,
-    isActive,
-    subPages,
-  });
+  const { buildUrl, currentPage, isActive, subPages } = useNavigation();
 
   const [currentView, setCurrentView] = useState("board");
 

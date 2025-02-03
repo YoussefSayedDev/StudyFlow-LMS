@@ -1,4 +1,5 @@
 import { StaticImageData } from "next/image";
+import { Role } from "../global.enums";
 import { Id } from "../global.types";
 
 export type GeneralInfo = {
@@ -12,4 +13,5 @@ export interface User extends GeneralInfo {
   username: string;
   email: string;
   image?: string | StaticImageData;
+  role: Role;
 }

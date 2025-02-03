@@ -1,4 +1,3 @@
-// hooks/useNavigation.ts
 import { navigationConfig } from "@/config/navigation";
 import { usePathname } from "next/navigation";
 
@@ -8,7 +7,7 @@ export function useNavigation() {
   const getCurrentPage = () => {
     // Split the pathname into segments
     const segments = pathname.split("/");
-    // Find the main page (e.g., "home", "dashboard")
+    // Find the main page (e.g., "home", "teachers")
     const mainPage = segments[3]; // Index 3 because [0]="", [1]="en", [2]="student", [3]=mainPage
 
     return navigationConfig[mainPage] || null;

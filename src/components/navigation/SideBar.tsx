@@ -1,11 +1,11 @@
 "use client";
-import { menuItems } from "@/constants/menu-items";
+import { menuItems } from "@/config/menu-items";
+import { useNavigation } from "@/hooks/useNavigation";
 import { role } from "@/lib/data";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React, { useRef, useState } from "react";
-import CustomScrollbar from "./CustomScrollbar";
+import CustomScrollbar from "../CustomScrollbar";
 
 interface SideBarProps {
   t: {
@@ -19,6 +19,13 @@ interface SideBarProps {
 }
 
 const SideBar = ({ t }: SideBarProps) => {
+  const { currentPage, buildUrl, isActive } = useNavigation();
+
+  console.log("siddddebar");
+  console.log("sidebar", {
+    currentPage: currentPage,
+    buildUrl: buildUrl,
+  });
   const pathname = usePathname();
   const parts = pathname.split("/");
   const currentPath = parts[parts.length - 1];
@@ -45,7 +52,7 @@ const SideBar = ({ t }: SideBarProps) => {
                     item.visible.includes(role) && (
                       <li key={item.label}>
                         <Link
-                          href={item.href}
+                          href={buildUrl(item.href)}
                           className={cn(
                             "flex items-center gap-2 rounded-md p-2 text-muted-foreground hover:bg-sidebar-accent",
                             "/" + currentPath === item.href &&

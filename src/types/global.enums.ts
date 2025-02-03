@@ -3,6 +3,7 @@ export const enum Role {
   Teacher = "teacher",
   Student = "student",
   Parent = "parent",
+  Admin = "admin",
 }
 
 // Languages Enum

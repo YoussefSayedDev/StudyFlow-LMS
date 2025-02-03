@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
-import AppSidebar from "@/components/app-sidebar";
 import CustomScrollbar from "@/components/CustomScrollbar";
 import Header from "@/components/Header/Header";
-import Navbar from "@/components/Navbar";
+import AppSidebar from "@/components/navigation/app-sidebar";
+import Navbar from "@/components/navigation/Navbar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { getCurrentLocale } from "@/utils/getCurrentLocale";
 import getTrans from "@/utils/translation";
@@ -21,6 +21,7 @@ export default async function MainLayout({
   const locale = getCurrentLocale();
 
   const t = await getTrans(locale);
+
   return (
     <SidebarProvider>
       <div className="w-full">

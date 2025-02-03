@@ -6,7 +6,7 @@ import GradeTrend from "../_components/GradeTrend";
 import StudyTimeTracker from "../_components/StudyTimeTracker";
 import TodoList from "../_components/TodoList";
 
-export default function DashboardStudentPage() {
+export default function OverviewStudentPage() {
   return (
     <main className="flex-1 overflow-y-auto overflow-x-hidden">
       <div className="container mx-auto p-2 pt-0">

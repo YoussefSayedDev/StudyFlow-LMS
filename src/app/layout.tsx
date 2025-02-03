@@ -21,7 +21,7 @@ export default async function DashboardLayout({
 }>) {
   const locale = getCurrentLocale();
 
-  const t = await getTrans(locale);
+  // const t = await getTrans(locale);
   return (
     <html
       lang={locale}
