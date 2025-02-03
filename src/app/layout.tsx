@@ -10,8 +10,15 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Youssef Dev School Management Dashboard",
-  description: "Next.js School Management System",
+  title: {
+    default: "StudyFlow",
+    template: "%s - StudyFlow",
+  },
+  description:
+    "StudyFlow is a free and open source study tool for students, teachers, and parents.",
+  twitter: {
+    card: "summary_large_image",
+  },
 };
 
 export default async function DashboardLayout({
