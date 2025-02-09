@@ -5,22 +5,27 @@ import Header from "@/components/Header/Header";
 import AppSidebar from "@/components/navigation/app-sidebar";
 import Navbar from "@/components/navigation/Navbar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { getCurrentLocale } from "@/utils/getCurrentLocale";
-import getTrans from "@/utils/translation";
+// import { getCurrentLocale } from "@/utils/getCurrentLocale";
+// import getTrans from "@/utils/translation";
+import { getTranslations } from "next-intl/server";
 
 export const metadata: Metadata = {
   title: "Youssef Dev School Management Dashboard",
   description: "Next.js School Management System",
 };
 
-export default async function MainLayout({
+export default async function StudentLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const locale = getCurrentLocale();
+  // const locale = getCurrentLocale();
 
-  const t = await getTrans(locale);
+  // const t = await getTrans(locale);
+
+  // const t = await getTranslations("navigation.menu");
+  const t = "test";
+
   return (
     <SidebarProvider>
       <div className="w-full">

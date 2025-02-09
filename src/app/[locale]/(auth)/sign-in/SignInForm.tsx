@@ -10,27 +10,35 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Locale } from "@/i18n.config";
+import { useAppDispath } from "@/hooks/redux";
+import { signInUser } from "@/store/slices/authSlice";
+import { RootState } from "@/store/store";
 import { Directions, Languages } from "@/types";
 import createValidationSchemas, {
   SignInValuesType,
 } from "@/validation/authValidation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useLocale, useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
+// import { getLocale } from "next-intl/server";
 import { useState, useTransition } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { MdLogout } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
 
-interface SignInFormProps {
-  locale: Locale;
-  translations: {
-    [key: string]: string;
-  };
-}
+export default function SignInForm() {
+  const locale = useLocale() as Languages;
+  const router = useRouter();
+  const dispatch = useAppDispath();
+  const { loading, error: authError } = useSelector(
+    (state: RootState) => state.auth,
+  );
 
-export default function SignInForm({ locale, translations }: SignInFormProps) {
   const { SignInValues } = createValidationSchemas(locale);
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
+
+  const t = useTranslations("auth.signIn.form");
 
   const form = useForm<SignInValuesType>({
     resolver: zodResolver(SignInValues),
@@ -41,15 +49,19 @@ export default function SignInForm({ locale, translations }: SignInFormProps) {
   });
 
   async function onSubmit(data: SignInValuesType) {
-    setError(null); // Clear previous errors
-    startTransition(() => {
-      try {
-        console.log(data); // Simulate API call
-        // Handle success or server-side validation here
-      } catch (err) {
-        setError("An unexpected error occurred. Please try again.");
+    setError(null);
+    try {
+      const resultAction = await dispatch(signInUser(data));
+
+      if (signInUser.fulfilled.match(resultAction)) {
+        // Redirect to dashboard on successful login
+        router.push("/student/home");
+      } else if (signInUser.rejected.match(resultAction)) {
+        setError((resultAction.payload as string) || t("error"));
       }
-    });
+    } catch (err) {
+      setError(t("error"));
+    }
   }
 
   return (
@@ -71,14 +83,14 @@ export default function SignInForm({ locale, translations }: SignInFormProps) {
           name="username"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{translations.usernameLabel}</FormLabel>
+              <FormLabel>{t("username.label")}</FormLabel>
               <FormControl>
                 <Input
-                  placeholder={translations.usernamePlaceholder}
+                  placeholder={t("username.placeholder")}
                   type="text"
                   {...field}
                   className="h-12"
-                  aria-label={translations.usernameLabel}
+                  aria-label={t("username.label")}
                 />
               </FormControl>
               <FormMessage />
@@ -92,7 +104,7 @@ export default function SignInForm({ locale, translations }: SignInFormProps) {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{translations.passwordLabel}</FormLabel>
+              <FormLabel>{t("password.label")}</FormLabel>
               <FormControl>
                 <PasswordInput
                   dir={
@@ -100,10 +112,10 @@ export default function SignInForm({ locale, translations }: SignInFormProps) {
                       ? Directions.RTL
                       : Directions.LTR
                   }
-                  placeholder={translations.passwordPlaceholder}
+                  placeholder={t("password.placeholder")}
                   {...field}
                   className="h-12"
-                  aria-label={translations.passwordLabel}
+                  aria-label={t("password.label")}
                 />
               </FormControl>
               <FormMessage />
@@ -117,7 +129,7 @@ export default function SignInForm({ locale, translations }: SignInFormProps) {
           type="submit"
           className="w-full select-none"
         >
-          {translations.submitButton}
+          {t("submit")}
           <MdLogout size={20} />
         </LoadingButton>
       </form>

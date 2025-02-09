@@ -8,9 +8,9 @@ import { useState } from "react";
 import { buttonVariants } from "../ui/button";
 
 const Navbar = ({ className }: { className?: string }) => {
-  const { buildUrl, currentPage, isActive, subPages } = useNavigation();
-
   const [currentView, setCurrentView] = useState("board");
+
+  const { buildUrl, currentPage, isActive, subPages } = useNavigation();
 
   const handleToggle = (value: string | null) => {
     if (value) setCurrentView(value);

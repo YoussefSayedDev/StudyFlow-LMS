@@ -15,12 +15,12 @@ export interface FormData {
 
 type MenuItem = {
   icon: IconType;
-  label: string;
+  key: string;
   href: string;
   visible: string[];
 };
 
 export interface Menu {
-  title: string;
+  key: string;
   items: MenuItem[];
 }

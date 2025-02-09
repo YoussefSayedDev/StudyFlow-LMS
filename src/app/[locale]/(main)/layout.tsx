@@ -5,8 +5,10 @@ import Header from "@/components/Header/Header";
 import AppSidebar from "@/components/navigation/app-sidebar";
 import Navbar from "@/components/navigation/Navbar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { getCurrentLocale } from "@/utils/getCurrentLocale";
-import getTrans from "@/utils/translation";
+// import { getCurrentLocale } from "@/utils/getCurrentLocale";
+// import getTrans from "@/utils/translation";
+// import { useTranslations } from "next-intl";
+import { getMessages, getTranslations } from "next-intl/server";
 
 export const metadata: Metadata = {
   title: "Youssef Dev School Management Dashboard",
@@ -17,11 +19,30 @@ export default async function MainLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
+  paramss: { locale: string };
 }>) {
-  const locale = getCurrentLocale();
+  // const locale = getCurrentLocale();
 
-  const t = await getTrans(locale);
+  // const t = await getTrans(locale);
 
+  // // Ensure that the incoming `locale` is valid
+  // if (!routing.locales.includes(locale as any)) {
+  //   notFound();
+  // }
+  // const locale = getCurrentLocale();
+
+  // Providing all messages to the client
+  // side is the easiest way to get started
+  const messages = await getMessages();
+
+  console.log("messages: =>", messages);
+
+  // const t = useTranslations("navigation.menu");
+
+  const t = await getTranslations("navigation.menu");
+
+  console.log("t: =>", t("sections.main"));
+  console.log("ttt: =>", t("sections.other"));
   return (
     <SidebarProvider>
       <div className="w-full">

@@ -1,0 +1,89 @@
+{
+  "auth": {
+    "signIn": {
+      "title": "Sign In",
+      "description": "Sign in to your account to manage your profile",
+      "noAccount": "Don't have an account?",
+      "signUp": "Sign Up",
+      "form": {
+        "username": {
+          "label": "Username",
+          "placeholder": "Enter your username"
+        },
+        "password": {
+          "label": "Password",
+          "placeholder": "Enter your password"
+        },
+        "submit": "Sign In",
+        "error": "An unexpected error occurred. Please try again."
+      }
+    },
+    "signUp": {
+      "title": "Sign Up",
+      "description": "Sign up for a new account",
+      "hasAccount": "Already have an account?",
+      "signIn": "Sign In",
+      "form": {
+        "username": {
+          "label": "Username",
+          "placeholder": "Enter your username"
+        },
+        "email": {
+          "label": "Email",
+          "placeholder": "Enter your email"
+        },
+        "password": {
+          "label": "Password",
+          "placeholder": "Enter your password"
+        },
+        "confirmPassword": {
+          "label": "Confirm Password",
+          "placeholder": "Confirm your password"
+        },
+        "submit": "Sign Up",
+        "error": "An unexpected error occurred. Please try again."
+      }
+    }
+  },
+  "navigation": {
+    "menu": {
+      "sections": {
+        "main": "MENU",
+        "other": "OTHER"
+      },
+      "items": {
+        "home": "Home",
+        "teachers": "Teachers",
+        "students": "Students",
+        "children": "Children",
+        "parents": "Parents",
+        "subjects": "Subjects",
+        "classes": "Classes",
+        "lessons": "Lessons",
+        "exams": "Exams",
+        "assignments": "Assignments",
+        "results": "Results",
+        "attendance": "Attendance",
+        "events": "Events",
+        "messages": "Messages",
+        "announcements": "Announcements",
+        "profile": "Profile",
+        "settings": "Settings",
+        "logout": "Logout"
+      }
+    }
+  },
+  "common": {
+    "actions": {
+      "submit": "Submit",
+      "cancel": "Cancel",
+      "save": "Save",
+      "delete": "Delete"
+    },
+    "errors": {
+      "generic": "An unexpected error occurred",
+      "required": "This field is required",
+      "invalid": "Invalid input"
+    }
+  }
+}

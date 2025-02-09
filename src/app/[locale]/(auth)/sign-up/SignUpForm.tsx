@@ -11,28 +11,35 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Locale } from "@/i18n.config";
+import { useAppDispath } from "@/hooks/redux";
+import { signUpUser } from "@/store/slices/authSlice";
+import { RootState } from "@/store/store";
 import { Directions, Languages } from "@/types";
 import createValidationSchemas, {
   SignUpValues,
   SignUpValuesType,
 } from "@/validation/authValidation";
+import { useLocale, useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { MdLogout } from "react-icons/md";
+import { useSelector } from "react-redux";
 
-interface SignUpFormProps {
-  locale: Locale;
-  translations: {
-    [key: string]: string;
-  };
-}
+export default function SignUpForm() {
+  const locale = useLocale() as Languages;
+  const router = useRouter();
+  const dispatch = useAppDispath();
+  const { loading, error: authError } = useSelector(
+    (state: RootState) => state.auth,
+  );
 
-export default function SignUpForm({ locale, translations }: SignUpFormProps) {
   const { SignUpValues } = createValidationSchemas(locale);
   const [error, setError] = useState<string | null>(null);
 
   const [isPending, startTransition] = useTransition();
+
+  const t = useTranslations("auth.signUp.form");
 
   const form = useForm<SignUpValuesType>({
     resolver: zodResolver(SignUpValues),
@@ -45,13 +52,20 @@ export default function SignUpForm({ locale, translations }: SignUpFormProps) {
 
   async function onSubmit(data: SignUpValuesType) {
     setError(null); // Clear previous errors
-    startTransition(() => {
-      try {
-        console.log(data); // Simulate API call
-        // Handle success or server-side validation here
-        setError("An unexpected error occurred. Please try again.");
-      } catch (err) {}
-    });
+    // startTransition(() => {
+    try {
+      const resultAction = await dispatch(signUpUser(data));
+
+      if (signUpUser.fulfilled.match(resultAction)) {
+        // Redirect to dashboard on successful login
+        router.push("/student/home");
+      } else if (signUpUser.rejected.match(resultAction)) {
+        setError((resultAction.payload as string) || t("error"));
+      }
+    } catch (err) {
+      setError(t("error"));
+    }
+    // });
   }
 
   return (
@@ -73,13 +87,13 @@ export default function SignUpForm({ locale, translations }: SignUpFormProps) {
           name="username"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{translations.usernameLabel}</FormLabel>
+              <FormLabel>{t("username.label")}</FormLabel>
               <FormControl>
                 <Input
-                  placeholder={translations.usernamePlaceholder}
+                  placeholder={t("username.placeholder")}
                   {...field}
                   className="h-12"
-                  aria-label={translations.usernameLabel}
+                  aria-label={t("username.label")}
                 />
               </FormControl>
               <FormMessage />
@@ -93,14 +107,14 @@ export default function SignUpForm({ locale, translations }: SignUpFormProps) {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{translations.emailLabel}</FormLabel>
+              <FormLabel>{t("email.label")}</FormLabel>
               <FormControl>
                 <Input
-                  placeholder={translations.emailPlaceholder}
+                  placeholder={t("email.placeholder")}
                   type="email"
                   {...field}
                   className="h-12"
-                  aria-label={translations.emailLabel}
+                  aria-label={t("email.label")}
                 />
               </FormControl>
               <FormMessage />
@@ -114,7 +128,7 @@ export default function SignUpForm({ locale, translations }: SignUpFormProps) {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{translations.passwordLabel}</FormLabel>
+              <FormLabel>{t("password.label")}</FormLabel>
               <FormControl>
                 <PasswordInput
                   dir={
@@ -122,10 +136,10 @@ export default function SignUpForm({ locale, translations }: SignUpFormProps) {
                       ? Directions.RTL
                       : Directions.LTR
                   }
-                  placeholder={translations.passwordPlaceholder}
+                  placeholder={t("password.placeholder")}
                   {...field}
                   className="h-12"
-                  aria-label={translations.passwordLabel}
+                  aria-label={t("password.label")}
                 />
               </FormControl>
               <FormMessage />
@@ -139,7 +153,7 @@ export default function SignUpForm({ locale, translations }: SignUpFormProps) {
           type="submit"
           className="w-full select-none"
         >
-          {translations.submitButton}
+          {t("submit")}
           <MdLogout size={20} />
         </LoadingButton>
       </form>

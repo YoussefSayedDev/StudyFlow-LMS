@@ -1,31 +1,27 @@
 import signInImage from "@/assets/images/auth/sign-in-image.jpg";
-import { getCurrentLocale } from "@/utils/getCurrentLocale";
-import getTrans from "@/utils/translation";
+import { Link } from "@/i18n/routing";
+import { getTranslations } from "next-intl/server";
 import Image from "next/image";
-import Link from "next/link";
 import SignInForm from "./SignInForm";
 
 export default async function SignInPage() {
-  const locale = getCurrentLocale();
-  const { signIn } = await getTrans(locale);
+  const t = await getTranslations("auth.signIn");
+
   return (
     <main className="auth-container">
       {/* Form Section */}
       <section className="auth-form">
         <div className="form-content">
-          <h1 className="text-2xl font-semibold">{signIn.title}</h1>
+          <h1 className="text-2xl font-semibold">{t("title")}</h1>
           <p className="mt-2 text-base text-muted-foreground">
-            {signIn.description}
+            {t("description")}
           </p>
           <div className="my-8">
-            <SignInForm locale={locale} translations={signIn.signInForm} />
+            <SignInForm />
           </div>
-          <Link
-            href={`/${locale}/sign-up`}
-            className="block text-center hover:underline"
-          >
-            {signIn.noAccount}
-            <span className="text-purple-500"> {signIn.signUp}</span>
+          <Link href="/sign-up" className="block text-center hover:underline">
+            {t("noAccount")}
+            <span className="text-purple-500"> {t("signUp")}</span>
           </Link>
         </div>
       </section>

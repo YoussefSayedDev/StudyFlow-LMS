@@ -1,0 +1,97 @@
+{
+  "auth": {
+    "signIn": {
+      "title": "تسجيل الدخول",
+      "description": "قم بتسجيل الدخول إلى حسابك لإدارة ملفك الشخصي",
+      "noAccount": "ليس لديك حساب؟",
+      "signUp": "إنشاء حساب",
+      "form": {
+        "username": {
+          "label": "اسم المستخدم",
+          "placeholder": "أدخل اسم المستخدم"
+        },
+        "password": {
+          "label": "كلمة المرور",
+          "placeholder": "أدخل كلمة المرور"
+        },
+        "submit": "تسجيل الدخول",
+        "error": "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى."
+      }
+    },
+    "signUp": {
+      "title": "إنشاء حساب",
+      "description": "قم بإنشاء حساب جديد",
+      "hasAccount": "لديك حساب بالفعل؟",
+      "signIn": "تسجيل الدخول",
+      "form": {
+        "username": {
+          "label": "اسم المستخدم",
+          "placeholder": "أدخل اسم المستخدم"
+        },
+        "email": {
+          "label": "البريد الإلكتروني",
+          "placeholder": "أدخل البريد الإلكتروني"
+        },
+        "password": {
+          "label": "كلمة المرور",
+          "placeholder": "أدخل كلمة المرور"
+        },
+        "confirmPassword": {
+          "label": "تأكيد كلمة المرور",
+          "placeholder": "أكد كلمة المرور"
+        },
+        "submit": "إنشاء حساب",
+        "error": "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى."
+      }
+    }
+  },
+  "navigation": {
+    "menu": {
+      "sections": {
+        "main": "القائمة الرئيسية",
+        "other": "أخرى"
+      },
+      "items": {
+        "home": "الرئيسية",
+        "teachers": "المعلمون",
+        "students": "الطلاب",
+        "children": "الأطفال",
+        "parents": "أولياء الأمور",
+        "academic": {
+          "subjects": "المواد الدراسية",
+          "classes": "الفصول",
+          "lessons": "الدروس",
+          "exams": "الاختبارات"
+        },
+        "management": {
+          "assignments": "الواجبات",
+          "results": "النتائج",
+          "attendance": "الحضور"
+        },
+        "communication": {
+          "events": "الفعاليات",
+          "messages": "الرسائل",
+          "announcements": "الإعلانات"
+        },
+        "user": {
+          "profile": "الملف الشخصي",
+          "settings": "الإعدادات",
+          "logout": "تسجيل الخروج"
+        }
+      }
+    }
+  },
+  "common": {
+    "actions": {
+      "submit": "إرسال",
+      "cancel": "إلغاء",
+      "save": "حفظ",
+      "delete": "حذف"
+    },
+    "errors": {
+      "generic": "حدث خطأ غير متوقع",
+      "required": "هذا الحقل مطلوب",
+      "invalid": "إدخال غير صالح"
+    }
+  }
+}

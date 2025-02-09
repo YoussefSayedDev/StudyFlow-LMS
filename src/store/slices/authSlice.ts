@@ -1,5 +1,11 @@
+// store/slices/authSlice.ts
+import { authService } from "@/services/authService";
 import { User } from "@/types";
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {
+  SignInValuesType,
+  SignUpValuesType,
+} from "@/validation/authValidation";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 interface AuthState {
   user: User | null;
@@ -11,49 +17,71 @@ interface AuthState {
 
 const initialState: AuthState = {
   user: null,
-  token: null,
-  isAuthenticated: false,
+  token: typeof window !== "undefined" ? localStorage.getItem("token") : null,
+  isAuthenticated:
+    typeof window !== "undefined" ? !!localStorage.getItem("token") : false,
   error: null,
   loading: false,
 };
 
-export const loginUser = createAsyncThunk(
-  "auth/login",
-  async (
-    credntial: { username: string; email: string; password: string },
-    { rejectWithValue },
-  ) => {
+export const signUpUser = createAsyncThunk(
+  "auth/signUp",
+  async (credentials: SignUpValuesType, { rejectWithValue }) => {
     try {
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(credntial),
-      });
+      const response = await authService.signUp(credentials);
 
-      if (!response.ok) throw new Error("Login failed");
+      // Store token
+      localStorage.setItem("token", response.token);
+      // Token will be automatically added to subsequent requests by interceptor
 
-      const data = await response.json();
-      return data.user;
-    } catch (error: any) {
-      return rejectWithValue(error.message);
+      return {
+        user: response.user,
+        token: response.token,
+      };
+    } catch (error) {
+      if (error instanceof Error) {
+        return rejectWithValue(error.message);
+      }
+      return rejectWithValue("An unexpected error occurred");
     }
   },
 );
 
-export const fetchUserProfile = createAsyncThunk(
-  "auth/fetchUserProfile",
+export const signInUser = createAsyncThunk(
+  "auth/signIn",
+  async (credentials: SignInValuesType, { rejectWithValue }) => {
+    try {
+      const response = await authService.signIn(credentials);
+
+      // Store token
+      localStorage.setItem("token", response.token);
+      // Token will be automatically added to subsequent requests by interceptor
+
+      return {
+        user: response.user,
+        token: response.token,
+      };
+    } catch (error) {
+      if (error instanceof Error) {
+        return rejectWithValue(error.message);
+      }
+      return rejectWithValue("An unexpected error occurred");
+    }
+  },
+);
+
+export const fetchUserAccount = createAsyncThunk(
+  "auth/fetchUserAccount",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await fetch("/api/auth/profile");
-
-      if (!response.ok) throw new Error("Failed to fetch user profile");
-
-      const data = await response.json();
-      return data.user;
-    } catch (error: any) {
-      return rejectWithValue(error.message);
+      // Token will be automatically added by interceptor
+      const user = await authService.fetchAccount();
+      return user;
+    } catch (error) {
+      if (error instanceof Error) {
+        return rejectWithValue(error.message);
+      }
+      return rejectWithValue("Failed to fetch user account");
     }
   },
 );
@@ -64,6 +92,9 @@ const authSlice = createSlice({
   reducers: {
     logout: (state) => {
       state.user = null;
+      state.token = null;
+      state.isAuthenticated = false;
+      authService.logout();
     },
     clearError: (state) => {
       state.error = null;
@@ -71,32 +102,53 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // Login cases
-      .addCase(loginUser.pending, (state) => {
+      .addCase(signInUser.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(loginUser.fulfilled, (state, action) => {
+      .addCase(signInUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload;
+        state.user = action.payload.user;
+        state.token = action.payload.token;
         state.isAuthenticated = true;
+        state.error = null;
       })
-      .addCase(loginUser.rejected, (state, action) => {
+      .addCase(signInUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
+        state.isAuthenticated = false;
       })
-      // Fetch user profile cases
-      .addCase(fetchUserProfile.pending, (state) => {
+      .addCase(fetchUserAccount.pending, (state) => {
         state.loading = true;
+        state.error = null;
       })
-      .addCase(fetchUserProfile.fulfilled, (state, action) => {
+      .addCase(fetchUserAccount.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
         state.isAuthenticated = true;
+        state.error = null;
       })
-      .addCase(fetchUserProfile.rejected, (state, action) => {
+      .addCase(fetchUserAccount.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
+        state.isAuthenticated = false;
+        // Let the interceptor handle the redirect if needed
+      })
+      .addCase(signUpUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(signUpUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload.user;
+        state.token = action.payload.token;
+        state.isAuthenticated = true;
+        state.error = null;
+      })
+      .addCase(signUpUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+        state.isAuthenticated = false;
       });
   },
 });

@@ -1,13 +1,12 @@
 import signUpImage from "@/assets/images/auth/sign-up-image.jpg";
-import { getCurrentLocale } from "@/utils/getCurrentLocale";
-import getTrans from "@/utils/translation";
+import { Link } from "@/i18n/routing";
+import { getTranslations } from "next-intl/server";
 import Image from "next/image";
-import Link from "next/link";
 import SignUpForm from "./SignUpForm";
 
 export default async function SignUpPage() {
-  const locale = getCurrentLocale();
-  const { signUp } = await getTrans(locale);
+  const t = await getTranslations("auth.signUp");
+
   return (
     <main className="auth-container">
       {/* Image Section */}
@@ -27,19 +26,16 @@ export default async function SignUpPage() {
       {/* Form Section */}
       <section className="auth-form">
         <div className="form-content">
-          <h1 className="text-2xl font-semibold">{signUp.title}</h1>
+          <h1 className="text-2xl font-semibold">{t("title")}</h1>
           <p className="mt-2 text-base text-muted-foreground">
-            {signUp.description}
+            {t("description")}
           </p>
           <div className="my-8">
-            <SignUpForm locale={locale} translations={signUp.signUpForm} />
+            <SignUpForm />
           </div>
-          <Link
-            href={`/${locale}/sign-in`}
-            className="block text-center hover:underline"
-          >
-            {signUp.noAccount}
-            <span className="text-purple-500"> {signUp.signIn}</span>
+          <Link href="/sign-in" className="block text-center hover:underline">
+            {t("hasAccount")}
+            <span className="text-purple-500"> {t("signIn")}</span>
           </Link>
         </div>
       </section>

@@ -16,7 +16,7 @@ export const navigationConfig: NavigationConfig = {
     subPages: [
       {
         label: "Overview",
-        path: "/overview",
+        path: "/",
       },
       {
         label: "Tasks",
@@ -42,7 +42,7 @@ export const navigationConfig: NavigationConfig = {
     subPages: [
       {
         label: "My Teachers",
-        path: "/my-teachers",
+        path: "/",
       },
       {
         label: "Search Teachers",

@@ -1,4 +1,5 @@
 "use client";
+
 import {
   Sidebar,
   SidebarContent,
@@ -8,40 +9,40 @@ import {
 import { menuItems } from "@/config/menu-items";
 import { useAppSelector } from "@/hooks/redux";
 import { useNavigation } from "@/hooks/useNavigation";
-import { LanguageType } from "@/i18n.config";
 import { role } from "@/lib/data";
 import { cn } from "@/lib/utils";
 import { Languages } from "@/types";
+import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import CustomScrollbar from "../CustomScrollbar";
 import Logo from "../Logo";
 
 interface SideBarProps {
-  t: {
-    lang: string;
-    menu: {
-      title: string;
-      items: {
-        label: string;
-      }[];
-    }[];
-  };
+  // t: ReturnType<typeof useTranslations>;
+  t: string;
 }
 
 export default function AppSidebar({ t }: SideBarProps) {
-  const { user } = useAppSelector((state) => state.auth);
+  // const { user } = useAppSelector((state) => state.auth);
   const { buildUrl, isActive } = useNavigation();
 
-  console.log("user", user);
+  const locale = useLocale();
 
-  // Now you can use user.role to determine which navigation items to show
-  // const allowedPages = navigationConfig[user?.role] || {};
+  const tt = useTranslations("navigation.menu");
 
+  // console.log("tt", tt);
+
+  console.log("tt", tt);
+
+  const theT = tt("sections.main");
+
+  console.log("theT", theT);
   return (
-    <Sidebar side={t.lang === Languages.English ? "left" : "right"}>
+    <Sidebar side={locale === Languages.English ? "left" : "right"}>
       <SidebarHeader className="!bg-background !text-foreground">
         <Logo />
       </SidebarHeader>
+
       <SidebarContent className="overflow-hidden !bg-background !text-foreground">
         <div className="p-2">
           <CustomScrollbar
@@ -54,16 +55,17 @@ export default function AppSidebar({ t }: SideBarProps) {
             className="h-[calc(100vh-90px)] overflow-hidden pb-5"
           >
             <div className="relative h-full text-white lg:px-2">
-              {menuItems.map((item, i) => (
-                <div key={item.title}>
+              {menuItems.map((section) => (
+                <div key={section.key}>
                   <h2 className="hidden py-2 text-lg font-bold text-gray-600 lg:block">
-                    {t.menu[i]?.title}
+                    {tt(`sections.${section.key}`)}
                   </h2>
+
                   <ul className="flex flex-col gap-2">
-                    {item.items.map(
-                      (item, j) =>
+                    {section.items.map(
+                      (item) =>
                         item.visible.includes(role) && (
-                          <li key={item.label}>
+                          <li key={item.key}>
                             <Link
                               href={buildUrl(item.href)}
                               className={cn(
@@ -73,7 +75,7 @@ export default function AppSidebar({ t }: SideBarProps) {
                             >
                               <item.icon size={20} />
                               <span className="hidden overflow-hidden text-ellipsis lg:block">
-                                {t.menu[i]?.items[j]?.label}
+                                {tt(`items.${item.key}`)}
                               </span>
                             </Link>
                           </li>
@@ -86,7 +88,8 @@ export default function AppSidebar({ t }: SideBarProps) {
           </CustomScrollbar>
         </div>
       </SidebarContent>
-      <SidebarFooter className="!bg-background !text-foreground"></SidebarFooter>
+
+      <SidebarFooter className="!bg-background !text-foreground" />
     </Sidebar>
   );
 }
