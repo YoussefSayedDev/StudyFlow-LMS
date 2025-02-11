@@ -1,6 +1,10 @@
-// store/slices/authSlice.ts
 import { authService } from "@/services/authService";
-import { User } from "@/types";
+import { Id, User } from "@/types";
+import {
+  getStoredRefreshToken,
+  getStoredToken,
+  persistToken,
+} from "@/utils/auth";
 import {
   SignInValuesType,
   SignUpValuesType,
@@ -8,18 +12,23 @@ import {
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 interface AuthState {
-  user: User | null;
-  token: string | null;
+  id: Id;
+  accessToken: string | null;
+  refreshToken: string | null;
+  expiresIn: number;
+  refreshTokenExpiration: string;
   isAuthenticated: boolean;
   error: string | null;
   loading: boolean;
 }
 
 const initialState: AuthState = {
-  user: null,
-  token: typeof window !== "undefined" ? localStorage.getItem("token") : null,
-  isAuthenticated:
-    typeof window !== "undefined" ? !!localStorage.getItem("token") : false,
+  id: "",
+  accessToken: getStoredToken(),
+  refreshToken: getStoredRefreshToken(),
+  expiresIn: 0,
+  refreshTokenExpiration: "",
+  isAuthenticated: !!getStoredToken(),
   error: null,
   loading: false,
 };
@@ -31,12 +40,14 @@ export const signUpUser = createAsyncThunk(
       const response = await authService.signUp(credentials);
 
       // Store token
-      localStorage.setItem("token", response.token);
-      // Token will be automatically added to subsequent requests by interceptor
+      persistToken(response.accessToken);
+      // Access token will be automatically added to subsequent requests by interceptor
 
       return {
-        user: response.user,
-        token: response.token,
+        accessToken: response.accessToken,
+        refreshToken: response.refreshToken,
+        expiresIn: response.expiresIn,
+        refreshTokenExpiration: response.refreshTokenExpiration,
       };
     } catch (error) {
       if (error instanceof Error) {
@@ -54,12 +65,39 @@ export const signInUser = createAsyncThunk(
       const response = await authService.signIn(credentials);
 
       // Store token
-      localStorage.setItem("token", response.token);
+      localStorage.setItem("token", response.accessToken);
       // Token will be automatically added to subsequent requests by interceptor
 
       return {
-        user: response.user,
-        token: response.token,
+        accessToken: response.accessToken,
+        refreshToken: response.refreshToken,
+        expiresIn: response.expiresIn,
+        refreshTokenExpiration: response.refreshTokenExpiration,
+      };
+    } catch (error) {
+      if (error instanceof Error) {
+        return rejectWithValue(error.message);
+      }
+      return rejectWithValue("An unexpected error occurred");
+    }
+  },
+);
+
+export const refreshToken = createAsyncThunk(
+  "auth/refreshToken",
+  async (refreshToken: string, { rejectWithValue }) => {
+    try {
+      const response = await authService.refreshToken(refreshToken);
+
+      // Store token
+      persistToken(response.accessToken);
+      // Access token will be automatically added to subsequent requests by interceptor
+
+      return {
+        accessToken: response.accessToken,
+        refreshToken: response.refreshToken,
+        expiresIn: response.expiresIn,
+        refreshTokenExpiration: response.refreshTokenExpiration,
       };
     } catch (error) {
       if (error instanceof Error) {
@@ -90,9 +128,11 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    logout: (state) => {
-      state.user = null;
-      state.token = null;
+    signOut: (state) => {
+      state.accessToken = null;
+      state.refreshToken = null;
+      state.expiresIn = 0;
+      state.refreshTokenExpiration = "";
       state.isAuthenticated = false;
       authService.logout();
     },
@@ -108,8 +148,10 @@ const authSlice = createSlice({
       })
       .addCase(signInUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload.user;
-        state.token = action.payload.token;
+        state.accessToken = action.payload.accessToken;
+        state.refreshToken = action.payload.refreshToken;
+        state.expiresIn = action.payload.expiresIn;
+        state.refreshTokenExpiration = action.payload.refreshTokenExpiration;
         state.isAuthenticated = true;
         state.error = null;
       })
@@ -118,32 +160,26 @@ const authSlice = createSlice({
         state.error = action.payload as string;
         state.isAuthenticated = false;
       })
-      .addCase(fetchUserAccount.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(fetchUserAccount.fulfilled, (state, action) => {
-        state.loading = false;
-        state.user = action.payload;
-        state.isAuthenticated = true;
-        state.error = null;
-      })
-      .addCase(fetchUserAccount.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload as string;
-        state.isAuthenticated = false;
-        // Let the interceptor handle the redirect if needed
-      })
       .addCase(signUpUser.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(signUpUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload.user;
-        state.token = action.payload.token;
+        state.accessToken = action.payload.accessToken;
+        state.refreshToken = action.payload.refreshToken;
+        state.expiresIn = action.payload.expiresIn;
+        state.refreshTokenExpiration = action.payload.refreshTokenExpiration;
         state.isAuthenticated = true;
         state.error = null;
+
+        //
+        console.log({
+          accessToken: action.payload.accessToken,
+          refreshToken: action.payload.refreshToken,
+          expiresIn: action.payload.expiresIn,
+          refreshTokenExpiration: action.payload.refreshTokenExpiration,
+        });
       })
       .addCase(signUpUser.rejected, (state, action) => {
         state.loading = false;
@@ -153,5 +189,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { logout, clearError } = authSlice.actions;
+export const { signOut, clearError } = authSlice.actions;
 export default authSlice.reducer;

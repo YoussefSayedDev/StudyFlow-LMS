@@ -7,8 +7,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { generateKanbanColumnId } from "@/lib/helpers/generateKanbanColumnId";
 import { Id, KnabanColumn, Task } from "@/types";
+import { generateKanbanColumnId } from "@/utils/generateKanbanColumnId";
 import {
   DndContext,
   DragEndEvent,

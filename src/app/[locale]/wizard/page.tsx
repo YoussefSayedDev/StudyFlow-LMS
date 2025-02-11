@@ -1,6 +1,7 @@
 import SignUpWizard from "./SignUpWizard";
 
 const WizardPage = () => {
+
   return (
     <main className="container flex max-w-2xl flex-col items-center justify-between gap-4 px-8">
       <div>

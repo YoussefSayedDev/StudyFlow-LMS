@@ -55,7 +55,7 @@ export default function SignInForm() {
 
       if (signInUser.fulfilled.match(resultAction)) {
         // Redirect to dashboard on successful login
-        router.push("/student/home");
+        router.push("/en/student/home");
       } else if (signInUser.rejected.match(resultAction)) {
         setError((resultAction.payload as string) || t("error"));
       }

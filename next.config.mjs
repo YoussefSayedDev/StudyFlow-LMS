@@ -14,6 +14,15 @@ const nextConfig = {
       },
     ],
   },
+
+  async rewrites() {
+    return [
+      {
+        source: "/api/:path*",
+        destination: "http://studyflow.runasp.net/:path*", // Proxy to backend
+      },
+    ];
+  }
 };
 
 export default withNextIntl(nextConfig);

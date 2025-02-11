@@ -1,5 +1,10 @@
-import api from "@/services/api";
+import api from "@/lib/api";
 import { User } from "@/types";
+import {
+  clearRefreshToken,
+  clearToken,
+  getStoredRefreshToken,
+} from "@/utils/auth";
 import {
   SignInValuesType,
   SignUpValuesType,
@@ -7,15 +12,17 @@ import {
 import axios from "axios";
 
 interface AuthResponse {
-  user: User;
-  token: string;
+  accessToken: string;
+  refreshToken: string;
+  expiresIn: number;
+  refreshTokenExpiration: string;
 }
 
 export const authService = {
   signUp: async (credentials: SignUpValuesType): Promise<AuthResponse> => {
     try {
       const response = await api.post<AuthResponse>(
-        "/auth/signup",
+        "/auth/sign-up",
         credentials,
       );
       // No need to set token in headers as it's handled by interceptor
@@ -31,7 +38,7 @@ export const authService = {
   signIn: async (credentials: SignInValuesType): Promise<AuthResponse> => {
     try {
       const response = await api.post<AuthResponse>(
-        "/auth/signin",
+        "/auth/sign-in",
         credentials,
       );
       // No need to set token in headers as it's handled by interceptor
@@ -39,6 +46,24 @@ export const authService = {
     } catch (error) {
       if (axios.isAxiosError(error)) {
         throw new Error(error.response?.data?.message || "Sign in failed");
+      }
+      throw error;
+    }
+  },
+
+  refreshToken: async (refreshToken: string): Promise<AuthResponse> => {
+    try {
+      // Send the refresh token to your backend to get a new access token
+      const response = await api.post<AuthResponse>("/auth/refresh-token", {
+        refreshToken,
+      });
+
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw new Error(
+          error.response?.data?.message || "Token refresh failed",
+        );
       }
       throw error;
     }
@@ -59,8 +84,11 @@ export const authService = {
   },
 
   logout: () => {
-    localStorage.removeItem("token");
-    // No need to clear headers as it's handled by interceptor
-    window.location.href = "/auth/signin";
+    // Remove token and any other authentication-related data from localStorage
+    clearToken();
+    clearRefreshToken();
+
+    // Redirect to sign-in page
+    window.location.href = "/sign-in";
   },
 };

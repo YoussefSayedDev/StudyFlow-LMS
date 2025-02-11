@@ -30,9 +30,9 @@ export default function SignUpForm() {
   const locale = useLocale() as Languages;
   const router = useRouter();
   const dispatch = useAppDispath();
-  const { loading, error: authError } = useSelector(
-    (state: RootState) => state.auth,
-  );
+  // const { loading, error: authError } = useSelector(
+  //   (state: RootState) => state.auth,
+  // );
 
   const { SignUpValues } = createValidationSchemas(locale);
   const [error, setError] = useState<string | null>(null);
@@ -58,11 +58,12 @@ export default function SignUpForm() {
 
       if (signUpUser.fulfilled.match(resultAction)) {
         // Redirect to dashboard on successful login
-        router.push("/student/home");
+        router.push("/en/wizard");
       } else if (signUpUser.rejected.match(resultAction)) {
         setError((resultAction.payload as string) || t("error"));
       }
     } catch (err) {
+      console.log(err);
       setError(t("error"));
     }
     // });

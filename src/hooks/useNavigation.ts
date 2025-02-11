@@ -61,7 +61,7 @@ export function useNavigation() {
       const currentSub = segments[4]; // overview
 
       if (subPath) {
-        // If the subPath is empty, and the currentSub is empty, it means the user is on the main page
+        // If the subPath after removing the leading slash is empty, and the currentSub is empty, it means the user is on the main page
         if (subPath.slice(1) === "") return !currentSub;
         // otherwise check if the subPath matches the current subPath
         else
