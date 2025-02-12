@@ -40,6 +40,30 @@
           "label": "Confirm Password",
           "placeholder": "Confirm your password"
         },
+        "messages": {
+          "username": {
+            "required": "Username is required",
+            "invalid": "Only letters, numbers, - and _ are allowed"
+          },
+          "email": {
+            "required": "Email is required",
+            "invalid": "Invalid email address"
+          },
+          "password": {
+            "required": "Password is required",
+            "min": "Password must be at least 8 characters",
+            "complexity": "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
+          }
+        },
+        "verification": {
+          "title": "Verify Email",
+          "description": "We've sent a verification code to your email. Please enter it below.",
+          "placeholder": "Enter verification code",
+          "submit": "Verify Email",
+          "didNotReceive": "Didn't receive the code? Resend",
+          "resend": "Resend...",
+          "error": "An unexpected error occurred. Please try again."
+        },
         "submit": "Sign Up",
         "error": "An unexpected error occurred. Please try again."
       }
@@ -80,10 +104,16 @@
       "save": "Save",
       "delete": "Delete"
     },
+    "search": {
+      "placeholder": "Search...",
+      "noResults": "No results found."
+    },
     "errors": {
       "generic": "An unexpected error occurred",
       "required": "This field is required",
       "invalid": "Invalid input"
-    }
+    },
+    "searchLang": "Searching for language...",
+    "noLang": "No language found."
   }
 }

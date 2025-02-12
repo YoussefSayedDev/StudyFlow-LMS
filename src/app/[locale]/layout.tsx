@@ -1,16 +1,13 @@
 import { ThemeProvider } from "@/components/theme-provider";
-// import { routing } from "@/i18n/routing";
+import { routing } from "@/i18n/routing";
 import ReduxProvider from "@/providers/ReduxProvider";
 import { Directions, Languages } from "@/types";
-// import { getCurrentLocale } from "@/utils/getCurrentLocale";
-// import getTrans from "@/utils/translation";
 import type { Metadata } from "next";
-import { NextIntlClientProvider, useLocale } from "next-intl";
+import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { Inter } from "next/font/google";
-// import { notFound } from "next/navigation";
+import { notFound } from "next/navigation";
 import "./globals.css";
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
@@ -31,11 +28,11 @@ export default async function LocaleLayout({
   children: React.ReactNode;
   params: { locale: string };
 }>) {
-  // // Ensure that the incoming `locale` is valid
+  console.log("locale", locale);
+  // Ensure that the incoming `locale` is valid
   // if (!routing.locales.includes(locale as any)) {
   //   notFound();
   // }
-  // const locale = getCurrentLocale();
 
   // Providing all messages to the client
   // side is the easiest way to get started

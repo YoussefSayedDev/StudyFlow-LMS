@@ -12,3 +12,9 @@ export interface Parent extends User, ParentInfo {
   teachers: Id[];
   address: string;
 }
+
+export interface ParentDetails {
+  parentId: Id;
+  occupation: string;
+  employer: string;
+}

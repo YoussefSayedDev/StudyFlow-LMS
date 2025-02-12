@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useAppDispath } from "@/hooks/redux";
-import { signInUser } from "@/store/slices/authSlice";
+import { signInUser } from "@/store/slices/dummyAuth/authSlice";
 import { RootState } from "@/store/store";
 import { Directions, Languages } from "@/types";
 import createValidationSchemas, {

@@ -15,3 +15,10 @@ export interface Teacher extends User, TeacherInfo {
   subjects: string[];
   classes: string[];
 }
+
+export interface TeacherDetails {
+  teacherId: Id;
+  subjectsTaught: string[];
+  qualificationLevel: string;
+  schoolAffiliation: string;
+}

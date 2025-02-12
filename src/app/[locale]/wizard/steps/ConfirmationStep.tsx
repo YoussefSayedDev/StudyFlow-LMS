@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useRole } from "@/hooks/useRole";
-import { ProgressIndicator } from "../_components/ProgressIndicator";
+import { ProgressIndicator } from "../../onboarding/_components/ProgressIndicator";
 
 export default function ConfirmationStep() {
   const {

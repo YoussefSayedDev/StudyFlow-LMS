@@ -11,38 +11,32 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { signUp } from "@/features/auth";
+import { selectError, selectLoadingState } from "@/features/auth/authSelectors";
 import { useAppDispath } from "@/hooks/redux";
-import { signUpUser } from "@/store/slices/authSlice";
-import { RootState } from "@/store/store";
-import { Directions, Languages } from "@/types";
-import createValidationSchemas, {
-  SignUpValues,
-  SignUpValuesType,
-} from "@/validation/authValidation";
+import useCreateValidationSchemas from "@/hooks/useCreateValidationSchemas";
+import { useRouter } from "@/i18n/routing";
+import { Directions, Languages, SignUpFormData } from "@/types";
 import { useLocale, useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { MdLogout } from "react-icons/md";
 import { useSelector } from "react-redux";
 
 export default function SignUpForm() {
+  // Localization
   const locale = useLocale() as Languages;
-  const router = useRouter();
-  const dispatch = useAppDispath();
-  // const { loading, error: authError } = useSelector(
-  //   (state: RootState) => state.auth,
-  // );
-
-  const { SignUpValues } = createValidationSchemas(locale);
-  const [error, setError] = useState<string | null>(null);
-
-  const [isPending, startTransition] = useTransition();
-
   const t = useTranslations("auth.signUp.form");
 
-  const form = useForm<SignUpValuesType>({
-    resolver: zodResolver(SignUpValues),
+  // Selectors && Hooks
+  const isLoading = useSelector(selectLoadingState("signUp"));
+  const error = useSelector(selectError);
+  const router = useRouter();
+  const dispatch = useAppDispath();
+
+  // Form Setup
+  const { SignUpFormData } = useCreateValidationSchemas();
+  const form = useForm<SignUpFormData>({
+    resolver: zodResolver(SignUpFormData),
     defaultValues: {
       username: "",
       email: "",
@@ -50,24 +44,24 @@ export default function SignUpForm() {
     },
   });
 
-  async function onSubmit(data: SignUpValuesType) {
-    setError(null); // Clear previous errors
-    // startTransition(() => {
+  // Form Submission
+  const onSubmit = async (data: SignUpFormData) => {
     try {
-      const resultAction = await dispatch(signUpUser(data));
+      const resultAction = await dispatch(
+        signUp({
+          username: data.username,
+          email: data.email,
+          password: data.password,
+        }),
+      ).unwrap();
 
-      if (signUpUser.fulfilled.match(resultAction)) {
-        // Redirect to dashboard on successful login
-        router.push("/en/wizard");
-      } else if (signUpUser.rejected.match(resultAction)) {
-        setError((resultAction.payload as string) || t("error"));
-      }
-    } catch (err) {
-      console.log(err);
-      setError(t("error"));
+      // If successful, redirect to email verification page
+      router.push("/verify-email");
+    } catch (error) {
+      // Error is handled by the reducer and shown vaia the error selector
+      console.error("Sign up failed", error);
     }
-    // });
-  }
+  };
 
   return (
     <FormProvider {...form}>
@@ -150,7 +144,7 @@ export default function SignUpForm() {
 
         {/* Submit Button */}
         <LoadingButton
-          loading={isPending}
+          loading={isLoading}
           type="submit"
           className="w-full select-none"
         >

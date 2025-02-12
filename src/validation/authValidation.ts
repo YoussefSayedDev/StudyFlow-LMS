@@ -1,4 +1,3 @@
-import { Locale } from "@/i18n.config";
 import { Languages } from "@/types";
 import { z } from "zod";
 

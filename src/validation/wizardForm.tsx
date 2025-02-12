@@ -5,6 +5,7 @@ export const WizardFormGeneralInfo = z
   .object({
     firstName: z.string().min(1, "First Name is required"),
     lastName: z.string().min(1, "Last Name is required"),
+    dateOfBirth: z.string().min(1, "Date of Birth is required"),
     phoneNumber: z.string().min(1, "Phone Number is required"),
   })
   .refine((data) => isValidPhoneNumber(data.phoneNumber), {

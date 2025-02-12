@@ -1,10 +1,10 @@
-import Announcements from "@/features/student/components/Announcements";
-import AttendanceRecord from "@/features/student/components/AttendanceRecord";
-import CourseList from "@/features/student/components/CourseList";
-import DailySchedule from "@/features/student/components/DailySchedule";
-import GradeTrend from "@/features/student/components/GradeTrend";
-import StudyTimeTracker from "@/features/student/components/StudyTimeTracker";
-import TodoList from "@/features/student/components/TodoList";
+import Announcements from "@/features/student/_components/Announcements";
+import AttendanceRecord from "@/features/student/_components/AttendanceRecord";
+import CourseList from "@/features/student/_components/CourseList";
+import DailySchedule from "@/features/student/_components/DailySchedule";
+import GradeTrend from "@/features/student/_components/GradeTrend";
+import StudyTimeTracker from "@/features/student/_components/StudyTimeTracker";
+import TodoList from "@/features/student/_components/TodoList";
 
 export default function StudentOverviewPage() {
   return (

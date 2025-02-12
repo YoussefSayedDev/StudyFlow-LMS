@@ -20,7 +20,7 @@ import { WizardFormStudentInfo } from "@/validation/wizardForm";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useTransition } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { ProgressIndicator } from "../_components/ProgressIndicator";
+import { ProgressIndicator } from "../../onboarding/_components/ProgressIndicator";
 
 export default function StudentInfoStep() {
   const [error, setError] = useState<string | null>(null);

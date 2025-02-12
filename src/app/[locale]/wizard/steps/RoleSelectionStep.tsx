@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
 import { GiTeacher } from "react-icons/gi";
 import { PiStudent } from "react-icons/pi";
 import { RiParentLine } from "react-icons/ri";
-import { ProgressIndicator } from "../_components/ProgressIndicator";
+import { ProgressIndicator } from "../../onboarding/_components/ProgressIndicator";
 
 export default function RoleSelectionStep() {
   const { role, setRole, step, setStep } = useRole();

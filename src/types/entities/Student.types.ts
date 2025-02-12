@@ -15,3 +15,10 @@ export interface Student extends User, StudentInfo {
   grade: number;
   class: string;
 }
+
+export interface StudentDetails {
+  studentId: Id;
+  gradeLevel: string;
+  schoolName: string;
+  emergencyContact: string;
+}
