@@ -1,5 +1,5 @@
-import api from "@/lib/api";
-import { RootState } from "@/store/store";
+import { apiService } from "@/lib/api";
+import { RootState } from "@/redux/store/store";
 import {
   ApiResponse,
   GeneralInfo,
@@ -96,7 +96,7 @@ export const submitGeneralInfo = createAsyncThunk(
   "onboarding/submitGeneral",
   async (data: GeneralInfo, { rejectWithValue }) => {
     try {
-      const response = await api.patch<ApiResponse<GeneralInfo>>(
+      const response = await apiService.patch<ApiResponse<GeneralInfo>>(
         "/onboarding/general",
         data,
       );
@@ -111,7 +111,7 @@ export const submitRoleSelection = createAsyncThunk(
   "onboarding/submitRoleSelection",
   async (data: UserRole, { rejectWithValue }) => {
     try {
-      const response = await api.patch<ApiResponse<UserRole>>(
+      const response = await apiService.patch<ApiResponse<UserRole>>(
         "/onboarding/role",
         data,
       );
@@ -126,7 +126,7 @@ export const submitStudentDetails = createAsyncThunk(
   "onboarding/submitStudentDetails",
   async (data: StudentDetails, { rejectWithValue }) => {
     try {
-      const response = await api.patch<ApiResponse<StudentDetails>>(
+      const response = await apiService.patch<ApiResponse<StudentDetails>>(
         "/onboarding/student",
         data,
       );
@@ -141,7 +141,7 @@ export const submitTeacherDetails = createAsyncThunk(
   "onboarding/submitTeacherDetails",
   async (data: TeacherDetails, { rejectWithValue }) => {
     try {
-      const response = await api.patch<ApiResponse<TeacherDetails>>(
+      const response = await apiService.patch<ApiResponse<TeacherDetails>>(
         "/onboarding/teacher",
         data,
       );
@@ -156,7 +156,7 @@ export const submitParentDetails = createAsyncThunk(
   "onboarding/submitParentDetails",
   async (data: ParentDetails, { rejectWithValue }) => {
     try {
-      const response = await api.patch<ApiResponse<ParentDetails>>(
+      const response = await apiService.patch<ApiResponse<ParentDetails>>(
         "/onboarding/parent",
         data,
       );
@@ -171,7 +171,7 @@ export const submitConfirmation = createAsyncThunk(
   "onboarding/submitConfirmation",
   async (data: boolean, { rejectWithValue }) => {
     try {
-      const response = await api.patch<ApiResponse<boolean>>(
+      const response = await apiService.patch<ApiResponse<boolean>>(
         "/onboarding/confirmation",
         data,
       );

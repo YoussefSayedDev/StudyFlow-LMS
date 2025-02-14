@@ -19,7 +19,7 @@ export default async function MainLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-  paramss: { locale: string };
+  params: { locale: string };
 }>) {
   // const locale = getCurrentLocale();
 
@@ -47,7 +47,7 @@ export default async function MainLayout({
     <SidebarProvider>
       <div className="w-full">
         <div className="flex w-full items-center">
-          <AppSidebar t={t} />
+          {/* <AppSidebar t={t} /> */}
           <div className="w-full">
             <div className="sticky top-0 z-50">
               <Header className="h-[65px]" />

@@ -11,8 +11,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useAppDispath } from "@/hooks/redux";
-import { signInUser } from "@/store/slices/dummyAuth/authSlice";
-import { RootState } from "@/store/store";
+import { RootState } from "@/redux/store/store";
 import { Directions, Languages } from "@/types";
 import createValidationSchemas, {
   SignInValuesType,
@@ -30,9 +29,7 @@ export default function SignInForm() {
   const locale = useLocale() as Languages;
   const router = useRouter();
   const dispatch = useAppDispath();
-  const { loading, error: authError } = useSelector(
-    (state: RootState) => state.auth,
-  );
+  const { error: authError } = useSelector((state: RootState) => state.auth);
 
   const { SignInValues } = createValidationSchemas(locale);
   const [error, setError] = useState<string | null>(null);
@@ -51,14 +48,14 @@ export default function SignInForm() {
   async function onSubmit(data: SignInValuesType) {
     setError(null);
     try {
-      const resultAction = await dispatch(signInUser(data));
+      // const resultAction = await dispatch(signInUser(data));
 
-      if (signInUser.fulfilled.match(resultAction)) {
-        // Redirect to dashboard on successful login
-        router.push("/en/student/home");
-      } else if (signInUser.rejected.match(resultAction)) {
-        setError((resultAction.payload as string) || t("error"));
-      }
+      // if (signInUser.fulfilled.match(resultAction)) {
+      // Redirect to dashboard on successful login
+      router.push("/en/student/home");
+      // } else if (signInUser.rejected.match(resultAction)) {
+      // setError((resultAction.payload as string) || t("error"));
+      // }
     } catch (err) {
       setError(t("error"));
     }

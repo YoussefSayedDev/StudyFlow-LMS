@@ -1,15 +1,15 @@
-import { logout } from "@/features/auth";
-import { store } from "@/store/store";
+import { logout } from "@/redux/features/auth";
+import { store } from "@/redux/store/store";
 import { clearToken, getStoredToken, persistRefreshToken } from "@/utils/auth";
 import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios";
 
 // Set the API URL based on the environment
-const apiUrl =
-  process.env.NODE_ENV === "production"
-    ? process.env.NEXT_PUBLIC_API_URL_PROD
-    : `${process.env.NEXT_PUBLIC_CORS_PROXY_DEV}${process.env.NEXT_PUBLIC_API_URL_DEV}`;
+// const apiUrl =
+//   process.env.NODE_ENV === "production"
+//     ? process.env.NEXT_PUBLIC_API_URL_PROD
+//     : `${process.env.NEXT_PUBLIC_CORS_PROXY_DEV}${process.env.NEXT_PUBLIC_API_URL_DEV}`;
 
-console.log("apiUrl", apiUrl);
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 // Types
 export interface ApiResponse<T> {
@@ -32,16 +32,26 @@ export const api: AxiosInstance = axios.create({
   },
 });
 
+// Routes doesn't need token when sending request
+// const publicRoutes = [
+//   "/auth/sign-up",
+//   "/auth/verify-email",
+//   "/auth/resend-verification",
+//   "/auth/logout",
+// ];
+
 // Request interceptor
 api.interceptors.request.use(
   (config) => {
     // Get token from localStorage
-    // const token = localStorage.getItem("StudyFlowToken");
+    const token = localStorage.getItem("StudyFlowToken");
+
+    console.log("token from api interceptor", token);
 
     // // If token exists, add to headers
-    // if (token) {
-    //   config.headers.Authorization = `Bearer ${token}`;
-    // }
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
 
     console.log("config", config);
 
@@ -104,40 +114,8 @@ export const apiService = {
 
   post: async <T>(url: string, data?: unknown) => {
     try {
-      console.log({
-        url,
-        data,
-      });
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL_DEV}${url}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        },
-      );
-      // const response = await api.post<ApiResponse<T>>(url, data);
-      // return response.data;
-
-      // interface Res {
-      //   id: string;
-      //   accessToken: string;
-      //   refreshToken: string;
-      //   expiresIn: number;
-      //   refreshTokenExpirations: string;
-      // }
-
-      const responseData = await response.json();
-
-      const returnData: ApiResponse<T> = {
-        data: responseData,
-        message: "success",
-        status: 200,
-      };
-      console.log("returnData", returnData);
-      return returnData;
+      const response = await api.post<ApiResponse<T>>(url, data);
+      return response;
     } catch (error) {
       throw handleApiError(error);
     }

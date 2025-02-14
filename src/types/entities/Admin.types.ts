@@ -1,9 +1,9 @@
 import { StaticImageData } from "next/image";
 import { Id } from "../global.types";
-import { User } from "./User.types";
+// import { User } from "./User.types";
 
 // Teachers interface
-export interface Admin extends User {
+export interface Admin {
   students: Id[];
   parents: Id[];
   teachers: Id[];

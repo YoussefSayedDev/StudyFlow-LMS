@@ -11,11 +11,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { signUp } from "@/features/auth";
-import { selectError, selectLoadingState } from "@/features/auth/authSelectors";
 import { useAppDispath } from "@/hooks/redux";
 import useCreateValidationSchemas from "@/hooks/useCreateValidationSchemas";
 import { useRouter } from "@/i18n/routing";
+import { useSignupMutation } from "@/redux/features/apiSlice";
+import { selectError, selectLoadingState, signUp } from "@/redux/features/auth";
 import { Directions, Languages, SignUpFormData } from "@/types";
 import { useLocale, useTranslations } from "next-intl";
 import { FormProvider, useForm } from "react-hook-form";
@@ -23,6 +23,10 @@ import { MdLogout } from "react-icons/md";
 import { useSelector } from "react-redux";
 
 export default function SignUpForm() {
+  // RTK Query
+  // const [signup, { isLoading, isSuccess, isError, data: signupData, error }] =
+  //   useSignupMutation();
+
   // Localization
   const locale = useLocale() as Languages;
   const t = useTranslations("auth.signUp.form");
@@ -54,6 +58,13 @@ export default function SignUpForm() {
           password: data.password,
         }),
       ).unwrap();
+
+      // const response = await signup(data).unwrap();
+
+      // console.log("response", response);
+
+      // Store token in localStorage or secure storage
+      // localStorage.setItem("StudyFlowToken", resultAction.acc);
 
       // If successful, redirect to email verification page
       router.push("/verify-email");

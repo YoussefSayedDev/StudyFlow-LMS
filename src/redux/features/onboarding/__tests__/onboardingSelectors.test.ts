@@ -1,4 +1,4 @@
-import { RootState } from "@/store/store";
+import { RootState } from "@/redux/store/store";
 import { UserRole } from "@/types";
 import {
   initialState,

@@ -1,5 +1,5 @@
 import { Id } from "../global.types";
-import { User } from "./User.types";
+// import { User } from "./User.types";
 
 export type ParentInfo = {
   childName: string;
@@ -7,7 +7,7 @@ export type ParentInfo = {
 };
 
 // Parents interface
-export interface Parent extends User, ParentInfo {
+export interface Parent extends ParentInfo {
   children: Id[];
   teachers: Id[];
   address: string;

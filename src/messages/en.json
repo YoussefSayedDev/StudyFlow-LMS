@@ -62,6 +62,9 @@
           "submit": "Verify Email",
           "didNotReceive": "Didn't receive the code? Resend",
           "resend": "Resend...",
+          "enterCode": "Enter your verification code",
+          "youEntered": "You entered:",
+          "resendCode": "Resend code in ",
           "error": "An unexpected error occurred. Please try again."
         },
         "submit": "Sign Up",

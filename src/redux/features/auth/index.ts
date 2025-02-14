@@ -1,4 +1,5 @@
 import { apiService } from "@/lib/api";
+import { RootState } from "@/redux/store/store";
 import {
   AuthResponse,
   SignInCredentials,
@@ -6,12 +7,11 @@ import {
   User,
   UserRole,
 } from "@/types";
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
-//////////////////////////////////
-// Constants
-
-//////////////////////////////////
+import {
+  createAsyncThunk,
+  createSelector,
+  createSlice,
+} from "@reduxjs/toolkit";
 
 //////////////////////////////////
 // Interfaces
@@ -27,16 +27,6 @@ interface AuthState {
   isAuthenticated: boolean;
   loadingStates: LoadingStates;
   error: string | null;
-}
-
-interface SignUpResponse {
-  id: string;
-  username: string;
-  email: string;
-  accessToken: string;
-  refreshToken: string;
-  expiresIn: number;
-  refreshTokenExpirations: string;
 }
 //////////////////////////////////
 
@@ -65,6 +55,8 @@ const handleApiError = (error: unknown) => {
 };
 //////////////////////////////////
 
+//////////////////////////////////
+// Thunks
 // 1. Sign Up Thunk
 export const signUp = createAsyncThunk(
   "auth/signUp",
@@ -75,17 +67,15 @@ export const signUp = createAsyncThunk(
         credentials,
       );
 
-      // const responseData = await api.post<AuthResponse>(
-      //   "/auth/sign-up",
-      //   credentials,
-      // );
-      // console.log("responseData", responseData);
-
+      console.log(
+        "response.data.data.accessToken",
+        response.data.data.accessToken,
+      );
       // Store token in localStorage or secure storage
-      localStorage.setItem("StudyFlowToken", response.data.accessToken);
+      localStorage.setItem("StudyFlowToken", response.data.data.accessToken);
 
       console.log("signup response", response);
-      return response.data;
+      return response.data.data;
     } catch (error) {
       return rejectWithValue(handleApiError(error));
     }
@@ -101,13 +91,9 @@ export const signIn = createAsyncThunk(
         "/auth/sign-in",
         credentials,
       );
-      // const response = await api.post<ApiResponse<AuthResponse>>(
-      //   "/auth/sign-in",
-      //   credentials,
-      // );
 
       // Store token in localStorage or secure storage
-      localStorage.setItem("StudyFlowToken", response.data.accessToken);
+      // localStorage.setItem("StudyFlowToken", response.data.data.accessToken);
 
       return response.data;
     } catch (error) {
@@ -202,16 +188,16 @@ export const updateUserRole = createAsyncThunk(
       const response = await apiService.patch<User>("/auth/update-role", {
         role,
       });
-      // const response = await api.patch<ApiResponse<User>>("/auth/update-role", {
-      //   role,
-      // });
       return response.data;
     } catch (error) {
       return rejectWithValue(handleApiError(error));
     }
   },
 );
+//////////////////////////////////
 
+//////////////////////////////////
+// Slice
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -251,7 +237,7 @@ export const authSlice = createSlice({
         state.error = null;
       })
       .addCase(signIn.fulfilled, (state, action) => {
-        state.user = action.payload;
+        state.user = action.payload.data;
         state.isAuthenticated = true;
         state.loadingStates.signIn = false;
         state.error = null;
@@ -338,6 +324,7 @@ export const authSlice = createSlice({
       });
   },
 });
+//////////////////////////////////
 
 // Export actions
 export const { clearError, setOnboardingComplete, resetAuth } =
@@ -345,3 +332,111 @@ export const { clearError, setOnboardingComplete, resetAuth } =
 
 // Export reducer
 export default authSlice.reducer;
+
+//////////////////////////////////
+// Selectors
+
+// Basic Selectors
+export const selectUser = (state: RootState) => state.auth.user;
+export const selectIsAuthenticated = (state: RootState) =>
+  state.auth.isAuthenticated;
+export const selectError = (state: RootState) => state.auth.error;
+export const selectLoadingStates = (state: RootState) =>
+  state.auth.loadingStates;
+
+// Specific Loading State Selector
+export const selectLoadingState = (key: keyof LoadingStates) =>
+  createSelector(selectLoadingStates, (loadingStates) => loadingStates[key]);
+
+// User-related Selectors
+export const selectUsername = createSelector(
+  selectUser,
+  (user) => user?.username ?? null,
+);
+
+export const selectUserEmail = createSelector(
+  selectUser,
+  (user) => user?.email ?? null,
+);
+
+export const selectUserRole = createSelector(
+  selectUser,
+  (user) => user?.role ?? null,
+);
+
+export const selectUserId = createSelector(
+  selectUser,
+  (user) => user?.id ?? null,
+);
+
+export const selectUserToken = createSelector(
+  selectUser,
+  (user) => user?.accessToken ?? null,
+);
+
+// Verification Status Selectors
+export const selectIsEmailVerified = createSelector(
+  selectUser,
+  (user) => user?.isEmailVerified ?? false,
+);
+
+export const selectHasCompletedOnboarding = createSelector(
+  selectUser,
+  (user) => user?.hasCompletedOnboarding ?? false,
+);
+
+// Combined Status Selectors
+export const selectCanStartOnboarding = createSelector(
+  [selectIsAuthenticated, selectIsEmailVerified, selectHasCompletedOnboarding],
+  (isAuthenticated, isEmailVerified, hasCompletedOnboarding) =>
+    isAuthenticated && isEmailVerified && !hasCompletedOnboarding,
+);
+
+export const selectCanAccessDashboard = createSelector(
+  [selectIsAuthenticated, selectHasCompletedOnboarding],
+  (isAuthenticated, hasCompletedOnboarding) =>
+    isAuthenticated && hasCompletedOnboarding,
+);
+
+// Auth Status Selectors
+export const selectAuthStatus = createSelector(
+  [selectIsAuthenticated, selectIsEmailVerified, selectHasCompletedOnboarding],
+  (isAuthenticated, isEmailVerified, hasCompletedOnboarding) => ({
+    isAuthenticated,
+    isEmailVerified,
+    hasCompletedOnboarding,
+  }),
+);
+
+// Error and Loading Combined Selector
+export const selectAuthUIState = createSelector(
+  [selectError, selectLoadingStates],
+  (error, loadingStates) => ({
+    error,
+    isLoading: Object.values(loadingStates).some(Boolean),
+    loadingStates,
+  }),
+);
+
+// Naigation Guard Selectors
+export const selectShouldRedirectToVerification = createSelector(
+  [selectIsAuthenticated, selectIsEmailVerified],
+  (isAuthenticated, isEmailVerified) => isAuthenticated && !isEmailVerified,
+);
+
+export const selectShouldRedirectToOnboarding = createSelector(
+  [selectIsAuthenticated, selectIsEmailVerified, selectHasCompletedOnboarding],
+  (isAuthenticated, isEmailVerified, hasCompletedOnboarding) =>
+    isAuthenticated && isEmailVerified && !hasCompletedOnboarding,
+);
+
+// User Status Selector
+export const selectUserStatus = createSelector(
+  [selectUser, selectAuthStatus],
+  (user, authStatus) => ({
+    user,
+    ...authStatus,
+    isComplete: user !== null && authStatus.hasCompletedOnboarding,
+  }),
+);
+//////////////////////////////

@@ -1,12 +1,13 @@
 "use client";
-import { useRole } from "@/hooks/useRole";
+// import { useRole } from "@/hooks/useRole";
+import { role } from "@/lib/data";
 import AdminDashboardPage from "./AdminDashboardPage";
 import ParentDashboardPage from "./ParentDashboardPage";
 import StudentDashboardPage from "./StudentDashboardPage";
 import TeacherDashboardPage from "./TeacherDashboardPage";
 
 export default function Role() {
-  const { role } = useRole();
+  // const { role } = useRole();
   switch (role) {
     case "admin":
       return <AdminDashboardPage />;

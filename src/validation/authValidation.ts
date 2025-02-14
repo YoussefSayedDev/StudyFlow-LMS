@@ -22,7 +22,7 @@ const validationMessages = {
 };
 
 // Utility function to create localized validation schemas
-function createValidationSchemas(locale: Locale) {
+function createValidationSchemas(locale: Languages) {
   const messages = validationMessages[locale];
 
   const requiredString = z.string().min(1, messages.required);

@@ -1,6 +1,6 @@
 import { StaticImageData } from "next/image";
 import { Id } from "../global.types";
-import { User } from "./User.types";
+// import { User } from "./User.types";
 
 export type StudentInfo = {
   childName: string;
@@ -8,7 +8,7 @@ export type StudentInfo = {
 };
 
 // Students interface
-export interface Student extends User, StudentInfo {
+export interface Student extends StudentInfo {
   teachers: Id[];
   parent: Id;
   address: string;

@@ -1,8 +1,8 @@
-import Announcements from "@/features/student/_components/Announcements";
-import CourseList from "@/features/student/_components/CourseList";
-import KanbanBoard from "@/features/student/_components/knaban/KanbanBoard";
-import StudyTimeTracker from "@/features/student/_components/StudyTimeTracker";
-import TodoList from "@/features/student/_components/TodoList";
+import Announcements from "../../_components/Announcements";
+import CourseList from "../../_components/CourseList";
+import KanbanBoard from "../../_components/knaban/KanbanBoard";
+import StudyTimeTracker from "../../_components/StudyTimeTracker";
+import TodoList from "../../_components/TodoList";
 
 export default function StudentStudyPage() {
   return (
