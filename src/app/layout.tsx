@@ -1,12 +1,12 @@
 import { ThemeProvider } from "@/components/theme-provider";
 import { routing } from "@/i18n/routing";
+import { ReactQueryProvider } from "@/lib/ReactQueryProvider";
 import ReduxProvider from "@/providers/ReduxProvider";
 import { Directions, Languages } from "@/types";
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
-import { Inter } from "next/font/google";
-import { notFound } from "next/navigation";
+// import { notFound } from "next/navigation";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -45,18 +45,20 @@ export default async function LocaleLayout({
       <body
         className={`${dir === "rtl" ? "font-arabic" : "font-english"} overflow-hidden`}
       >
-        <NextIntlClientProvider messages={messages}>
-          <ReduxProvider>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
-            >
-              {children}
-            </ThemeProvider>
-          </ReduxProvider>
-        </NextIntlClientProvider>
+        <ReactQueryProvider>
+          <NextIntlClientProvider messages={messages}>
+            <ReduxProvider>
+              <ThemeProvider
+                attribute="class"
+                defaultTheme="system"
+                enableSystem
+                disableTransitionOnChange
+              >
+                {children}
+              </ThemeProvider>
+            </ReduxProvider>
+          </NextIntlClientProvider>
+        </ReactQueryProvider>
       </body>
     </html>
   );

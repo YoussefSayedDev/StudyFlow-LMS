@@ -31,8 +31,12 @@ export const WizardFormTeacherInfo = z.object({
 export type WizardFormTeacherInfo = z.infer<typeof WizardFormTeacherInfo>;
 
 export const WizardFormStudentInfo = z.object({
-  childName: z.string().min(1, "Child Name is required"),
-  childGrade: z.string().min(1, "Child Grade is required"),
+  gradeLevel: z.string().min(1, "Grade Level is required"),
+  schoolName: z.string().min(1, "School Name is required"),
+  preferredSubjects: z
+    .array(z.string())
+    .min(1, "Preferred Subjects is required"),
+  parentPhoneNumber: z.string().min(1, "Parent Phone Number is required"),
 });
 
 export type WizardFormStudentInfo = z.infer<typeof WizardFormStudentInfo>;

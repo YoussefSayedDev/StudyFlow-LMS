@@ -6,6 +6,8 @@ export function useNavigation() {
   const pathname = usePathname(); // e.g., "/en/student/home/overview"
   const locale = pathname.split("/")[1]; // Get the locale from the pathname
 
+  
+
   // Function to get the current page
   const getCurrentPage = () => {
     // Split the pathname into segments

@@ -11,31 +11,44 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useAppDispath } from "@/hooks/redux";
+import { useSignIn } from "@/lib/auth";
 import { RootState } from "@/redux/store/store";
+import { useAuthStore } from "@/store/authStore";
 import { Directions, Languages } from "@/types";
 import createValidationSchemas, {
   SignInValuesType,
 } from "@/validation/authValidation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-// import { getLocale } from "next-intl/server";
 import { useState, useTransition } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { MdLogout } from "react-icons/md";
-import { useDispatch, useSelector } from "react-redux";
 
 export default function SignInForm() {
+  // State Variables
+
+  // Localization
   const locale = useLocale() as Languages;
+
+  // Hooks
   const router = useRouter();
-  const dispatch = useAppDispath();
-  const { error: authError } = useSelector((state: RootState) => state.auth);
 
   const { SignInValues } = createValidationSchemas(locale);
-  const [error, setError] = useState<string | null>(null);
-  const [isPending, startTransition] = useTransition();
+  // const [error, setError] = useState<string | null>(null);
+  // const [isPending, startTransition] = useTransition();
 
   const t = useTranslations("auth.signIn.form");
+
+  const { mutate, error, isPending } = useSignIn();
+  // const { mutate, error, isPending } = useMutation({
+  //   mutationFn: signIn,
+  //   onSuccess: (data) => {
+  //     console.log("data", data);
+  //     router.push("/en/student/home");
+  //   },
+  // });
 
   const form = useForm<SignInValuesType>({
     resolver: zodResolver(SignInValues),
@@ -45,20 +58,18 @@ export default function SignInForm() {
     },
   });
 
-  async function onSubmit(data: SignInValuesType) {
-    setError(null);
-    try {
-      // const resultAction = await dispatch(signInUser(data));
+  const user = useAuthStore((state) => state.user)
 
-      // if (signInUser.fulfilled.match(resultAction)) {
-      // Redirect to dashboard on successful login
-      router.push("/en/student/home");
-      // } else if (signInUser.rejected.match(resultAction)) {
-      // setError((resultAction.payload as string) || t("error"));
-      // }
-    } catch (err) {
-      setError(t("error"));
+  async function onSubmit(data: SignInValuesType) {
+    mutate(data);
+
+    if (error) {
+      console.log("error", error);
     }
+
+
+    console.log(`User SignIn: ${user}`)
+    if (!error) router.push("/en/student/home");
   }
 
   return (
@@ -70,7 +81,7 @@ export default function SignInForm() {
       >
         {error && (
           <p className="text-center text-sm text-red-500" role="alert">
-            {error}
+            {error.message}
           </p>
         )}
 

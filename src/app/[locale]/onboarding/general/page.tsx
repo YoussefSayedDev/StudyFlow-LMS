@@ -17,17 +17,24 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 // import { useRole } from "@/hooks/useRole";
+import { api } from "@/lib/api";
+// import { onboardingGeneral } from "@/lib/auth";
+import { useOnboardingStore } from "@/lib/useOnboardingStore";
 import { WizardFormGeneralInfo } from "@/validation/wizardForm";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import PhoneInput from "../_components/PhoneInput";
 import { ProgressIndicator } from "../_components/ProgressIndicator";
 
 export default function GeneralPage() {
-  const [error, setError] = useState<string | null>(null);
-  const [isPending, startTransition] = useTransition();
-  // const { step, setStep, setGeneralInfo } = useRole();
+  // const [error, setError] = useState<string | null>(null);
+  // const [isPending, startTransition] = useTransition();
+
+  const router = useRouter();
+  const { setGeneralInfo, step, setStep } = useOnboardingStore();
 
   const formGeneralInfo = useForm<WizardFormGeneralInfo>({
     resolver: zodResolver(WizardFormGeneralInfo),
@@ -40,12 +47,17 @@ export default function GeneralPage() {
   });
 
   async function onSubmit(data: WizardFormGeneralInfo) {
-    setError(null);
-    startTransition(() => {
-      try {
-        // action to send backend
-      } catch (err) {}
-    });
+    setStep(step + 1);
+    setGeneralInfo(data);
+
+    console.log("data", data);
+    router.push("/onboarding/role-selection");
+    // setError(null);
+    // startTransition(() => {
+    //   try {
+    //     // action to send backend
+    //   } catch (err) {}
+    // });
   }
 
   return (
@@ -58,14 +70,16 @@ export default function GeneralPage() {
         <Card>
           <CardHeader>
             <CardTitle>General Information</CardTitle>
-            <ProgressIndicator currentStep={0} totalSteps={4} />
+            <ProgressIndicator currentStep={step} totalSteps={4} />
           </CardHeader>
-          <CardContent>
-            {error && (
-              <p className="text-center text-sm text-red-500" role="alert">
-                {error}
-              </p>
-            )}
+          <CardContent className="space-y-4">
+            {
+              // error && (
+              //   // <p className="text-center text-sm text-red-500" role="alert">
+              //   //   {error.message}
+              //   // </p>
+              // )
+            }
             {/* First Name */}
             <FormField
               control={formGeneralInfo.control}
@@ -78,6 +92,7 @@ export default function GeneralPage() {
                       id="firstName"
                       {...field}
                       type="text"
+                      placeholder="First Name"
                       aria-label="first name"
                     />
                   </FormControl>
@@ -151,7 +166,7 @@ export default function GeneralPage() {
               Previous
             </Button>
             <LoadingButton
-              loading={isPending}
+              loading={false}
               type="submit"
               variant="outline"
               className="select-none"

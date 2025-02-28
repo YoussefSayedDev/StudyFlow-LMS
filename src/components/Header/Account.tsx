@@ -1,3 +1,4 @@
+"use client";
 import LanguegesButton from "@/components/Header/buttons/LanguagesButton";
 import LogoutButton from "@/components/Header/buttons/LogoutButton";
 import ThemeButton from "@/components/Header/buttons/ThemeButton";
@@ -12,6 +13,7 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useAuthStore } from "@/store/authStore";
 import {
   Cloud,
   CreditCard,
@@ -25,6 +27,7 @@ import {
 import { MdKeyboardArrowDown } from "react-icons/md";
 
 export default function Account() {
+  const user = useAuthStore(state => state.user)
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -45,7 +48,7 @@ export default function Account() {
               <AvatarFallback>YE</AvatarFallback>
             </Avatar>
             <div className="flex flex-col items-start justify-between">
-              <h4 className="text-lg font-semibold">Youssef El Sayed</h4>
+              <h4 className="text-lg font-semibold">{user?.userName}</h4>
               <span className="text-xs">Admin</span>
             </div>
           </div>
@@ -103,6 +106,7 @@ export default function Account() {
 }
 
 function DesktopAvatar() {
+  const user = useAuthStore(state => state.user)
   return (
     <>
       <Avatar className="size-8">
@@ -111,7 +115,7 @@ function DesktopAvatar() {
       </Avatar>
       <div className="flex flex-col gap-1">
         <span className="text-xs font-bold leading-3 text-foreground transition-colors duration-300 group-hover:text-primary-foreground">
-          Youssef
+          {user?.userName}
         </span>
         <span className="text-[9px] text-muted-foreground">Admin</span>
       </div>

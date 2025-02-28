@@ -15,7 +15,8 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { useRouter } from "@/i18n/routing";
-import { apiService } from "@/lib/api";
+import { api } from "@/lib/api";
+// import { apiService } from "@/lib/api";
 import { useSignupMutation } from "@/redux/features/apiSlice";
 import {
   selectUser,
@@ -23,6 +24,7 @@ import {
   selectUserToken,
 } from "@/redux/features/auth";
 import { RootState } from "@/redux/store/store";
+import { useAuthStore } from "@/store/authStore";
 import { Languages } from "@/types";
 import formatTimer from "@/utils/formatTimer";
 import { REGEXP_ONLY_DIGITS } from "input-otp";
@@ -51,6 +53,8 @@ export default function VerifyEmail() {
   //   (state: RootState) => state.api.queries["sign({})"]?.data,
   // );
 
+  const { user } = useAuthStore();
+
   console.log("signupData from verification", signupData);
 
   // Localization
@@ -58,7 +62,7 @@ export default function VerifyEmail() {
   const locale = useLocale() as Languages;
 
   // Hooks
-  const user = useSelector(selectUser);
+  // const user = useSelector(selectUser);
   const router = useRouter();
   // const accessToken = useSelector(selectUserToken);
 
@@ -72,7 +76,7 @@ export default function VerifyEmail() {
     try {
       setIsResending(true);
       if (user) {
-        const response = await apiService.post("/auth/verify-email", {
+        const response = await api.post("/auth/verify-email", {
           userId: user.id,
           code: verificationCode,
         });

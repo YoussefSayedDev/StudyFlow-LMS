@@ -14,28 +14,45 @@ import { Input } from "@/components/ui/input";
 import { useAppDispath } from "@/hooks/redux";
 import useCreateValidationSchemas from "@/hooks/useCreateValidationSchemas";
 import { useRouter } from "@/i18n/routing";
-import { useSignupMutation } from "@/redux/features/apiSlice";
-import { selectError, selectLoadingState, signUp } from "@/redux/features/auth";
+import { useSignUp } from "@/lib/auth";
+import { useAuthStore } from "@/store/authStore";
 import { Directions, Languages, SignUpFormData } from "@/types";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useLocale, useTranslations } from "next-intl";
+import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { MdLogout } from "react-icons/md";
-import { useSelector } from "react-redux";
 
 export default function SignUpForm() {
-  // RTK Query
-  // const [signup, { isLoading, isSuccess, isError, data: signupData, error }] =
-  //   useSignupMutation();
+  // State Variables
+  const [formData, setFormData] = useState<SignUpFormData>({
+    username: "",
+    email: "",
+    password: "",
+  });
 
   // Localization
   const locale = useLocale() as Languages;
   const t = useTranslations("auth.signUp.form");
 
-  // Selectors && Hooks
-  const isLoading = useSelector(selectLoadingState("signUp"));
-  const error = useSelector(selectError);
+  // Hooks
   const router = useRouter();
-  const dispatch = useAppDispath();
+  // const { setUser } = useAuthStore();
+
+  // React Query
+  const { mutate, error, isPending } = useSignUp();
+  // const { mutate, error, isPending } = useMutation({
+  //   mutationFn: signUp,
+  //   onSuccess: (data) => {
+  //     setUser({ id: data.id, email: formData.email, token: data.accessToken });
+  //     console.log({
+  //       id: data.id,
+  //       email: formData.email,
+  //       token: data.accessToken,
+  //     });
+  //     router.push("/verify-email"); // Redirect to email verification page
+  //   },
+  // });
 
   // Form Setup
   const { SignUpFormData } = useCreateValidationSchemas();
@@ -50,28 +67,9 @@ export default function SignUpForm() {
 
   // Form Submission
   const onSubmit = async (data: SignUpFormData) => {
-    try {
-      const resultAction = await dispatch(
-        signUp({
-          username: data.username,
-          email: data.email,
-          password: data.password,
-        }),
-      ).unwrap();
-
-      // const response = await signup(data).unwrap();
-
-      // console.log("response", response);
-
-      // Store token in localStorage or secure storage
-      // localStorage.setItem("StudyFlowToken", resultAction.acc);
-
-      // If successful, redirect to email verification page
-      router.push("/verify-email");
-    } catch (error) {
-      // Error is handled by the reducer and shown vaia the error selector
-      console.error("Sign up failed", error);
-    }
+    mutate(data);
+    if (!error) router.push("/verify-email");
+    // setFormData(data);
   };
 
   return (
@@ -83,7 +81,7 @@ export default function SignUpForm() {
       >
         {error && (
           <p className="text-center text-sm text-red-500" role="alert">
-            {error}
+            {error.message}
           </p>
         )}
 
@@ -155,7 +153,7 @@ export default function SignUpForm() {
 
         {/* Submit Button */}
         <LoadingButton
-          loading={isLoading}
+          loading={isPending}
           type="submit"
           className="w-full select-none"
         >
