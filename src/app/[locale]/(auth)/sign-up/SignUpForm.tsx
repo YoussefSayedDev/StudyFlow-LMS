@@ -11,7 +11,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useAppDispath } from "@/hooks/redux";
 import useCreateValidationSchemas from "@/hooks/useCreateValidationSchemas";
 import { useRouter } from "@/i18n/routing";
 import { useSignUp } from "@/lib/auth";

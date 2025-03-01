@@ -3,7 +3,7 @@ import {
   DropdownMenuItem,
   DropdownMenuShortcut,
 } from "@/components/ui/dropdown-menu";
-import { AppDispatch, RootState } from "@/redux/store/store";
+// import { AppDispatch, RootState } from "@/redux/store/store";
 // import { logout } from "@/store/slices/dummyAuth/authSlice";
 import { LogOut } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
