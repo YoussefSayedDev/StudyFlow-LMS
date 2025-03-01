@@ -12,8 +12,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { useAppDispath } from "@/hooks/redux";
 import { useSignIn } from "@/lib/auth";
-import { RootState } from "@/redux/store/store";
-import { useAuthStore } from "@/store/authStore";
+// import { RootState } from "@/redux/store/store";
+import { useAuthStore } from "@/lib/store/authStore";
 import { Directions, Languages } from "@/types";
 import createValidationSchemas, {
   SignInValuesType,
@@ -58,7 +58,7 @@ export default function SignInForm() {
     },
   });
 
-  const user = useAuthStore((state) => state.user)
+  const user = useAuthStore((state) => state.user);
 
   async function onSubmit(data: SignInValuesType) {
     mutate(data);
@@ -67,8 +67,7 @@ export default function SignInForm() {
       console.log("error", error);
     }
 
-
-    console.log(`User SignIn: ${user}`)
+    console.log(`User SignIn: ${user}`);
     if (!error) router.push("/en/student/home");
   }
 

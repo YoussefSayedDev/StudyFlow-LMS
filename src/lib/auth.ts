@@ -1,4 +1,4 @@
-import { useAuthStore } from "@/store/authStore";
+import { useAuthStore } from "@/lib/store/authStore";
 import { useMutation } from "@tanstack/react-query";
 import { redirect, useRouter } from "next/navigation";
 import { api } from "./api";
@@ -66,14 +66,13 @@ const signIn = async (data: { username: string; password: string }) => {
     data,
   );
 
-  window.localStorage.setItem("user", JSON.stringify(response.data.data))
+  window.localStorage.setItem("user", JSON.stringify(response.data.data));
 
-  console.log("response.data.data from signIn fn:", response.data.data)
+  console.log("response.data.data from signIn fn:", response.data.data);
   return response.data.data;
 };
 
 export const useSignIn = () => {
-
   const router = useRouter();
   const saveSignIn = useAuthStore((state) => state.signIn);
 

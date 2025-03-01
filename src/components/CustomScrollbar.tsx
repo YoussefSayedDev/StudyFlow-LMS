@@ -1,5 +1,5 @@
 "use client";
-import { cn } from "@/utils/cn";
+import { cn } from "@/lib/utils/cn";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 interface CustomScrollbarProps {

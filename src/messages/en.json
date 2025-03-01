@@ -100,6 +100,130 @@
       }
     }
   },
+  "onboarding": {
+    "welcome": {
+      "title": "Welcome to StudyFlow",
+      "subtitle": "You can always change your account settings later."
+    },
+    "steps": {
+      "personalinfo": "Personal Info",
+      "role": "Role",
+      "details": "Details",
+      "review": "Review"
+    },
+    "form": {
+      "labels": {
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "phoneNumber": "Phone Number",
+        "birthOfDate": "Date of Birth",
+        "role": "Select your role",
+        "grade": "Grade",
+        "studentId": "Student ID",
+        "subjects": "Subjects",
+        "department": "Department",
+        "teacherId": "Teacher ID",
+        "childrenCount": "Number of Children",
+        "childrenIds": "Children Student IDs"
+      },
+      "placeholders": {
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "phoneNumber": "+1 (555) 000-0000",
+        "birthOfDate": "Select date",
+        "grade": "Select your grade",
+        "studentId": "Enter your student ID",
+        "subjects": "Math, Science, English...",
+        "department": "Select your department",
+        "teacherId": "Enter your teacher ID",
+        "childrenCount": "Enter number of children",
+        "childrenIds": "Enter student IDs separated by commas"
+      },
+      "messages": {
+        "firstName": {
+          "required": "First name must be at least 2 characters"
+        },
+        "lastName": {
+          "required": "Last name must be at least 2 characters"
+        },
+        "phoneNumber": {
+          "required": "Phone number must be valid"
+        },
+        "birthOfDate": {
+          "past": "Birth date must be in the past"
+        },
+        "role": {
+          "required": "You need to select a role"
+        },
+        "grade": {
+          "required": "Grade is required"
+        },
+        "studentId": {
+          "required": "Student ID is required"
+        },
+        "subjects": {
+          "required": "At least one subject is required"
+        },
+        "department": {
+          "required": "Department is required"
+        },
+        "teacherId": {
+          "required": "Teacher ID is required"
+        },
+        "childrenCount": {
+          "required": "Number of children is required"
+        },
+        "childrenIds": {
+          "required": "Children IDs are required"
+        }
+      },
+      "buttons": {
+        "next": "Next",
+        "previous": "Previous",
+        "complete": "Complete"
+      },
+      "roles": {
+        "student": "Student",
+        "teacher": "Teacher",
+        "parent": "Parent"
+      },
+      "options": {
+        "student": {
+          "grade1": "Grade 1",
+          "grade2": "Grade 2",
+          "grade3": "Grade 3",
+          "grade4": "Grade 4",
+          "grade5": "Grade 5",
+          "grade6": "Grade 6",
+          "grade7": "Grade 7",
+          "grade8": "Grade 8",
+          "grade9": "Grade 9",
+          "grade10": "Grade 10",
+          "grade11": "Grade 11",
+          "grade12": "Grade 12"
+        },
+        "teacher": {
+          "math": "Mathematics",
+          "science": "Science",
+          "english": "English",
+          "history": "History",
+          "art": "Art",
+          "music": "Music",
+          "physical_education": "Physical Education"
+        }
+      }
+    },
+    "review": {
+      "title": "Review Your Information",
+      "personalInfo": "Personal Information",
+      "roleInfo": "Role",
+      "studentDetails": "Student Details",
+      "teacherDetails": "Teacher Details",
+      "parentDetails": "Parent Details",
+      "success": "Onboarding completed successfully!",
+      "error": "An error occurred while completing onboarding. Please try again."
+    }
+  },
   "common": {
     "actions": {
       "submit": "Submit",
@@ -117,6 +241,7 @@
       "invalid": "Invalid input"
     },
     "searchLang": "Searching for language...",
-    "noLang": "No language found."
+    "noLang": "No language found.",
+    "changing": "changing"
   }
 }

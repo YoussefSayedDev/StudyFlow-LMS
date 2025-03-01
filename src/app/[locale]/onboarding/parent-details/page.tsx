@@ -1,3 +1,4 @@
+"use client";
 import { useOnboardingStore } from "@/lib/useOnboardingStore";
 import { useRouter } from "next/navigation";
 

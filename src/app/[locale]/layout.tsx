@@ -1,12 +1,10 @@
 import { ThemeProvider } from "@/components/theme-provider";
 import { routing } from "@/i18n/routing";
 import { ReactQueryProvider } from "@/lib/ReactQueryProvider";
-import ReduxProvider from "@/providers/ReduxProvider";
 import { Directions, Languages } from "@/types";
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
-// import { notFound } from "next/navigation";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -23,22 +21,22 @@ export const metadata: Metadata = {
 
 export default async function LocaleLayout({
   children,
-  params: { locale },
+  params,
 }: Readonly<{
   children: React.ReactNode;
   params: { locale: string };
 }>) {
-  console.log("locale", locale);
-  // Ensure that the incoming `locale` is valid
-  // if (!routing.locales.includes(locale as any)) {
-  //   notFound();
-  // }
-
+  // const locale = await getLocale();
+  const locale = params.locale;
+  // console.log("locale", locale);
   // Providing all messages to the client
   // side is the easiest way to get started
   const messages = await getMessages();
 
-  const dir = locale === Languages.Arabic ? Directions.RTL : Directions.LTR;
+  const dir =
+    (locale as Languages) === Languages.Arabic
+      ? Directions.RTL
+      : Directions.LTR;
 
   return (
     <html lang={locale} dir={dir} className="dark">
@@ -47,16 +45,14 @@ export default async function LocaleLayout({
       >
         <ReactQueryProvider>
           <NextIntlClientProvider messages={messages}>
-            <ReduxProvider>
-              <ThemeProvider
-                attribute="class"
-                defaultTheme="system"
-                enableSystem
-                disableTransitionOnChange
-              >
-                {children}
-              </ThemeProvider>
-            </ReduxProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              {children}
+            </ThemeProvider>
           </NextIntlClientProvider>
         </ReactQueryProvider>
       </body>

@@ -15,7 +15,7 @@ import { useAppDispath } from "@/hooks/redux";
 import useCreateValidationSchemas from "@/hooks/useCreateValidationSchemas";
 import { useRouter } from "@/i18n/routing";
 import { useSignUp } from "@/lib/auth";
-import { useAuthStore } from "@/store/authStore";
+import { useAuthStore } from "@/lib/store/authStore";
 import { Directions, Languages, SignUpFormData } from "@/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useLocale, useTranslations } from "next-intl";

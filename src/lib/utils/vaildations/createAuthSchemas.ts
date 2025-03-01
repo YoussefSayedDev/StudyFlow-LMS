@@ -1,7 +1,7 @@
-import { getLocale, getTranslations } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { z } from "zod";
 
-export default async function getValidationSchemas() {
+export default async function getAuthSchemas() {
   const t = await getTranslations("auth.signUp.form.messages");
 
   const SignUpFormData = z.object({

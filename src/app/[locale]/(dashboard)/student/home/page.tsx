@@ -1,5 +1,5 @@
 "use client";
-import { useAuthStore } from "@/store/authStore";
+import { useAuthStore } from "@/lib/store/authStore";
 import Announcements from "../_components/Announcements";
 import AttendanceRecord from "../_components/AttendanceRecord";
 import CourseList from "../_components/CourseList";
@@ -12,8 +12,8 @@ export default function StudentOverviewPage() {
   const user = useAuthStore((state) => state.user);
 
   console.log({
-    user
-  })
+    user,
+  });
   return (
     <main className="flex-1 overflow-y-auto overflow-x-hidden">
       <div className="container mx-auto p-2 pt-0">

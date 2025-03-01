@@ -17,16 +17,16 @@ import {
 import { useRouter } from "@/i18n/routing";
 import { api } from "@/lib/api";
 // import { apiService } from "@/lib/api";
-import { useSignupMutation } from "@/redux/features/apiSlice";
-import {
-  selectUser,
-  selectUserEmail,
-  selectUserToken,
-} from "@/redux/features/auth";
-import { RootState } from "@/redux/store/store";
-import { useAuthStore } from "@/store/authStore";
+// import { useSignupMutation } from "@/redux/features/apiSlice";
+// import {
+//   selectUser,
+//   selectUserEmail,
+//   selectUserToken,
+// } from "@/redux/features/auth";
+// import { RootState } from "@/redux/store/store";
+import { useAuthStore } from "@/lib/store/authStore";
+import formatTimer from "@/lib/utils/formatTimer";
 import { Languages } from "@/types";
-import formatTimer from "@/utils/formatTimer";
 import { REGEXP_ONLY_DIGITS } from "input-otp";
 import { Loader2, Mail } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
@@ -46,8 +46,8 @@ export default function VerifyEmail() {
   const [countdown, setCountdown] = useState(6);
   const [tries, setTries] = useState(0);
   const [isPending, startTransition] = useTransition();
-  const [signup, { isLoading, isSuccess, isError, data: signupData, error }] =
-    useSignupMutation();
+  // const [signup, { isLoading, isSuccess, isError, data: signupData, error }] =
+  //   useSignupMutation();
 
   // const signupData = useSelector(
   //   (state: RootState) => state.api.queries["sign({})"]?.data,
@@ -55,7 +55,7 @@ export default function VerifyEmail() {
 
   const { user } = useAuthStore();
 
-  console.log("signupData from verification", signupData);
+  // console.log("signupData from verification", signupData);
 
   // Localization
   const t = useTranslations("auth.signUp.form.verification");

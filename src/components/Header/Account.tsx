@@ -13,7 +13,7 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useAuthStore } from "@/store/authStore";
+import { useAuthStore } from "@/lib/store/authStore";
 import {
   Cloud,
   CreditCard,
@@ -27,7 +27,7 @@ import {
 import { MdKeyboardArrowDown } from "react-icons/md";
 
 export default function Account() {
-  const user = useAuthStore(state => state.user)
+  const user = useAuthStore((state) => state.user);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -106,7 +106,7 @@ export default function Account() {
 }
 
 function DesktopAvatar() {
-  const user = useAuthStore(state => state.user)
+  const user = useAuthStore((state) => state.user);
   return (
     <>
       <Avatar className="size-8">

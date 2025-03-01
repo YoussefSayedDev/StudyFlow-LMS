@@ -108,6 +108,130 @@
       }
     }
   },
+  "onboarding": {
+    "welcome": {
+      "title": "مرحبًا بك في StudyFlow!",
+      "subtitle": "يمكنك دائمًا تغيير إعدادات حسابك لاحقًا."
+    },
+    "steps": {
+      "personalinfo": "المعلومات الشخصية",
+      "role": "الدور",
+      "details": "التفاصيل",
+      "review": "المراجعة"
+    },
+    "form": {
+      "labels": {
+        "firstName": "الاسم الأول",
+        "lastName": "اسم العائلة",
+        "phoneNumber": "رقم الهاتف",
+        "birthOfDate": "تاريخ الميلاد",
+        "role": "اختر دورك",
+        "grade": "الصف",
+        "studentId": "رقم الطالب",
+        "subjects": "المواد",
+        "department": "القسم",
+        "teacherId": "رقم المعلم",
+        "childrenCount": "عدد الأطفال",
+        "childrenIds": "أرقام الطلاب للأطفال"
+      },
+      "placeholders": {
+        "firstName": "محمد",
+        "lastName": "أحمد",
+        "phoneNumber": "+966 50 000 0000",
+        "birthOfDate": "اختر التاريخ",
+        "grade": "اختر الصف",
+        "studentId": "أدخل رقم الطالب",
+        "subjects": "الرياضيات، العلوم، اللغة العربية...",
+        "department": "اختر القسم",
+        "teacherId": "أدخل رقم المعلم",
+        "childrenCount": "أدخل عدد الأطفال",
+        "childrenIds": "أدخل أرقام الطلاب مفصولة بفواصل"
+      },
+      "messages": {
+        "firstName": {
+          "required": "يجب أن يتكون الاسم الأول من حرفين على الأقل"
+        },
+        "lastName": {
+          "required": "يجب أن يتكون اسم العائلة من حرفين على الأقل"
+        },
+        "phoneNumber": {
+          "required": "يجب أن يكون رقم الهاتف صالحًا"
+        },
+        "birthOfDate": {
+          "past": "يجب أن يكون تاريخ الميلاد في الماضي"
+        },
+        "role": {
+          "required": "يجب عليك اختيار دور"
+        },
+        "grade": {
+          "required": "الصف مطلوب"
+        },
+        "studentId": {
+          "required": "رقم الطالب مطلوب"
+        },
+        "subjects": {
+          "required": "مطلوب مادة واحدة على الأقل"
+        },
+        "department": {
+          "required": "القسم مطلوب"
+        },
+        "teacherId": {
+          "required": "رقم المعلم مطلوب"
+        },
+        "childrenCount": {
+          "required": "عدد الأطفال مطلوب"
+        },
+        "childrenIds": {
+          "required": "أرقام الطلاب للأطفال مطلوبة"
+        }
+      },
+      "buttons": {
+        "next": "التالي",
+        "previous": "السابق",
+        "complete": "إكمال"
+      },
+      "roles": {
+        "student": "طالب",
+        "teacher": "معلم",
+        "parent": "ولي أمر"
+      },
+      "options": {
+        "student": {
+          "grade1": "الصف الاول الابتدائي",
+          "grade2": "الصف الثاني الابتدائي",
+          "grade3": "الصف الثالث الابتدائي",
+          "grade4": "الصف الرابع الابتدائي",
+          "grade5": "الصف الخامس الابتدائي",
+          "grade6": "الصف السادس الابتدائي",
+          "grade7": "الصف الاول الاعدادي",
+          "grade8": "الصف الثاني الاعدادي",
+          "grade9": "الصف الثالث الاعدادي",
+          "grade10": "الصف الاول الثانوي",
+          "grade11": "الصف الثاني الثانوي",
+          "grade12": "الصف الثالث الثانوي"
+        },
+        "teacher": {
+          "math": "الرياضيات",
+          "science": "العلوم",
+          "english": "اللغة الانجليزية",
+          "history": "التاريخ",
+          "art": "الفنون",
+          "music": "الموسيقى",
+          "physical_education": "التدريس الفيزيائي"
+        }
+      }
+    },
+    "review": {
+      "title": "مراجعة معلوماتك",
+      "personalInfo": "المعلومات الشخصية",
+      "roleInfo": "الدور",
+      "studentDetails": "تفاصيل الطالب",
+      "teacherDetails": "تفاصيل المعلم",
+      "parentDetails": "تفاصيل ولي الأمر",
+      "success": "تم إكمال التسجيل بنجاح!",
+      "error": "حدث خطأ أثناء إكمال التسجيل. يرجى المحاولة مرة أخرى."
+    }
+  },
   "common": {
     "actions": {
       "submit": "إرسال",
@@ -125,6 +249,7 @@
       "invalid": "إدخال غير صالح"
     },
     "searchLang": "البحث عن اللغة...",
-    "noLang": "لم يتم العثور على لغة."
+    "noLang": "لم يتم العثور على لغة.",
+    "changing": "جارٍ التغير"
   }
 }
