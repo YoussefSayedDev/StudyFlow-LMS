@@ -243,6 +243,8 @@
     "searchLang": "Searching for language...",
     "noLang": "No language found.",
     "changing": "changing",
-    "redirecting": "Redirecting..."
+    "redirecting": "Redirecting...",
+    "preparingExperience": "Preparing your experience...",
+    "appName": "StudyFlow"
   }
 }

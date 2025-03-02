@@ -13,6 +13,13 @@ export async function middleware(req: NextRequest) {
   const token = req.cookies.get("accessToken")?.value;
   const pathname = req.nextUrl.pathname;
 
+  // First, check if the path is missing a locale prefix
+  // If it's the root path or doesn't start with a locale, let intlMiddleware handle it first
+  if (pathname === "/" || !pathname.match(/^\/(en|ar)\//)) {
+    // For root paths, let intlMiddleware handle the locale redirect
+    return intlMiddleware(req);
+  }
+
   // Define public routes that don't require authentication
   const publicRoutes = [
     "/sign-in",
@@ -23,14 +30,14 @@ export async function middleware(req: NextRequest) {
 
   // Check if the current path is a public route (considering locale prefixes)
   const isPublicRoute = publicRoutes.some(
-    (route) => pathname.endsWith(route) || pathname.includes(`/${route}/`),
+    (route) => pathname.endsWith(route) || pathname.includes(`${route}/`),
   );
 
   // Verify token with the server if it exists
   // const isValidToken = token ? await verifyToken(token) : false;
 
   // Set the isValidToken to token for testing purposes
-  const isValidToken = token;
+  const isValidToken = !!token;
 
   // Handle authentication logic
   if (!isValidToken && !isPublicRoute) {
