@@ -14,6 +14,7 @@ interface User {
   userName?: string;
   role?: string;
   isVerified?: boolean;
+  isOnboarded?: boolean;
   studentDetails?: StudentDetails;
   teacherDetails?: TeacherDetails;
   parentDetails?: ParentDetails;

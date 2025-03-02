@@ -1,9 +1,7 @@
 import { jwtVerify } from "jose";
 
 // Secret key used to sign tokens - must match the one used to create tokens
-const SECRET_KEY = new TextEncoder().encode(
-  process.env.JWT_SECRET || "your-secret-key",
-);
+const SECRET_KEY = new TextEncoder().encode(process.env.JWT_SECRET);
 
 export async function verifyToken(token: string): Promise<boolean> {
   try {

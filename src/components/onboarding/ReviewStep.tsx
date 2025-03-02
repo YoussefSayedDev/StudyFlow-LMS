@@ -2,11 +2,13 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useAuthStore } from "@/lib/store/useAuthStore";
 import { useOnboardingStore } from "@/lib/store/useOnboardingStore";
 import { useMutation } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 async function submitOnboarding(data: any) {
   const res = await fetch("/api/onboarding/complete", {
@@ -22,11 +24,16 @@ async function submitOnboarding(data: any) {
 export default function ReviewStep({ onPrevious }: { onPrevious: () => void }) {
   const router = useRouter();
   const { data } = useOnboardingStore();
+  const { user } = useAuthStore();
   const t = useTranslations("onboarding");
 
   const { mutate, isPending } = useMutation({
     mutationFn: submitOnboarding,
     onSuccess: () => {
+      // Delete onboarding store if user is onboarded
+      if (user?.isOnboarded) {
+        useOnboardingStore.getState().resetData();
+      }
       router.push("/dashboard");
     },
   });
@@ -34,6 +41,16 @@ export default function ReviewStep({ onPrevious }: { onPrevious: () => void }) {
   const handleSubmit = () => {
     mutate(data);
   };
+
+  useEffect(() => {
+    // Set user as onboarded if onboarding is completed
+    if (user) {
+      useAuthStore.getState().setUser({
+        ...user,
+        isOnboarded: true,
+      });
+    }
+  })
 
   // Animation variants
   const sectionVariants = {

@@ -34,10 +34,7 @@ export async function middleware(req: NextRequest) {
   );
 
   // Verify token with the server if it exists
-  // const isValidToken = token ? await verifyToken(token) : false;
-
-  // Set the isValidToken to token for testing purposes
-  const isValidToken = !!token;
+  const isValidToken = token ? await verifyToken(token) : false;
 
   // Handle authentication logic
   if (!isValidToken && !isPublicRoute) {
