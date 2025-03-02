@@ -33,7 +33,7 @@ export async function middleware(req: NextRequest) {
     (route) => pathname.endsWith(route) || pathname.includes(`${route}/`),
   );
 
-  // Verify token with the server if it exists
+  // Properly verify the token if it exists
   const isValidToken = token ? await verifyToken(token) : false;
 
   // Handle authentication logic
