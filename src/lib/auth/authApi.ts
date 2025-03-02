@@ -41,6 +41,7 @@ interface AuthResponse {
 
 // Create axios instance with base URL from environment variables
 const api = axios.create({
+  baseURL: "/api/proxy", // Use relative URL to our Next.js API route
   headers: {
     "Content-Type": "application/json",
   },
@@ -100,7 +101,8 @@ const signInApi = async (
   credentials: SignInCredentials,
 ): Promise<AuthResponse> => {
   try {
-    const response = await api.post("/auth/sign-in", credentials);
+    // Use the proxy endpoint directly
+    const response = await api.post("", credentials);
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -113,7 +115,8 @@ const signInApi = async (
 // Sign Up API call
 const signUpApi = async (userData: SignUpData): Promise<AuthResponse> => {
   try {
-    const response = await api.post("/auth/sign-up", userData);
+    // Use the proxy endpoint with the sign-up path
+    const response = await api.post("/sign-up", userData);
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -126,7 +129,8 @@ const signUpApi = async (userData: SignUpData): Promise<AuthResponse> => {
 // Email verification API call
 const verifyEmailApi = async (data: VerifyEmailApi): Promise<AuthResponse> => {
   try {
-    const response = await api.post("/auth/verify-email", data);
+    // Use the proxy endpoint with the verify-email path
+    const response = await api.post("/verify-email", data);
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {

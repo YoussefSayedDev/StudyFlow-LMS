@@ -4,7 +4,7 @@ const withNextIntl = createNextIntlPlugin();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Add domin images.pexels.com
+  // Add domain images.pexels.com
   images: {
     remotePatterns: [
       {
@@ -15,11 +15,20 @@ const nextConfig = {
     ],
   },
 
+  // Modify rewrites to avoid conflicts with API routes
   async rewrites() {
     return [
       {
+        // Only rewrite paths that don't start with /api/proxy
         source: "/api/:path*",
         destination: "http://studyflow.runasp.net/:path*", // Proxy to backend
+        has: [
+          {
+            type: 'header',
+            key: 'x-use-rewrite',
+            value: 'true',
+          },
+        ],
       },
     ];
   }
