@@ -13,7 +13,7 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useAuthStore } from "@/lib/store/authStore";
+import { useAuthStore } from "@/lib/store/useAuthStore";
 import {
   Cloud,
   CreditCard,

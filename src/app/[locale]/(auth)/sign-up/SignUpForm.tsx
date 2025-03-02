@@ -11,51 +11,31 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import useCreateValidationSchemas from "@/hooks/useCreateValidationSchemas";
+import useCreateAuthSchemas from "@/hooks/useCreateAuthSchemas";
 import { useRouter } from "@/i18n/routing";
-import { useSignUp } from "@/lib/auth";
-import { useAuthStore } from "@/lib/store/authStore";
-import { Directions, Languages, SignUpFormData } from "@/types";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useSignUpMutation } from "@/lib/auth/authApi";
+import { useAuthStore } from "@/lib/store/useAuthStore";
+import { Directions, Languages } from "@/types";
 import { useLocale, useTranslations } from "next-intl";
-import { useState } from "react";
+import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { MdLogout } from "react-icons/md";
+import { z } from "zod";
 
 export default function SignUpForm() {
-  // State Variables
-  const [formData, setFormData] = useState<SignUpFormData>({
-    username: "",
-    email: "",
-    password: "",
-  });
-
-  // Localization
   const locale = useLocale() as Languages;
+  const { SignUpFormData } = useCreateAuthSchemas();
+  type SignUpFormDataType = z.infer<typeof SignUpFormData>;
   const t = useTranslations("auth.signUp.form");
-
-  // Hooks
   const router = useRouter();
-  // const { setUser } = useAuthStore();
 
-  // React Query
-  const { mutate, error, isPending } = useSignUp();
-  // const { mutate, error, isPending } = useMutation({
-  //   mutationFn: signUp,
-  //   onSuccess: (data) => {
-  //     setUser({ id: data.id, email: formData.email, token: data.accessToken });
-  //     console.log({
-  //       id: data.id,
-  //       email: formData.email,
-  //       token: data.accessToken,
-  //     });
-  //     router.push("/verify-email"); // Redirect to email verification page
-  //   },
-  // });
+  // Get auth store state
+  const { error, clearError, user, isAuthenticated } = useAuthStore();
 
-  // Form Setup
-  const { SignUpFormData } = useCreateValidationSchemas();
-  const form = useForm<SignUpFormData>({
+  // use React Query mutation
+  const { mutate, isPending } = useSignUpMutation();
+
+  const form = useForm<SignUpFormDataType>({
     resolver: zodResolver(SignUpFormData),
     defaultValues: {
       username: "",
@@ -64,12 +44,18 @@ export default function SignUpForm() {
     },
   });
 
-  // Form Submission
-  const onSubmit = async (data: SignUpFormData) => {
+  // Handle form submission
+  async function onSubmit(data: SignUpFormDataType) {
+    clearError();
     mutate(data);
-    if (!error) router.push("/verify-email");
-    // setFormData(data);
-  };
+  }
+
+  // After successful signup, redirect to the email verification
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      router.push("/verify-email");
+    }
+  }, [isAuthenticated, user, router]);
 
   return (
     <FormProvider {...form}>
@@ -80,7 +66,7 @@ export default function SignUpForm() {
       >
         {error && (
           <p className="text-center text-sm text-red-500" role="alert">
-            {error.message}
+            {error}
           </p>
         )}
 

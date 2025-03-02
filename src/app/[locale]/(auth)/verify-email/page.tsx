@@ -15,24 +15,15 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { useRouter } from "@/i18n/routing";
-import { api } from "@/lib/api";
-// import { apiService } from "@/lib/api";
-// import { useSignupMutation } from "@/redux/features/apiSlice";
-// import {
-//   selectUser,
-//   selectUserEmail,
-//   selectUserToken,
-// } from "@/redux/features/auth";
-// import { RootState } from "@/redux/store/store";
-import { useAuthStore } from "@/lib/store/authStore";
+import { useVerifyEmailMutation } from "@/lib/auth/authApi";
+import { useAuthStore } from "@/lib/store/useAuthStore";
 import formatTimer from "@/lib/utils/formatTimer";
 import { Languages } from "@/types";
 import { REGEXP_ONLY_DIGITS } from "input-otp";
 import { Loader2, Mail } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import type React from "react"; // Added import for React
-import { useEffect, useState, useTransition } from "react";
-import { useSelector } from "react-redux";
+import type React from "react";
+import { useEffect, useState } from "react";
 
 const FIRST_VERIFICATION_CODE_LENGTH = 60;
 const SECOND_VERIFICATION_CODE_LENGTH = 90;
@@ -45,76 +36,71 @@ export default function VerifyEmail() {
   const [isActive, setIsActive] = useState(false);
   const [countdown, setCountdown] = useState(6);
   const [tries, setTries] = useState(0);
-  const [isPending, startTransition] = useTransition();
-  // const [signup, { isLoading, isSuccess, isError, data: signupData, error }] =
-  //   useSignupMutation();
 
-  // const signupData = useSelector(
-  //   (state: RootState) => state.api.queries["sign({})"]?.data,
-  // );
+  // Auth store
+  const { user, error, clearError } = useAuthStore();
 
-  const { user } = useAuthStore();
-
-  // console.log("signupData from verification", signupData);
+  // React Query mutation
+  const { mutate, isPending } = useVerifyEmailMutation();
 
   // Localization
   const t = useTranslations("auth.signUp.form.verification");
   const locale = useLocale() as Languages;
 
-  // Hooks
-  // const user = useSelector(selectUser);
+  // Router
   const router = useRouter();
-  // const accessToken = useSelector(selectUserToken);
-
-  console.log("user", user);
 
   // Handlers
   const handleVerify = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle verification logic here
-    console.log("Verifying code:", verificationCode);
-    try {
-      setIsResending(true);
-      if (user) {
-        const response = await api.post("/auth/verify-email", {
-          userId: user.id,
-          code: verificationCode,
-        });
-        console.log("response", response);
-        router.push("/onboarding/general");
-      }
-    } catch (error) {
-      console.log("error", error);
+
+    if (!user || !verificationCode || verificationCode.length !== 6) {
+      return;
     }
-    // startTransition(async () => {});
+
+    clearError();
+    mutate({
+      userId: user.id,
+      code: verificationCode,
+    });
   };
 
   // Handle countdown
   const handleResend = () => {
+    setIsResending(true);
     setTries(tries + 1);
-    // Simulating resend delay
+
+    // TODO: Add actual resend API call here
+    // const resendCode = async () => {
+    //   try {
+    //     await api.post("/auth/resend-verification", { userId: user?.id });
+    //   } catch (error) {
+    //     console.error("Failed to resend code:", error);
+    //   }
+    // };
+    // resendCode();
 
     setTimeout(() => {
       setIsResending(false);
-      // Handle resend logic here
-      if (tries === 1) {
+      if (tries === 0) {
         setCountdown(FIRST_VERIFICATION_CODE_LENGTH);
-      } else if (tries === 2) {
+      } else if (tries === 1) {
         setCountdown(SECOND_VERIFICATION_CODE_LENGTH);
-      } else if (tries === 3) {
-        setCountdown(THIRD_VERIFICATION_CODE_LENGTH);
       } else {
-        /// Send message to user try again later
-
-        // but for now, just set it to 12 seconds
-        setCountdown(12);
+        setCountdown(THIRD_VERIFICATION_CODE_LENGTH);
       }
       setIsActive(true);
-      console.log("Resending verification code");
     }, 2000);
   };
 
-  // UseEffects
+  // Redirect after successful verification
+  useEffect(() => {
+    if (user?.isVerified) {
+      router.push("/onboarding");
+    }
+  }, [user?.isVerified, router]);
+
+  // Countdown timer
   useEffect(() => {
     let interval: NodeJS.Timeout | null = null;
 
@@ -131,6 +117,13 @@ export default function VerifyEmail() {
       if (interval) clearInterval(interval);
     };
   }, [isActive, countdown]);
+
+  // Redirect if no user is found
+  useEffect(() => {
+    if (!user) {
+      router.push("/sign-in");
+    }
+  }, [user, router]);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4 sm:px-6 lg:px-8">

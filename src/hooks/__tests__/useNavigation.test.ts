@@ -1,4 +1,4 @@
-import { navigationConfig } from "@/config/navigation";
+import { navigationConfig } from "@/lib/config/navigation";
 import { renderHook } from "@testing-library/react";
 import { usePathname } from "next/navigation";
 import { useNavigation } from "../useNavigation";

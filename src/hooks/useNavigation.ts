@@ -1,12 +1,10 @@
-import { navigationConfig } from "@/config/navigation";
+import { navigationConfig } from "@/lib/config/navigation";
 import { role } from "@/lib/data";
 import { usePathname } from "next/navigation";
 
 export function useNavigation() {
   const pathname = usePathname(); // e.g., "/en/student/home/overview"
   const locale = pathname.split("/")[1]; // Get the locale from the pathname
-
-  
 
   // Function to get the current page
   const getCurrentPage = () => {

@@ -11,7 +11,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { useOnboarding } from "@/lib/store/useOnboarding";
+import { useOnboardingStore } from "@/lib/store/useOnboardingStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
@@ -36,7 +36,7 @@ export default function RoleSelectionStep({
   onNext: () => void;
   onPrevious: () => void;
 }) {
-  const { data, updateData } = useOnboarding();
+  const { data, updateData } = useOnboardingStore();
   const t = useTranslations("onboarding.form");
 
   const form = useForm<RoleInputs>({

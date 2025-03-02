@@ -1,5 +1,5 @@
 "use client";
-import { useAuthStore } from "@/lib/store/authStore";
+import { useAuthStore } from "@/lib/store/useAuthStore";
 import Announcements from "../_components/Announcements";
 import AttendanceRecord from "../_components/AttendanceRecord";
 import CourseList from "../_components/CourseList";

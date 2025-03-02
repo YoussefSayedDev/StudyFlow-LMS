@@ -2,7 +2,7 @@
 import { useTranslations } from "next-intl";
 import { z } from "zod";
 
-export default function useCreateValidationSchemas() {
+export default function useCreateAuthSchemas() {
   const t = useTranslations("auth.signUp.form.messages");
 
   const SignUpFormData = z.object({

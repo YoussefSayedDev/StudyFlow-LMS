@@ -1,5 +1,5 @@
 "use client";
-import { menuItems } from "@/config/menu-items";
+import { menuItems } from "@/lib/config/menu-items";
 // import { useNavigation } from "@/hooks/__tests__/useNavigation";
 import { useNavigation } from "@/hooks/useNavigation";
 import { role } from "@/lib/data";

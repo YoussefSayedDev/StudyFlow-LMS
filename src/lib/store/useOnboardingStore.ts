@@ -39,7 +39,7 @@ const initialData: OnboardingData = {
   childrenIds: "",
 };
 
-export const useOnboarding = create<OnboardingStore>()(
+export const useOnboardingStore = create<OnboardingStore>()(
   persist(
     (set) => ({
       step: 0,

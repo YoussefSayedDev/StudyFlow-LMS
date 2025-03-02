@@ -242,6 +242,7 @@
     },
     "searchLang": "Searching for language...",
     "noLang": "No language found.",
-    "changing": "changing"
+    "changing": "changing",
+    "redirecting": "Redirecting..."
   }
 }

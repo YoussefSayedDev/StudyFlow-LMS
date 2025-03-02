@@ -10,65 +10,52 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useSignIn } from "@/lib/auth";
-// import { RootState } from "@/redux/store/store";
-import { useAuthStore } from "@/lib/store/authStore";
+import useCreateAuthSchemas from "@/hooks/useCreateAuthSchemas";
+import { useRouter } from "@/i18n/routing";
+import { useSignInMutation } from "@/lib/auth/authApi";
+
+import { useAuthStore } from "@/lib/store/useAuthStore";
 import { Directions, Languages } from "@/types";
-import createValidationSchemas, {
-  SignInValuesType,
-} from "@/validation/authValidation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
 import { useLocale, useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
+import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { MdLogout } from "react-icons/md";
+import { z } from "zod";
 
 export default function SignInForm() {
-  // State Variables
-
-  // Localization
   const locale = useLocale() as Languages;
-
-  // Hooks
+  const { SignInFormData } = useCreateAuthSchemas();
+  type SignInFormDataType = z.infer<typeof SignInFormData>;
+  const t = useTranslations("auth.signIn.form");
   const router = useRouter();
 
-  const { SignInValues } = createValidationSchemas(locale);
-  // const [error, setError] = useState<string | null>(null);
-  // const [isPending, startTransition] = useTransition();
+  // Get auth store state
+  const { error, clearError, user, isAuthenticated } = useAuthStore();
 
-  const t = useTranslations("auth.signIn.form");
+  // Use React Query mutation
+  const { mutate, isPending } = useSignInMutation();
 
-  const { mutate, error, isPending } = useSignIn();
-  // const { mutate, error, isPending } = useMutation({
-  //   mutationFn: signIn,
-  //   onSuccess: (data) => {
-  //     console.log("data", data);
-  //     router.push("/en/student/home");
-  //   },
-  // });
-
-  const form = useForm<SignInValuesType>({
-    resolver: zodResolver(SignInValues),
+  const form = useForm<SignInFormDataType>({
+    resolver: zodResolver(SignInFormData),
     defaultValues: {
       username: "",
       password: "",
     },
   });
 
-  const user = useAuthStore((state) => state.user);
-
-  async function onSubmit(data: SignInValuesType) {
+  // Handle form submission
+  async function onSubmit(data: SignInFormDataType) {
+    clearError();
     mutate(data);
-
-    if (error) {
-      console.log("error", error);
-    }
-
-    console.log(`User SignIn: ${user}`);
-    if (!error) router.push("/en/student/home");
   }
+
+  // Handle redirection based on user role after successful authentication
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      router.push(`/${user.role}/home`);
+    }
+  }, [isAuthenticated, user, router]);
 
   return (
     <FormProvider {...form}>
@@ -79,7 +66,7 @@ export default function SignInForm() {
       >
         {error && (
           <p className="text-center text-sm text-red-500" role="alert">
-            {error.message}
+            {error}
           </p>
         )}
 

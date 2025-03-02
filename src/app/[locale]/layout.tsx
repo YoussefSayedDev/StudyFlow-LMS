@@ -1,6 +1,5 @@
 import { ThemeProvider } from "@/components/theme-provider";
-import { routing } from "@/i18n/routing";
-import { ReactQueryProvider } from "@/lib/ReactQueryProvider";
+import { ReactQueryProvider } from "@/lib/providers/ReactQueryProvider";
 import { Directions, Languages } from "@/types";
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
@@ -26,9 +25,8 @@ export default async function LocaleLayout({
   children: React.ReactNode;
   params: { locale: string };
 }>) {
-  // const locale = await getLocale();
   const locale = params.locale;
-  // console.log("locale", locale);
+
   // Providing all messages to the client
   // side is the easiest way to get started
   const messages = await getMessages();

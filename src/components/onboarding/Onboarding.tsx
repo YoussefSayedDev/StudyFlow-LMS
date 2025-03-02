@@ -1,6 +1,6 @@
 "use client";
 
-import { useOnboarding } from "@/lib/store/useOnboarding";
+import { useOnboardingStore } from "@/lib/store/useOnboardingStore";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import LanguageSelector from "../Localization/LanguageSelector";
@@ -13,7 +13,7 @@ import StudentDetailsStep from "./StudentDetailsStep";
 import TeacherDetailsStep from "./TeacherDetailsStep";
 
 export default function Onboarding() {
-  const { step, setStep, data } = useOnboarding();
+  const { step, setStep, data } = useOnboardingStore();
   const t = useTranslations("onboarding.welcome");
 
   const next = () => {

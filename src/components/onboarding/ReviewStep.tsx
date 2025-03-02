@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useOnboarding } from "@/lib/store/useOnboarding";
+import { useOnboardingStore } from "@/lib/store/useOnboardingStore";
 import { useMutation } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
@@ -21,7 +21,7 @@ async function submitOnboarding(data: any) {
 
 export default function ReviewStep({ onPrevious }: { onPrevious: () => void }) {
   const router = useRouter();
-  const { data } = useOnboarding();
+  const { data } = useOnboardingStore();
   const t = useTranslations("onboarding");
 
   const { mutate, isPending } = useMutation({

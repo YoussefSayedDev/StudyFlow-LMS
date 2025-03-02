@@ -1,5 +1,5 @@
 {
-  "name": "nextjs-school-dashboard",
+  "name": "studyflow-lms",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -58,6 +58,8 @@
     "embla-carousel-react": "^8.5.1",
     "framer-motion": "^12.4.7",
     "input-otp": "^1.4.2",
+    "jose": "^6.0.8",
+    "js-cookie": "^3.0.5",
     "lucide-react": "^0.469.0",
     "moment": "^2.30.1",
     "negotiator": "^1.0.0",
@@ -91,6 +93,7 @@
     "@testing-library/react": "^16.2.0",
     "@testing-library/user-event": "^14.6.1",
     "@types/jest": "^29.5.14",
+    "@types/js-cookie": "^3.0.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
